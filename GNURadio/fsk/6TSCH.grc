@@ -36,7 +36,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '50000'
+    value: '100000'
   states:
     bus_sink: false
     bus_source: false
@@ -62,34 +62,39 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    gain: '10'
+    gain: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [844, 253]
+    coordinate: [1129, 148]
     rotation: 0
     state: true
-- name: freq_xlating_fir_filter_xxx_0
-  id: freq_xlating_fir_filter_xxx
+- name: band_pass_filter_0
+  id: band_pass_filter
   parameters:
     affinity: ''
     alias: ''
-    center_freq: 863.042e6
+    beta: '6.76'
     comment: ''
-    decim: '10'
+    decim: '1'
+    gain: '1'
+    high_cutoff_freq: '55000'
+    interp: '1'
+    low_cutoff_freq: '45000'
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
-    taps: firdes.low_pass(1.0, samp_rate,30000,2000000)
-    type: ccc
+    type: fir_filter_ccf
+    width: '50000'
+    win: firdes.WIN_HAMMING
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [540, 226]
+    coordinate: [862, 173]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -227,7 +232,7 @@ blocks:
     marker9: '-1'
     name: '""'
     nconnections: '1'
-    size: '1000000'
+    size: '512000'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -247,7 +252,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: float
-    update_time: '10'
+    update_time: '5'
     width1: '1'
     width10: '1'
     width2: '1'
@@ -368,7 +373,7 @@ blocks:
     ant8: ''
     ant9: ''
     args: '""'
-    bb_gain0: '0'
+    bb_gain0: '1'
     bb_gain1: '20'
     bb_gain10: '20'
     bb_gain11: '20'
@@ -537,7 +542,7 @@ blocks:
     freq7: 100e6
     freq8: 100e6
     freq9: 100e6
-    gain0: '0'
+    gain0: '1'
     gain1: '10'
     gain10: '10'
     gain11: '10'
@@ -601,7 +606,7 @@ blocks:
     gain_mode7: 'False'
     gain_mode8: 'False'
     gain_mode9: 'False'
-    if_gain0: '0'
+    if_gain0: '1'
     if_gain1: '20'
     if_gain10: '20'
     if_gain11: '20'
@@ -684,14 +689,14 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [85, 164]
+    coordinate: [85, 163]
     rotation: 0
     state: true
 
 connections:
 - [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_1_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', analog_quadrature_demod_cf_0, '0']
-- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [band_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
+- [rtlsdr_source_0, '0', band_pass_filter_0, '0']
 - [rtlsdr_source_0, '0', qtgui_freq_sink_x_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
 
