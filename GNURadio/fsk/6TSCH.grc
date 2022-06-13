@@ -72,29 +72,28 @@ blocks:
     coordinate: [1129, 148]
     rotation: 0
     state: true
-- name: band_pass_filter_0
-  id: band_pass_filter
+- name: low_pass_filter_0
+  id: low_pass_filter
   parameters:
     affinity: ''
     alias: ''
     beta: '6.76'
     comment: ''
+    cutoff_freq: '50000'
     decim: '1'
     gain: '1'
-    high_cutoff_freq: '55000'
     interp: '1'
-    low_cutoff_freq: '45000'
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
     type: fir_filter_ccf
-    width: '50000'
+    width: '5000'
     win: firdes.WIN_HAMMING
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [862, 173]
+    coordinate: [694, 195]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -695,8 +694,8 @@ blocks:
 
 connections:
 - [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_1_0, '0']
-- [band_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
-- [rtlsdr_source_0, '0', band_pass_filter_0, '0']
+- [low_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
+- [rtlsdr_source_0, '0', low_pass_filter_0, '0']
 - [rtlsdr_source_0, '0', qtgui_freq_sink_x_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
 
