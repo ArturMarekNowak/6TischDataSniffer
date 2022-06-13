@@ -75,7 +75,6 @@ class options_0(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 2e6
-        self.bandwidth = bandwidth = 100000
 
         ##################################################
         # Blocks
@@ -90,16 +89,16 @@ class options_0(gr.top_block, Qt.QWidget):
         self.rtlsdr_source_0.set_dc_offset_mode(0, 0)
         self.rtlsdr_source_0.set_iq_balance_mode(0, 0)
         self.rtlsdr_source_0.set_gain_mode(False, 0)
-        self.rtlsdr_source_0.set_gain(1, 0)
-        self.rtlsdr_source_0.set_if_gain(1, 0)
-        self.rtlsdr_source_0.set_bb_gain(1, 0)
+        self.rtlsdr_source_0.set_gain(0, 0)
+        self.rtlsdr_source_0.set_if_gain(0, 0)
+        self.rtlsdr_source_0.set_bb_gain(0, 0)
         self.rtlsdr_source_0.set_antenna('', 0)
-        self.rtlsdr_source_0.set_bandwidth(bandwidth, 0)
+        self.rtlsdr_source_0.set_bandwidth(15e3, 0)
         self.qtgui_waterfall_sink_x_0 = qtgui.waterfall_sink_c(
             1024, #size
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
-            bandwidth, #bw
+            15e3, #bw
             "", #name
             1 #number of inputs
         )
@@ -129,12 +128,12 @@ class options_0(gr.top_block, Qt.QWidget):
         self._qtgui_waterfall_sink_x_0_win = sip.wrapinstance(self.qtgui_waterfall_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_waterfall_sink_x_0_win)
         self.qtgui_time_sink_x_1_0 = qtgui.time_sink_f(
-            512000, #size
+            500000, #size
             samp_rate, #samp_rate
             "", #name
             1 #number of inputs
         )
-        self.qtgui_time_sink_x_1_0.set_update_time(5)
+        self.qtgui_time_sink_x_1_0.set_update_time(10)
         self.qtgui_time_sink_x_1_0.set_y_axis(-40, 40)
 
         self.qtgui_time_sink_x_1_0.set_y_label('Amplitude', "")
@@ -179,7 +178,7 @@ class options_0(gr.top_block, Qt.QWidget):
             512, #size
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
-            bandwidth, #bw
+            15e3, #bw
             "", #name
             1
         )
@@ -215,16 +214,8 @@ class options_0(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
-        self.low_pass_filter_0 = filter.fir_filter_ccf(
-            1,
-            firdes.low_pass(
-                1000,
-                samp_rate,
-                50000,
-                5000,
-                firdes.WIN_HAMMING,
-                6.76))
-        self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(1)
+        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(10, firdes.low_pass(1.0, samp_rate, 9000,3000), 863.042e6, 2e6)
+        self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(10)
 
 
 
@@ -232,8 +223,8 @@ class options_0(gr.top_block, Qt.QWidget):
         # Connections
         ##################################################
         self.connect((self.analog_quadrature_demod_cf_0, 0), (self.qtgui_time_sink_x_1_0, 0))
-        self.connect((self.low_pass_filter_0, 0), (self.analog_quadrature_demod_cf_0, 0))
-        self.connect((self.rtlsdr_source_0, 0), (self.low_pass_filter_0, 0))
+        self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.analog_quadrature_demod_cf_0, 0))
+        self.connect((self.rtlsdr_source_0, 0), (self.freq_xlating_fir_filter_xxx_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.qtgui_freq_sink_x_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.qtgui_waterfall_sink_x_0, 0))
 
@@ -248,18 +239,9 @@ class options_0(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1000, self.samp_rate, 50000, 5000, firdes.WIN_HAMMING, 6.76))
+        self.freq_xlating_fir_filter_xxx_0.set_taps(firdes.low_pass(1.0, self.samp_rate, 9000,3000))
         self.qtgui_time_sink_x_1_0.set_samp_rate(self.samp_rate)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
-
-    def get_bandwidth(self):
-        return self.bandwidth
-
-    def set_bandwidth(self, bandwidth):
-        self.bandwidth = bandwidth
-        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.bandwidth)
-        self.qtgui_waterfall_sink_x_0.set_frequency_range(0, self.bandwidth)
-        self.rtlsdr_source_0.set_bandwidth(self.bandwidth, 0)
 
 
 

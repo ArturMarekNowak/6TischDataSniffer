@@ -6,6 +6,7 @@
 #
 # GNU Radio Python Flow Graph
 # Title: Not titled yet
+# Author: artur
 # GNU Radio version: v3.8.2.0-57-gd71cd177
 
 from distutils.version import StrictVersion
@@ -33,12 +34,13 @@ import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
+from gnuradio.qtgui import Range, RangeWidget
 import osmosdr
 import time
 
 from gnuradio import qtgui
 
-class options_0(gr.top_block, Qt.QWidget):
+class Capture01(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "Not titled yet")
@@ -61,7 +63,7 @@ class options_0(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "options_0")
+        self.settings = Qt.QSettings("GNU Radio", "Capture01")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -74,33 +76,69 @@ class options_0(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 2e6
-        self.bandwidth = bandwidth = 100000
+        self.variable_qtgui_range_0 = variable_qtgui_range_0 = -37
+        self.samp_rate = samp_rate = 1000000
 
         ##################################################
         # Blocks
         ##################################################
+        self._variable_qtgui_range_0_range = Range(-100, 0, 1, -37, 200)
+        self._variable_qtgui_range_0_win = RangeWidget(self._variable_qtgui_range_0_range, self.set_variable_qtgui_range_0, 'variable_qtgui_range_0', "counter_slider", float)
+        self.top_grid_layout.addWidget(self._variable_qtgui_range_0_win)
         self.rtlsdr_source_0 = osmosdr.source(
             args="numchan=" + str(1) + " " + ""
         )
         self.rtlsdr_source_0.set_time_unknown_pps(osmosdr.time_spec_t())
         self.rtlsdr_source_0.set_sample_rate(samp_rate)
-        self.rtlsdr_source_0.set_center_freq(863042400, 0)
+        self.rtlsdr_source_0.set_center_freq(863.042e6, 0)
         self.rtlsdr_source_0.set_freq_corr(0, 0)
         self.rtlsdr_source_0.set_dc_offset_mode(0, 0)
         self.rtlsdr_source_0.set_iq_balance_mode(0, 0)
         self.rtlsdr_source_0.set_gain_mode(False, 0)
-        self.rtlsdr_source_0.set_gain(1, 0)
-        self.rtlsdr_source_0.set_if_gain(1, 0)
-        self.rtlsdr_source_0.set_bb_gain(1, 0)
+        self.rtlsdr_source_0.set_gain(10, 0)
+        self.rtlsdr_source_0.set_if_gain(20, 0)
+        self.rtlsdr_source_0.set_bb_gain(20, 0)
         self.rtlsdr_source_0.set_antenna('', 0)
-        self.rtlsdr_source_0.set_bandwidth(bandwidth, 0)
+        self.rtlsdr_source_0.set_bandwidth(samp_rate, 0)
+        self.qtgui_waterfall_sink_x_0_0 = qtgui.waterfall_sink_c(
+            1024, #size
+            firdes.WIN_BLACKMAN_hARRIS, #wintype
+            0, #fc
+            samp_rate / 10, #bw
+            "Filtered", #name
+            1 #number of inputs
+        )
+        self.qtgui_waterfall_sink_x_0_0.set_update_time(0.10)
+        self.qtgui_waterfall_sink_x_0_0.enable_grid(False)
+        self.qtgui_waterfall_sink_x_0_0.enable_axis_labels(True)
+
+
+
+        labels = ['', '', '', '', '',
+                  '', '', '', '', '']
+        colors = [0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_waterfall_sink_x_0_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_waterfall_sink_x_0_0.set_line_label(i, labels[i])
+            self.qtgui_waterfall_sink_x_0_0.set_color_map(i, colors[i])
+            self.qtgui_waterfall_sink_x_0_0.set_line_alpha(i, alphas[i])
+
+        self.qtgui_waterfall_sink_x_0_0.set_intensity_range(-140, 10)
+
+        self._qtgui_waterfall_sink_x_0_0_win = sip.wrapinstance(self.qtgui_waterfall_sink_x_0_0.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_waterfall_sink_x_0_0_win)
         self.qtgui_waterfall_sink_x_0 = qtgui.waterfall_sink_c(
             1024, #size
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
-            bandwidth, #bw
-            "", #name
+            samp_rate / 10, #bw
+            "Raw", #name
             1 #number of inputs
         )
         self.qtgui_waterfall_sink_x_0.set_update_time(0.10)
@@ -128,24 +166,24 @@ class options_0(gr.top_block, Qt.QWidget):
 
         self._qtgui_waterfall_sink_x_0_win = sip.wrapinstance(self.qtgui_waterfall_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_waterfall_sink_x_0_win)
-        self.qtgui_time_sink_x_1_0 = qtgui.time_sink_f(
-            512000, #size
+        self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
+            100000, #size
             samp_rate, #samp_rate
             "", #name
             1 #number of inputs
         )
-        self.qtgui_time_sink_x_1_0.set_update_time(5)
-        self.qtgui_time_sink_x_1_0.set_y_axis(-40, 40)
+        self.qtgui_time_sink_x_0.set_update_time(10)
+        self.qtgui_time_sink_x_0.set_y_axis(0, -0.15)
 
-        self.qtgui_time_sink_x_1_0.set_y_label('Amplitude', "")
+        self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
 
-        self.qtgui_time_sink_x_1_0.enable_tags(True)
-        self.qtgui_time_sink_x_1_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_1_0.enable_autoscale(True)
-        self.qtgui_time_sink_x_1_0.enable_grid(False)
-        self.qtgui_time_sink_x_1_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_1_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_1_0.enable_stem_plot(False)
+        self.qtgui_time_sink_x_0.enable_tags(True)
+        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0.enable_autoscale(True)
+        self.qtgui_time_sink_x_0.enable_grid(False)
+        self.qtgui_time_sink_x_0.enable_axis_labels(True)
+        self.qtgui_time_sink_x_0.enable_control_panel(False)
+        self.qtgui_time_sink_x_0.enable_stem_plot(False)
 
 
         labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
@@ -164,22 +202,22 @@ class options_0(gr.top_block, Qt.QWidget):
 
         for i in range(1):
             if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_1_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_time_sink_x_1_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_1_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_1_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_1_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_1_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_1_0.set_line_alpha(i, alphas[i])
+                self.qtgui_time_sink_x_0.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_0.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_0.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
 
-        self._qtgui_time_sink_x_1_0_win = sip.wrapinstance(self.qtgui_time_sink_x_1_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_1_0_win)
+        self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.qtgui_freq_sink_x_0 = qtgui.freq_sink_c(
-            512, #size
+            1024, #size
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
-            bandwidth, #bw
+            samp_rate, #bw
             "", #name
             1
         )
@@ -215,15 +253,17 @@ class options_0(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
-        self.low_pass_filter_0 = filter.fir_filter_ccf(
-            1,
-            firdes.low_pass(
-                1000,
+        self.band_pass_filter_0 = filter.fir_filter_ccf(
+            5,
+            firdes.band_pass(
+                1,
                 samp_rate,
-                50000,
+                40000,
+                60000,
                 5000,
                 firdes.WIN_HAMMING,
                 6.76))
+        self.analog_simple_squelch_cc_0 = analog.simple_squelch_cc(-37, 1)
         self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(1)
 
 
@@ -231,41 +271,44 @@ class options_0(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_quadrature_demod_cf_0, 0), (self.qtgui_time_sink_x_1_0, 0))
-        self.connect((self.low_pass_filter_0, 0), (self.analog_quadrature_demod_cf_0, 0))
-        self.connect((self.rtlsdr_source_0, 0), (self.low_pass_filter_0, 0))
-        self.connect((self.rtlsdr_source_0, 0), (self.qtgui_freq_sink_x_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.analog_simple_squelch_cc_0, 0), (self.band_pass_filter_0, 0))
+        self.connect((self.band_pass_filter_0, 0), (self.analog_quadrature_demod_cf_0, 0))
+        self.connect((self.band_pass_filter_0, 0), (self.qtgui_freq_sink_x_0, 0))
+        self.connect((self.band_pass_filter_0, 0), (self.qtgui_waterfall_sink_x_0_0, 0))
+        self.connect((self.rtlsdr_source_0, 0), (self.analog_simple_squelch_cc_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.qtgui_waterfall_sink_x_0, 0))
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "options_0")
+        self.settings = Qt.QSettings("GNU Radio", "Capture01")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
+
+    def get_variable_qtgui_range_0(self):
+        return self.variable_qtgui_range_0
+
+    def set_variable_qtgui_range_0(self, variable_qtgui_range_0):
+        self.variable_qtgui_range_0 = variable_qtgui_range_0
 
     def get_samp_rate(self):
         return self.samp_rate
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1000, self.samp_rate, 50000, 5000, firdes.WIN_HAMMING, 6.76))
-        self.qtgui_time_sink_x_1_0.set_samp_rate(self.samp_rate)
+        self.band_pass_filter_0.set_taps(firdes.band_pass(1, self.samp_rate, 40000, 60000, 5000, firdes.WIN_HAMMING, 6.76))
+        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.samp_rate)
+        self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
+        self.qtgui_waterfall_sink_x_0.set_frequency_range(0, self.samp_rate / 10)
+        self.qtgui_waterfall_sink_x_0_0.set_frequency_range(0, self.samp_rate / 10)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
-
-    def get_bandwidth(self):
-        return self.bandwidth
-
-    def set_bandwidth(self, bandwidth):
-        self.bandwidth = bandwidth
-        self.qtgui_freq_sink_x_0.set_frequency_range(0, self.bandwidth)
-        self.qtgui_waterfall_sink_x_0.set_frequency_range(0, self.bandwidth)
-        self.rtlsdr_source_0.set_bandwidth(self.bandwidth, 0)
+        self.rtlsdr_source_0.set_bandwidth(self.samp_rate, 0)
 
 
 
 
 
-def main(top_block_cls=options_0, options=None):
+def main(top_block_cls=Capture01, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
