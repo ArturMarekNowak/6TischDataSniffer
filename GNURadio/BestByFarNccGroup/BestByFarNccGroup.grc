@@ -32,6 +32,48 @@ options:
     state: enabled
 
 blocks:
+- name: bandpassfilterhighcutoff
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: HighCutoff
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '1000'
+    step: '1000'
+    stop: samp_rate / 2
+    value: samp_rate / 2
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1162, 552]
+    rotation: 0
+    state: true
+- name: bandpassfilterlowcutoff
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: LowCutoff
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '1000'
+    step: '1000'
+    stop: samp_rate / 2.0
+    value: '1000'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1214, 397]
+    rotation: 0
+    state: true
 - name: centre_freq
   id: variable
   parameters:
@@ -72,28 +114,29 @@ blocks:
     coordinate: [910, 282]
     rotation: 0
     state: true
-- name: low_pass_filter_0
-  id: low_pass_filter
+- name: band_pass_filter_0
+  id: band_pass_filter
   parameters:
     affinity: ''
     alias: ''
     beta: '6.76'
     comment: ''
-    cutoff_freq: '150000'
     decim: '1'
     gain: '1'
+    high_cutoff_freq: bandpassfilterhighcutoff
     interp: '1'
+    low_cutoff_freq: bandpassfilterlowcutoff
     maxoutbuf: '0'
     minoutbuf: '0'
     samp_rate: samp_rate
     type: fir_filter_ccf
-    width: '50000'
+    width: '5000'
     win: firdes.WIN_HAMMING
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [506, 219]
+    coordinate: [572, 278]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -173,7 +216,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [793, 457]
+    coordinate: [861, 523]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0_0
@@ -331,7 +374,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: float
-    update_time: '2'
+    update_time: '10'
     width1: '1'
     width10: '1'
     width2: '1'
@@ -343,8 +386,8 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '-0.008'
-    ymin: '-0.013'
+    ymax: '4'
+    ymin: '-4'
     yunit: '""'
   states:
     bus_sink: false
@@ -829,16 +872,16 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [99, 212]
+    coordinate: [38, 211]
     rotation: 0
     state: true
 
 connections:
 - [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_0, '0']
-- [low_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
-- [low_pass_filter_0, '0', qtgui_freq_sink_x_0, '0']
-- [low_pass_filter_0, '0', qtgui_waterfall_sink_x_1, '0']
-- [rtlsdr_source_0, '0', low_pass_filter_0, '0']
+- [band_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
+- [band_pass_filter_0, '0', qtgui_freq_sink_x_0, '0']
+- [band_pass_filter_0, '0', qtgui_waterfall_sink_x_1, '0']
+- [rtlsdr_source_0, '0', band_pass_filter_0, '0']
 - [rtlsdr_source_0, '0', qtgui_freq_sink_x_0_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
 
