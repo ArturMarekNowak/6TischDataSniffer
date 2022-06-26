@@ -27,7 +27,6 @@ from gnuradio.filter import firdes
 import sip
 from gnuradio import analog
 import math
-from gnuradio import filter
 from gnuradio import gr
 import sys
 import signal
@@ -84,12 +83,6 @@ class xDDD(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self._bandpassfilterlowcutoff_range = Range(1000, samp_rate / 2.0, 1000, 1000, 200)
-        self._bandpassfilterlowcutoff_win = RangeWidget(self._bandpassfilterlowcutoff_range, self.set_bandpassfilterlowcutoff, 'LowCutoff', "counter_slider", float)
-        self.top_grid_layout.addWidget(self._bandpassfilterlowcutoff_win)
-        self._bandpassfilterhighcutoff_range = Range(1000, samp_rate / 2, 1000, samp_rate / 2, 200)
-        self._bandpassfilterhighcutoff_win = RangeWidget(self._bandpassfilterhighcutoff_range, self.set_bandpassfilterhighcutoff, 'HighCutoff', "counter_slider", float)
-        self.top_grid_layout.addWidget(self._bandpassfilterhighcutoff_win)
         self.rtlsdr_source_0 = osmosdr.source(
             args="numchan=" + str(1) + " " + ""
         )
@@ -298,16 +291,13 @@ class xDDD(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
-        self.band_pass_filter_0 = filter.fir_filter_ccf(
-            1,
-            firdes.band_pass(
-                1,
-                samp_rate,
-                bandpassfilterlowcutoff,
-                bandpassfilterhighcutoff,
-                5000,
-                firdes.WIN_HAMMING,
-                6.76))
+        self._bandpassfilterlowcutoff_range = Range(1000, samp_rate / 2.0, 1000, 1000, 200)
+        self._bandpassfilterlowcutoff_win = RangeWidget(self._bandpassfilterlowcutoff_range, self.set_bandpassfilterlowcutoff, 'LowCutoff', "counter_slider", float)
+        self.top_grid_layout.addWidget(self._bandpassfilterlowcutoff_win)
+        self._bandpassfilterhighcutoff_range = Range(1000, samp_rate / 2, 1000, samp_rate / 2, 200)
+        self._bandpassfilterhighcutoff_win = RangeWidget(self._bandpassfilterhighcutoff_range, self.set_bandpassfilterhighcutoff, 'HighCutoff', "counter_slider", float)
+        self.top_grid_layout.addWidget(self._bandpassfilterhighcutoff_win)
+        self.analog_simple_squelch_cc_0 = analog.simple_squelch_cc(-37, 1)
         self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(1)
 
 
@@ -316,10 +306,10 @@ class xDDD(gr.top_block, Qt.QWidget):
         # Connections
         ##################################################
         self.connect((self.analog_quadrature_demod_cf_0, 0), (self.qtgui_time_sink_x_0, 0))
-        self.connect((self.band_pass_filter_0, 0), (self.analog_quadrature_demod_cf_0, 0))
-        self.connect((self.band_pass_filter_0, 0), (self.qtgui_freq_sink_x_0, 0))
-        self.connect((self.band_pass_filter_0, 0), (self.qtgui_waterfall_sink_x_1, 0))
-        self.connect((self.rtlsdr_source_0, 0), (self.band_pass_filter_0, 0))
+        self.connect((self.analog_simple_squelch_cc_0, 0), (self.analog_quadrature_demod_cf_0, 0))
+        self.connect((self.analog_simple_squelch_cc_0, 0), (self.qtgui_freq_sink_x_0, 0))
+        self.connect((self.analog_simple_squelch_cc_0, 0), (self.qtgui_waterfall_sink_x_1, 0))
+        self.connect((self.rtlsdr_source_0, 0), (self.analog_simple_squelch_cc_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.qtgui_freq_sink_x_0_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.qtgui_waterfall_sink_x_0, 0))
 
@@ -335,7 +325,6 @@ class xDDD(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_bandpassfilterhighcutoff(self.samp_rate / 2)
-        self.band_pass_filter_0.set_taps(firdes.band_pass(1, self.samp_rate, self.bandpassfilterlowcutoff, self.bandpassfilterhighcutoff, 5000, firdes.WIN_HAMMING, 6.76))
         self.qtgui_freq_sink_x_0.set_frequency_range(self.centre_freq, self.samp_rate)
         self.qtgui_freq_sink_x_0_0.set_frequency_range(self.centre_freq, self.samp_rate)
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
@@ -357,14 +346,12 @@ class xDDD(gr.top_block, Qt.QWidget):
 
     def set_bandpassfilterlowcutoff(self, bandpassfilterlowcutoff):
         self.bandpassfilterlowcutoff = bandpassfilterlowcutoff
-        self.band_pass_filter_0.set_taps(firdes.band_pass(1, self.samp_rate, self.bandpassfilterlowcutoff, self.bandpassfilterhighcutoff, 5000, firdes.WIN_HAMMING, 6.76))
 
     def get_bandpassfilterhighcutoff(self):
         return self.bandpassfilterhighcutoff
 
     def set_bandpassfilterhighcutoff(self, bandpassfilterhighcutoff):
         self.bandpassfilterhighcutoff = bandpassfilterhighcutoff
-        self.band_pass_filter_0.set_taps(firdes.band_pass(1, self.samp_rate, self.bandpassfilterlowcutoff, self.bandpassfilterhighcutoff, 5000, firdes.WIN_HAMMING, 6.76))
 
 
 

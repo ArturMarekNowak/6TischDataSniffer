@@ -114,29 +114,21 @@ blocks:
     coordinate: [910, 282]
     rotation: 0
     state: true
-- name: band_pass_filter_0
-  id: band_pass_filter
+- name: analog_simple_squelch_cc_0
+  id: analog_simple_squelch_cc
   parameters:
     affinity: ''
     alias: ''
-    beta: '6.76'
+    alpha: '1'
     comment: ''
-    decim: '1'
-    gain: '1'
-    high_cutoff_freq: bandpassfilterhighcutoff
-    interp: '1'
-    low_cutoff_freq: bandpassfilterlowcutoff
     maxoutbuf: '0'
     minoutbuf: '0'
-    samp_rate: samp_rate
-    type: fir_filter_ccf
-    width: '5000'
-    win: firdes.WIN_HAMMING
+    threshold: '-37'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [572, 278]
+    coordinate: [532, 314]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -878,10 +870,10 @@ blocks:
 
 connections:
 - [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_0, '0']
-- [band_pass_filter_0, '0', analog_quadrature_demod_cf_0, '0']
-- [band_pass_filter_0, '0', qtgui_freq_sink_x_0, '0']
-- [band_pass_filter_0, '0', qtgui_waterfall_sink_x_1, '0']
-- [rtlsdr_source_0, '0', band_pass_filter_0, '0']
+- [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0, '0']
+- [analog_simple_squelch_cc_0, '0', qtgui_freq_sink_x_0, '0']
+- [analog_simple_squelch_cc_0, '0', qtgui_waterfall_sink_x_1, '0']
+- [rtlsdr_source_0, '0', analog_simple_squelch_cc_0, '0']
 - [rtlsdr_source_0, '0', qtgui_freq_sink_x_0_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
 
