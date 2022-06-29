@@ -111,7 +111,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [910, 282]
+    coordinate: [861, 223]
     rotation: 0
     state: true
 - name: analog_simple_squelch_cc_0
@@ -129,6 +129,36 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [532, 314]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1168, 298]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [917, 288]
     rotation: 0
     state: true
 - name: qtgui_freq_sink_x_0
@@ -385,7 +415,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1190, 254]
+    coordinate: [1269, 141]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0
@@ -869,10 +899,12 @@ blocks:
     state: true
 
 connections:
-- [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_0, '0']
+- [analog_quadrature_demod_cf_0, '0', digital_binary_slicer_fb_0, '0']
 - [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0, '0']
 - [analog_simple_squelch_cc_0, '0', qtgui_freq_sink_x_0, '0']
 - [analog_simple_squelch_cc_0, '0', qtgui_waterfall_sink_x_1, '0']
+- [blocks_uchar_to_float_0, '0', qtgui_time_sink_x_0, '0']
+- [digital_binary_slicer_fb_0, '0', blocks_uchar_to_float_0, '0']
 - [rtlsdr_source_0, '0', analog_simple_squelch_cc_0, '0']
 - [rtlsdr_source_0, '0', qtgui_freq_sink_x_0_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']

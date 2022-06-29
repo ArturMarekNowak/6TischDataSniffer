@@ -63,7 +63,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: C:\Users\artur\OneDrive\Desktop\6TSCHv3.raw
+    file: C:\Users\artur\OneDrive\Desktop\6TSCH_ID36942.raw
     type: complex
     unbuffered: 'False'
     vlen: '1'

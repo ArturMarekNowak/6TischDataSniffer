@@ -92,7 +92,7 @@ class filesink(gr.top_block, Qt.QWidget):
         self.rtlsdr_source_0.set_bb_gain(10, 0)
         self.rtlsdr_source_0.set_antenna('', 0)
         self.rtlsdr_source_0.set_bandwidth(0, 0)
-        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_gr_complex*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\6TSCHv3.raw', False)
+        self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_gr_complex*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\6TSCH_ID36942.raw', False)
         self.blocks_file_sink_0.set_unbuffered(False)
 
 

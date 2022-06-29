@@ -27,6 +27,8 @@ from gnuradio.filter import firdes
 import sip
 from gnuradio import analog
 import math
+from gnuradio import blocks
+from gnuradio import digital
 from gnuradio import gr
 import sys
 import signal
@@ -291,6 +293,8 @@ class xDDD(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_freq_sink_x_0_win)
+        self.digital_binary_slicer_fb_0 = digital.binary_slicer_fb()
+        self.blocks_uchar_to_float_0 = blocks.uchar_to_float()
         self._bandpassfilterlowcutoff_range = Range(1000, samp_rate / 2.0, 1000, 1000, 200)
         self._bandpassfilterlowcutoff_win = RangeWidget(self._bandpassfilterlowcutoff_range, self.set_bandpassfilterlowcutoff, 'LowCutoff', "counter_slider", float)
         self.top_grid_layout.addWidget(self._bandpassfilterlowcutoff_win)
@@ -305,10 +309,12 @@ class xDDD(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_quadrature_demod_cf_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0, 0), (self.digital_binary_slicer_fb_0, 0))
         self.connect((self.analog_simple_squelch_cc_0, 0), (self.analog_quadrature_demod_cf_0, 0))
         self.connect((self.analog_simple_squelch_cc_0, 0), (self.qtgui_freq_sink_x_0, 0))
         self.connect((self.analog_simple_squelch_cc_0, 0), (self.qtgui_waterfall_sink_x_1, 0))
+        self.connect((self.blocks_uchar_to_float_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.digital_binary_slicer_fb_0, 0), (self.blocks_uchar_to_float_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.analog_simple_squelch_cc_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.qtgui_freq_sink_x_0_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.qtgui_waterfall_sink_x_0, 0))
