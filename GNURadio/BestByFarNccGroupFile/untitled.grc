@@ -120,7 +120,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: samp_rate // 500000
+    value: samp_rate // 400000
   states:
     bus_sink: false
     bus_source: false
@@ -134,7 +134,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    gain: '1'
+    gain: '2'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:

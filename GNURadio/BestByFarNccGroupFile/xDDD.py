@@ -77,7 +77,7 @@ class xDDD(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 4000000
-        self.sps = sps = samp_rate // 500000
+        self.sps = sps = samp_rate // 400000
         self.number_of_samples = number_of_samples = 10000000
         self.seed = seed = 0x00
         self.number_of_samples_after_decimation = number_of_samples_after_decimation = number_of_samples // sps
@@ -297,7 +297,7 @@ class xDDD(gr.top_block, Qt.QWidget):
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\6TSCH_ID65535.raw', True, 0, 0)
         self.blocks_file_source_0.set_begin_tag(pmt.PMT_NIL)
         self.analog_simple_squelch_cc_0 = analog.simple_squelch_cc(-37, 1)
-        self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(1)
+        self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(2)
 
 
 
@@ -329,7 +329,7 @@ class xDDD(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.set_sps(self.samp_rate // 500000)
+        self.set_sps(self.samp_rate // 400000)
         self.qtgui_time_sink_x_1_1_0_0_1.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_1_1_0_0_1_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_1_1_0_0_1_0_0.set_samp_rate(self.samp_rate)
