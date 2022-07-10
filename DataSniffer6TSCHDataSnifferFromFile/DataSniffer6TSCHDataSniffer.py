@@ -21,16 +21,18 @@ if __name__ == '__main__':
         except:
             print("Warning: failed to XInitThreads()")
 
+from PyQt5 import Qt
+from gnuradio import qtgui
+from gnuradio.filter import firdes
+import sip
 from gnuradio import analog
 import math
 from gnuradio import blocks
 import pmt
 from gnuradio import digital
 from gnuradio import gr
-from gnuradio.filter import firdes
 import sys
 import signal
-from PyQt5 import Qt
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
@@ -85,20 +87,64 @@ class DataSniffer6TSCHDataSniffer(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
-        self.digital_descrambler_bb_0_0_0 = digital.descrambler_bb(mask, seed, length)
+        self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
+            320, #size
+            samp_rate, #samp_rate
+            "", #name
+            1 #number of inputs
+        )
+        self.qtgui_time_sink_x_0.set_update_time(0.10)
+        self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
+
+        self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
+
+        self.qtgui_time_sink_x_0.enable_tags(True)
+        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0.enable_autoscale(False)
+        self.qtgui_time_sink_x_0.enable_grid(False)
+        self.qtgui_time_sink_x_0.enable_axis_labels(True)
+        self.qtgui_time_sink_x_0.enable_control_panel(False)
+        self.qtgui_time_sink_x_0.enable_stem_plot(False)
+
+
+        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
+            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
+        widths = [1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1]
+        colors = ['blue', 'red', 'green', 'black', 'cyan',
+            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0, 1.0, 1.0]
+        styles = [1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1]
+        markers = [-1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1]
+
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_time_sink_x_0.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_0.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_0.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
+
+        self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.digital_correlate_access_code_bb_0 = digital.correlate_access_code_bb('1001000001001110', 0)
         self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(sps*(1+0.0), 0.25*0.175*0.175, 0.5, 0.175, 0.005)
         self.digital_binary_slicer_fb_0_0 = digital.binary_slicer_fb()
+        self.blocks_uchar_to_float_0 = blocks.uchar_to_float()
         self.blocks_skiphead_0 = blocks.skiphead(gr.sizeof_gr_complex*1, skip_points)
-        self.blocks_repack_bits_bb_0 = blocks.repack_bits_bb(1, 8, "", False, gr.GR_LSB_FIRST)
         self.blocks_moving_average_xx_0 = blocks.moving_average_ff(2, 1, 4000, 1)
         self.blocks_head_0 = blocks.head(gr.sizeof_gr_complex*1, points)
-        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\Workspace\\6tschDataSniffer\\Files\\6TSCH_ID65535.raw', True, 0, 0)
+        self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\Workspace\\6tschDataSniffer\\Files\\CapturedPackets\\6TSCH_ID65535.raw', True, 0, 0)
         self.blocks_file_source_0.set_begin_tag(pmt.PMT_NIL)
-        self.blocks_file_sink_0_0_0 = blocks.file_sink(gr.sizeof_char*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\repacked.dat', False)
-        self.blocks_file_sink_0_0_0.set_unbuffered(False)
-        self.blocks_file_sink_0_0 = blocks.file_sink(gr.sizeof_char*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\scrambled.dat', False)
-        self.blocks_file_sink_0_0.set_unbuffered(False)
+        self.blocks_file_sink_0_1 = blocks.file_sink(gr.sizeof_char*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\notcorrelated', False)
+        self.blocks_file_sink_0_1.set_unbuffered(False)
         self.blocks_file_sink_0 = blocks.file_sink(gr.sizeof_char*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\notscrambled', False)
         self.blocks_file_sink_0.set_unbuffered(False)
         self.analog_simple_squelch_cc_0 = analog.simple_squelch_cc(-37, 1)
@@ -114,14 +160,13 @@ class DataSniffer6TSCHDataSniffer(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_file_source_0, 0), (self.blocks_skiphead_0, 0))
         self.connect((self.blocks_head_0, 0), (self.analog_simple_squelch_cc_0, 0))
         self.connect((self.blocks_moving_average_xx_0, 0), (self.digital_clock_recovery_mm_xx_0, 0))
-        self.connect((self.blocks_repack_bits_bb_0, 0), (self.blocks_file_sink_0_0_0, 0))
         self.connect((self.blocks_skiphead_0, 0), (self.blocks_head_0, 0))
+        self.connect((self.blocks_uchar_to_float_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.blocks_file_sink_0_1, 0))
+        self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.blocks_uchar_to_float_0, 0))
         self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.digital_correlate_access_code_bb_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.digital_binary_slicer_fb_0_0, 0))
         self.connect((self.digital_correlate_access_code_bb_0, 0), (self.blocks_file_sink_0, 0))
-        self.connect((self.digital_correlate_access_code_bb_0, 0), (self.blocks_repack_bits_bb_0, 0))
-        self.connect((self.digital_correlate_access_code_bb_0, 0), (self.digital_descrambler_bb_0_0_0, 0))
-        self.connect((self.digital_descrambler_bb_0_0_0, 0), (self.blocks_file_sink_0_0, 0))
 
 
     def closeEvent(self, event):
@@ -135,6 +180,7 @@ class DataSniffer6TSCHDataSniffer(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_sps(self.samp_rate // 200000)
+        self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
 
     def get_sps(self):
         return self.sps
