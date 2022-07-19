@@ -78,7 +78,7 @@ class DataSniffer6TSCHDataSniffer(gr.top_block, Qt.QWidget):
         self.samp_rate = samp_rate = 4000000
         self.sps = sps = samp_rate // 200000
         self.seed = seed = 0x00
-        self.points = points = 12000
+        self.points = points = 1200000
         self.mask = mask = 0x110
         self.length = length = 9
         self.centre_freq = centre_freq = 863.042e6
@@ -87,7 +87,7 @@ class DataSniffer6TSCHDataSniffer(gr.top_block, Qt.QWidget):
         # Blocks
         ##################################################
         self.qtgui_time_sink_x_0_0_0 = qtgui.time_sink_f(
-            points, #size
+            points // 10, #size
             samp_rate, #samp_rate
             "", #name
             1 #number of inputs
@@ -180,9 +180,8 @@ class DataSniffer6TSCHDataSniffer(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_win)
-        self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(10, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
+        self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(20.5, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
         self.digital_binary_slicer_fb_0_0 = digital.binary_slicer_fb()
-        self.blocks_uchar_to_float_0 = blocks.uchar_to_float()
         self.blocks_moving_average_xx_0 = blocks.moving_average_ff(5, 1, 4000, 1)
         self.blocks_file_source_0 = blocks.file_source(gr.sizeof_gr_complex*1, 'C:\\Users\\artur\\OneDrive\\Desktop\\6TSCH_15packets_ID123.raw', False, 0, 0)
         self.blocks_file_source_0.set_begin_tag(pmt.PMT_NIL)
@@ -197,14 +196,13 @@ class DataSniffer6TSCHDataSniffer(gr.top_block, Qt.QWidget):
         # Connections
         ##################################################
         self.connect((self.analog_quadrature_demod_cf_0, 0), (self.blocks_moving_average_xx_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0, 0), (self.qtgui_time_sink_x_0_0, 0))
         self.connect((self.analog_simple_squelch_cc_0, 0), (self.analog_quadrature_demod_cf_0, 0))
         self.connect((self.blocks_file_source_0, 0), (self.analog_simple_squelch_cc_0, 0))
         self.connect((self.blocks_moving_average_xx_0, 0), (self.digital_clock_recovery_mm_xx_0, 0))
-        self.connect((self.blocks_uchar_to_float_0, 0), (self.qtgui_time_sink_x_0_0_0, 0))
         self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.blocks_file_sink_0, 0))
-        self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.blocks_uchar_to_float_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.digital_binary_slicer_fb_0_0, 0))
-        self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.qtgui_time_sink_x_0_0, 0))
+        self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.qtgui_time_sink_x_0_0_0, 0))
 
 
     def closeEvent(self, event):

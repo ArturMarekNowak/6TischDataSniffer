@@ -72,7 +72,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '12000'
+    value: '1200000'
   states:
     bus_sink: false
     bus_source: false
@@ -209,21 +209,6 @@ blocks:
     coordinate: [661, 370]
     rotation: 0
     state: true
-- name: blocks_uchar_to_float_0
-  id: blocks_uchar_to_float
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1037, 127]
-    rotation: 0
-    state: true
 - name: digital_binary_slicer_fb_0_0
   id: digital_binary_slicer_fb
   parameters:
@@ -250,7 +235,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
     mu: '0.5'
-    omega: '10'
+    omega: '20.5'
     omega_relative_limit: '0.005'
     type: float
   states:
@@ -412,7 +397,7 @@ blocks:
     marker9: '-1'
     name: '""'
     nconnections: '1'
-    size: points
+    size: points // 10
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -457,14 +442,13 @@ blocks:
 
 connections:
 - [analog_quadrature_demod_cf_0, '0', blocks_moving_average_xx_0, '0']
+- [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_0_0, '0']
 - [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0, '0']
 - [blocks_file_source_0, '0', analog_simple_squelch_cc_0, '0']
 - [blocks_moving_average_xx_0, '0', digital_clock_recovery_mm_xx_0, '0']
-- [blocks_uchar_to_float_0, '0', qtgui_time_sink_x_0_0_0, '0']
 - [digital_binary_slicer_fb_0_0, '0', blocks_file_sink_0, '0']
-- [digital_binary_slicer_fb_0_0, '0', blocks_uchar_to_float_0, '0']
 - [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0_0, '0']
-- [digital_clock_recovery_mm_xx_0, '0', qtgui_time_sink_x_0_0, '0']
+- [digital_clock_recovery_mm_xx_0, '0', qtgui_time_sink_x_0_0_0, '0']
 
 metadata:
   file_format: 1
