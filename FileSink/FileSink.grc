@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: DataSniffer6TSCHDataSniffer
+    id: FileSink
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -32,42 +32,6 @@ options:
     state: enabled
 
 blocks:
-- name: centre_freq
-  id: variable
-  parameters:
-    comment: ''
-    value: 863.042e6
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [352, 23]
-    rotation: 0
-    state: enabled
-- name: length
-  id: variable
-  parameters:
-    comment: ''
-    value: '9'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [948, 8]
-    rotation: 0
-    state: enabled
-- name: mask
-  id: variable
-  parameters:
-    comment: ''
-    value: '0x110'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [661, 11]
-    rotation: 0
-    state: enabled
 - name: points
   id: variable
   parameters:
@@ -77,43 +41,19 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [519, 34]
+    coordinate: [335, 13]
     rotation: 0
     state: true
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: '4000000'
+    value: '2000000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
     coordinate: [220, 13]
-    rotation: 0
-    state: enabled
-- name: seed
-  id: variable
-  parameters:
-    comment: ''
-    value: '0x00'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [853, 13]
-    rotation: 0
-    state: enabled
-- name: sps
-  id: variable
-  parameters:
-    comment: ''
-    value: samp_rate // 200000
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [763, 11]
     rotation: 0
     state: enabled
 - name: analog_quadrature_demod_cf_0
@@ -129,7 +69,24 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [685, 316]
+    coordinate: [784, 319]
+    rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '-37'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [548, 311]
     rotation: 0
     state: true
 - name: blocks_file_sink_0
@@ -139,7 +96,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: C:\Users\artur\OneDrive\Desktop\6TSCH_15packets_ID123.raw
+    file: C:\Users\artur\OneDrive\Desktop\Workspace\6tschDataSniffer\Files\CapturedPackets\id123pcktlen100total1000.raw
     type: complex
     unbuffered: 'False'
     vlen: '1'
@@ -147,7 +104,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [781, 560]
+    coordinate: [549, 385]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0
@@ -205,7 +162,7 @@ blocks:
     marker9: '-1'
     name: '""'
     nconnections: '1'
-    size: '1024'
+    size: '1000000'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -225,7 +182,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: float
-    update_time: '0.10'
+    update_time: '1'
     width1: '1'
     width10: '1'
     width2: '1'
@@ -244,7 +201,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [995, 245]
+    coordinate: [1056, 304]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0
@@ -305,7 +262,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [759, 162]
+    coordinate: [549, 205]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -483,7 +440,7 @@ blocks:
     dc_offset_mode7: '0'
     dc_offset_mode8: '0'
     dc_offset_mode9: '0'
-    freq0: centre_freq
+    freq0: 863.04e6
     freq1: 100e6
     freq10: 100e6
     freq11: 100e6
@@ -648,7 +605,7 @@ blocks:
     nchan: '1'
     num_mboards: '1'
     sample_rate: samp_rate
-    sync: sync
+    sync: none
     time_source0: ''
     time_source1: ''
     time_source2: ''
@@ -662,13 +619,14 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [117, 257]
+    coordinate: [135, 232]
     rotation: 0
     state: true
 
 connections:
 - [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_0, '0']
-- [rtlsdr_source_0, '0', analog_quadrature_demod_cf_0, '0']
+- [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0, '0']
+- [rtlsdr_source_0, '0', analog_simple_squelch_cc_0, '0']
 - [rtlsdr_source_0, '0', blocks_file_sink_0, '0']
 - [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
 
