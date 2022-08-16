@@ -6,18 +6,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="133b111f-b123-4198-a2f8-45fb6ce8e51d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../DataSniffer6TSCHDataSnifferFromSDR/DataSniffer6TSCHDataSniffer.grc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataSniffer6TSCHDataSnifferFromSDR/DataSniffer6TSCHDataSniffer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FileSink/DataSniffer6TSCHDataSniffer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FileSink/FileSink.grc" beforeDir="false" afterPath="$PROJECT_DIR$/../FileSink/FileSink.grc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FileSink/FileSink.py" beforeDir="false" afterPath="$PROJECT_DIR$/../FileSink/FileSink.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Files/CapturedPackets/6tschId65535.raw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Files/OutputFiles/100packetsWithId65535Decimated.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Files/OutputFiles/6TSCH_1000packets_ID123.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Files/TextFiles/100packetsWithId65535.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Files/TextFiles/6TSCH_1000packets_ID123.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scripts/TSCHBitsScrapper.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lsfr.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataScrappper/Helpers/DataScrapper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataScrappper/Helpers/HexDumpHelper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataScrappper/Helpers/PacketsHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DataScrapper/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DataScrapper/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataScrappper/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/DataScrappper/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +28,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2CAxoafGyDIlqIWWMYzqvVRdcsY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -98,7 +93,7 @@
       <workItem from="1658342187334" duration="4124000" />
       <workItem from="1659893020191" duration="6002000" />
       <workItem from="1660669347512" duration="1063000" />
-      <workItem from="1660673819648" duration="6804000" />
+      <workItem from="1660673819648" duration="7791000" />
     </task>
     <servers />
   </component>
@@ -107,6 +102,17 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
@@ -118,19 +124,6 @@
           <line>42</line>
           <properties documentPath="C:\Users\artur\OneDrive\Desktop\Workspace\Scrapper6TSCHC#\ConsoleApp1\ConsoleApp1\Program.cs" initialLine="6" containingFunctionPresentation="" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/DataScrappper/Program.cs</url>
-          <line>35</line>
-          <properties documentPath="C:\Users\artur\OneDrive\Desktop\Workspace\6tschDataSniffer\DataScrapper\DataScrappper\Program.cs" initialLine="18" containingFunctionPresentation="method 'DumpCapturedPacketsAsSingleString'">
-            <startOffsets>
-              <option value="1201" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1242" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
