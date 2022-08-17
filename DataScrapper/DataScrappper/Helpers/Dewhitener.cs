@@ -2,16 +2,9 @@
 
 namespace DataScrapper.Helpers;
 
-public class PacketsHelper
+public static class Dewhitener
 {
-    private int _packetsLength { get; set; }
-
-    public PacketsHelper(int packetsLength)
-    {
-        _packetsLength = packetsLength;
-    }
-    
-    IEnumerable<int> lsfr(int seed, int polynomial)
+    public static IEnumerable<int> Lsfr(int seed, int polynomial)
     {
         while (true)
         {
