@@ -168,7 +168,7 @@ blocks:
     alias: ''
     append: 'False'
     comment: ''
-    file: C:\Users\artur\OneDrive\Desktop\Workspace\6tschDataSniffer\Files\DemodulatedPackets\id123pcktlen20total1000.bin
+    file: C:\Users\artur\OneDrive\Desktop\Workspace\6tschDataSniffer\Files\DemodulatedPackets\testtest.bin
     type: byte
     unbuffered: 'False'
     vlen: '1'
@@ -186,7 +186,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: C:\Users\artur\OneDrive\Desktop\Workspace\6tschDataSniffer\Files\CapturedPackets\id123pcktlen20total1000.raw
+    file: C:\Users\artur\OneDrive\Desktop\Workspace\6tschDataSniffer\Files\CapturedPackets\testtest.raw
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -199,6 +199,24 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [264, 233]
+    rotation: 0
+    state: true
+- name: blocks_head_0
+  id: blocks_head
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: '20000000'
+    type: complex
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [623, 264]
     rotation: 0
     state: true
 - name: blocks_moving_average_xx_0
@@ -261,7 +279,8 @@ blocks:
 connections:
 - [analog_quadrature_demod_cf_0, '0', blocks_moving_average_xx_0, '0']
 - [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0, '0']
-- [blocks_file_source_0, '0', analog_simple_squelch_cc_0, '0']
+- [blocks_file_source_0, '0', blocks_head_0, '0']
+- [blocks_head_0, '0', analog_simple_squelch_cc_0, '0']
 - [blocks_moving_average_xx_0, '0', digital_clock_recovery_mm_xx_0, '0']
 - [digital_binary_slicer_fb_0_0, '0', blocks_file_sink_0, '0']
 - [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0_0, '0']

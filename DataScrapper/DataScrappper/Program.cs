@@ -6,13 +6,13 @@ namespace DataScrapper
     {
         public static void Main()
         {
-            //var hexDump = new HexDumpHelper();
-            //hexDump.DumpCapturedPacketsAsSingleString();
+            var hexDump = new HexDumpHelper();
+            hexDump.DumpCapturedPacketsAsSingleString();
 
             var datascrapper = new Helpers.DataScrapper();
-            //datascrapper.SfdsConunt();
-            datascrapper.ExtractPayloads("C:\\Users\\artur\\OneDrive\\Desktop\\Workspace\\6tschDataSniffer\\Files\\DemodulatedPacksAsBinaryStrings\\id123pcktlen20total1000.txt",
-                                         24, false);
+            datascrapper.SfdsConunt();
+            datascrapper.ExtractPayloads("C:\\Users\\artur\\OneDrive\\Desktop\\Workspace\\6tschDataSniffer\\Files\\DemodulatedPacksAsBinaryStrings\\testtest.txt",
+                                         24, true);
         }
     }
 }

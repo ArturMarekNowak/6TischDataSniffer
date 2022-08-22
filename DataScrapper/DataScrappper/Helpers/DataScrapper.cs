@@ -38,8 +38,8 @@ class DataScrapper
 
         for (var index = 1; index < splitted.Length; index++)
         {
-            var originalPacket = string.Concat(splitted[index].Skip(offset).Take(packetLength * 8));
-            var packet = "";
+            var packet = string.Concat(splitted[index].Skip(offset).Take(packetLength * 8));
+            /*var packet = "";
             var lsfr = Dewhitener.Lsfr(0x100, 0x110).Take(packetLength * 8).ToList();
 
             for (int i = 0; i < packetLength * 8; i++)
@@ -47,7 +47,8 @@ class DataScrapper
                 var foo = (int)Char.GetNumericValue(originalPacket[i]) ^ lsfr[i];
 
                 packet = string.Concat(packet, foo);
-            }
+            }*/
+            
 
             if (includeLengthFieldInDewhitening)
             {
