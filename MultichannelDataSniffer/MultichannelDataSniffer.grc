@@ -32,18 +32,6 @@ options:
     state: enabled
 
 blocks:
-- name: decimation
-  id: variable
-  parameters:
-    comment: ''
-    value: '1'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [655, 22]
-    rotation: 0
-    state: enabled
 - name: filterFIR
   id: variable
   parameters:
@@ -53,7 +41,19 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [280, 108]
+    coordinate: [330, 13]
+    rotation: 0
+    state: enabled
+- name: omega
+  id: variable
+  parameters:
+    comment: ''
+    value: '40.2'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [811, 16]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -65,7 +65,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [261, 9]
+    coordinate: [214, 16]
     rotation: 0
     state: enabled
 - name: samp_rate_divide
@@ -77,7 +77,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [420, 26]
+    coordinate: [536, 20]
     rotation: 0
     state: enabled
 - name: threshold
@@ -89,7 +89,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [786, 68]
+    coordinate: [697, 19]
     rotation: 0
     state: enabled
 - name: analog_quadrature_demod_cf_0_0
@@ -105,7 +105,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1090, 212]
+    coordinate: [1101, 211]
     rotation: 0
     state: true
 - name: analog_quadrature_demod_cf_0_0_0
@@ -121,7 +121,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1031, 397]
+    coordinate: [1087, 489]
     rotation: 0
     state: true
 - name: analog_quadrature_demod_cf_0_0_0_0
@@ -137,7 +137,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1038, 552]
+    coordinate: [1101, 747]
     rotation: 0
     state: true
 - name: analog_quadrature_demod_cf_0_0_0_0_0
@@ -153,7 +153,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1002, 755]
+    coordinate: [1070, 1034]
     rotation: 0
     state: true
 - name: analog_simple_squelch_cc_0_0
@@ -170,7 +170,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [809, 204]
+    coordinate: [820, 203]
     rotation: 0
     state: true
 - name: analog_simple_squelch_cc_0_0_0
@@ -187,7 +187,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [773, 398]
+    coordinate: [829, 490]
     rotation: 0
     state: true
 - name: analog_simple_squelch_cc_0_0_0_0
@@ -204,7 +204,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [778, 588]
+    coordinate: [843, 740]
     rotation: 0
     state: true
 - name: analog_simple_squelch_cc_0_0_0_0_0
@@ -221,7 +221,531 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [777, 732]
+    coordinate: [845, 1011]
+    rotation: 0
+    state: true
+- name: blocks_moving_average_xx_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '5'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1394, 185]
+    rotation: 0
+    state: true
+- name: blocks_moving_average_xx_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '5'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1381, 459]
+    rotation: 0
+    state: true
+- name: blocks_moving_average_xx_0_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '5'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1377, 737]
+    rotation: 0
+    state: true
+- name: blocks_moving_average_xx_0_0_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '5'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1357, 1002]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1884, 222]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1875, 487]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1858, 787]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0_0_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1862, 1040]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1624, 181]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1609, 451]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1601, 741]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0_0_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1580, 1000]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2133, 195]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2124, 460]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0_0_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2107, 760]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0_0_0_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2111, 1013]
+    rotation: 0
+    state: true
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\n\
+      class blk(gr.sync_block): \n\n    def __init__(self, path='C:/Users/artur/OneDrive/Desktop/foo.txt',\
+      \ channel='channel'):  \n\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='Packet parser',   \n            in_sig=[np.byte],\n     \
+      \       out_sig=[]\n        )\n        \n        self.path = path\n        self.channel\
+      \ = channel\n        \n    def work(self, input_items, output_items):\n    \
+      \    \n        file = open(self.path, 'a')\n        \n        for i in range(len(input_items[0])):\n\
+      \        \n            if input_items[0][i] == 2:\n            \n          \
+      \      file.write(str(datetime.datetime.now()))\n                input_items[0][i]\
+      \ = 0\n   \n                length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8], input_items[0][i+8:i+24],\
+      \ input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])\n\
+      \                file.write(\"{: >20} {: >20} {: >20} {: >20} {: >20} {: >20}\\\
+      n\".format(self.channel, length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength))\n                \n            if input_items[0][i] ==\
+      \ 3:\n                \n                file.write(str(datetime.datetime.now()))\n\
+      \                input_items[0][i] = 1\n                \n                length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8],\
+      \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
+      \ input_items[0][i+72:i+88])\n                file.write(\"{: >20} {: >20} {:\
+      \ >20} {: >20} {: >20} {: >20}\\n\".format(self.channel, length, currentPacketNumber,\
+      \ testId, totalPacketCount, payloadDataLength))\n    \n        file.close()\n\
+      \        return 0\n        \n    def decodePacketPayload(self, lengthBits, currentPacketNumberBits,\
+      \ testIdBits, totalPacketCountBits, payloadDataLengthBits):\n    \n        array\
+      \ = np.array(lengthBits)\n        array = np.packbits(array, bitorder='big')\n\
+      \        array.dtype = np.uint8\n        \n        length = array[0]\n     \
+      \   \n        array = np.array(currentPacketNumberBits)\n        array = np.packbits(array,\
+      \ bitorder='big')\n        array.dtype = np.uint16\n        \n        currentPacketNumber\
+      \ = array[0]\n        \n        array = np.array(testIdBits)\n        array\
+      \ = np.packbits(array, bitorder='big')\n        array.dtype = np.uint32\n  \
+      \      \n        testId = array[0]\n        \n        array = np.array(totalPacketCountBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        totalPacketCount = array[0]\n        \n        array = np.array(payloadDataLengthBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        payloadDataLength = array[0]\n    \n        return length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength\n       \
+      \ \n        \n    def inputBitsToString(self, array):\n        resultString\
+      \ = \"\"\n        \n        for digit in array:\n            resultString +=\
+      \ str(digit)\n\n        return resultString"
+    affinity: ''
+    alias: ''
+    channel: '''863.1MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    path: '''C:/Users/artur/OneDrive/Desktop/foo.txt'''
+  states:
+    _io_cache: ('Packet parser', 'blk', [('path', "'C:/Users/artur/OneDrive/Desktop/foo.txt'"),
+      ('channel', "'channel'")], [('0', 'byte', 1)], [], '', ['channel', 'path'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2450, 202]
+    rotation: 0
+    state: true
+- name: epy_block_0_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\n\
+      class blk(gr.sync_block): \n\n    def __init__(self, path='C:/Users/artur/OneDrive/Desktop/foo.txt',\
+      \ channel='channel'):  \n\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='Packet parser',   \n            in_sig=[np.byte],\n     \
+      \       out_sig=[]\n        )\n        \n        self.path = path\n        self.channel\
+      \ = channel\n        \n    def work(self, input_items, output_items):\n    \
+      \    \n        file = open(self.path, 'a')\n        \n        for i in range(len(input_items[0])):\n\
+      \        \n            if input_items[0][i] == 2:\n            \n          \
+      \      file.write(str(datetime.datetime.now()))\n                input_items[0][i]\
+      \ = 0\n   \n                length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8], input_items[0][i+8:i+24],\
+      \ input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])\n\
+      \                file.write(\"{: >20} {: >20} {: >20} {: >20} {: >20} {: >20}\\\
+      n\".format(self.channel, length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength))\n                \n            if input_items[0][i] ==\
+      \ 3:\n                \n                file.write(str(datetime.datetime.now()))\n\
+      \                input_items[0][i] = 1\n                \n                length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8],\
+      \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
+      \ input_items[0][i+72:i+88])\n                file.write(\"{: >20} {: >20} {:\
+      \ >20} {: >20} {: >20} {: >20}\\n\".format(self.channel, length, currentPacketNumber,\
+      \ testId, totalPacketCount, payloadDataLength))\n    \n        file.close()\n\
+      \        return 0\n        \n    def decodePacketPayload(self, lengthBits, currentPacketNumberBits,\
+      \ testIdBits, totalPacketCountBits, payloadDataLengthBits):\n    \n        array\
+      \ = np.array(lengthBits)\n        array = np.packbits(array, bitorder='big')\n\
+      \        array.dtype = np.uint8\n        \n        length = array[0]\n     \
+      \   \n        array = np.array(currentPacketNumberBits)\n        array = np.packbits(array,\
+      \ bitorder='big')\n        array.dtype = np.uint16\n        \n        currentPacketNumber\
+      \ = array[0]\n        \n        array = np.array(testIdBits)\n        array\
+      \ = np.packbits(array, bitorder='big')\n        array.dtype = np.uint32\n  \
+      \      \n        testId = array[0]\n        \n        array = np.array(totalPacketCountBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        totalPacketCount = array[0]\n        \n        array = np.array(payloadDataLengthBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        payloadDataLength = array[0]\n    \n        return length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength\n       \
+      \ \n        \n    def inputBitsToString(self, array):\n        resultString\
+      \ = \"\"\n        \n        for digit in array:\n            resultString +=\
+      \ str(digit)\n\n        return resultString"
+    affinity: ''
+    alias: ''
+    channel: '''863.2MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    path: '''C:/Users/artur/OneDrive/Desktop/foo.txt'''
+  states:
+    _io_cache: ('Packet parser', 'blk', [('path', "'C:/Users/artur/OneDrive/Desktop/foo.txt'"),
+      ('channel', "'channel'")], [('0', 'byte', 1)], [], '', ['channel', 'path'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2423, 456]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\n\
+      class blk(gr.sync_block): \n\n    def __init__(self, path='C:/Users/artur/OneDrive/Desktop/foo.txt',\
+      \ channel='channel'):  \n\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='Packet parser',   \n            in_sig=[np.byte],\n     \
+      \       out_sig=[]\n        )\n        \n        self.path = path\n        self.channel\
+      \ = channel\n        \n    def work(self, input_items, output_items):\n    \
+      \    \n        file = open(self.path, 'a')\n        \n        for i in range(len(input_items[0])):\n\
+      \        \n            if input_items[0][i] == 2:\n            \n          \
+      \      file.write(str(datetime.datetime.now()))\n                input_items[0][i]\
+      \ = 0\n   \n                length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8], input_items[0][i+8:i+24],\
+      \ input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])\n\
+      \                file.write(\"{: >20} {: >20} {: >20} {: >20} {: >20} {: >20}\\\
+      n\".format(self.channel, length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength))\n                \n            if input_items[0][i] ==\
+      \ 3:\n                \n                file.write(str(datetime.datetime.now()))\n\
+      \                input_items[0][i] = 1\n                \n                length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8],\
+      \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
+      \ input_items[0][i+72:i+88])\n                file.write(\"{: >20} {: >20} {:\
+      \ >20} {: >20} {: >20} {: >20}\\n\".format(self.channel, length, currentPacketNumber,\
+      \ testId, totalPacketCount, payloadDataLength))\n    \n        file.close()\n\
+      \        return 0\n        \n    def decodePacketPayload(self, lengthBits, currentPacketNumberBits,\
+      \ testIdBits, totalPacketCountBits, payloadDataLengthBits):\n    \n        array\
+      \ = np.array(lengthBits)\n        array = np.packbits(array, bitorder='big')\n\
+      \        array.dtype = np.uint8\n        \n        length = array[0]\n     \
+      \   \n        array = np.array(currentPacketNumberBits)\n        array = np.packbits(array,\
+      \ bitorder='big')\n        array.dtype = np.uint16\n        \n        currentPacketNumber\
+      \ = array[0]\n        \n        array = np.array(testIdBits)\n        array\
+      \ = np.packbits(array, bitorder='big')\n        array.dtype = np.uint32\n  \
+      \      \n        testId = array[0]\n        \n        array = np.array(totalPacketCountBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        totalPacketCount = array[0]\n        \n        array = np.array(payloadDataLengthBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        payloadDataLength = array[0]\n    \n        return length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength\n       \
+      \ \n        \n    def inputBitsToString(self, array):\n        resultString\
+      \ = \"\"\n        \n        for digit in array:\n            resultString +=\
+      \ str(digit)\n\n        return resultString"
+    affinity: ''
+    alias: ''
+    channel: '''863.3MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    path: '''C:/Users/artur/OneDrive/Desktop/foo.txt'''
+  states:
+    _io_cache: ('Packet parser', 'blk', [('path', "'C:/Users/artur/OneDrive/Desktop/foo.txt'"),
+      ('channel', "'channel'")], [('0', 'byte', 1)], [], '', ['channel', 'path'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2425, 754]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\n\
+      class blk(gr.sync_block): \n\n    def __init__(self, path='C:/Users/artur/OneDrive/Desktop/foo.txt',\
+      \ channel='channel'):  \n\n        gr.sync_block.__init__(\n            self,\n\
+      \            name='Packet parser',   \n            in_sig=[np.byte],\n     \
+      \       out_sig=[]\n        )\n        \n        self.path = path\n        self.channel\
+      \ = channel\n        \n    def work(self, input_items, output_items):\n    \
+      \    \n        file = open(self.path, 'a')\n        \n        for i in range(len(input_items[0])):\n\
+      \        \n            if input_items[0][i] == 2:\n            \n          \
+      \      file.write(str(datetime.datetime.now()))\n                input_items[0][i]\
+      \ = 0\n   \n                length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8], input_items[0][i+8:i+24],\
+      \ input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])\n\
+      \                file.write(\"{: >20} {: >20} {: >20} {: >20} {: >20} {: >20}\\\
+      n\".format(self.channel, length, currentPacketNumber, testId, totalPacketCount,\
+      \ payloadDataLength))\n                \n            if input_items[0][i] ==\
+      \ 3:\n                \n                file.write(str(datetime.datetime.now()))\n\
+      \                input_items[0][i] = 1\n                \n                length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8],\
+      \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
+      \ input_items[0][i+72:i+88])\n                file.write(\"{: >20} {: >20} {:\
+      \ >20} {: >20} {: >20} {: >20}\\n\".format(self.channel, length, currentPacketNumber,\
+      \ testId, totalPacketCount, payloadDataLength))\n    \n        file.close()\n\
+      \        return 0\n        \n    def decodePacketPayload(self, lengthBits, currentPacketNumberBits,\
+      \ testIdBits, totalPacketCountBits, payloadDataLengthBits):\n    \n        array\
+      \ = np.array(lengthBits)\n        array = np.packbits(array, bitorder='big')\n\
+      \        array.dtype = np.uint8\n        \n        length = array[0]\n     \
+      \   \n        array = np.array(currentPacketNumberBits)\n        array = np.packbits(array,\
+      \ bitorder='big')\n        array.dtype = np.uint16\n        \n        currentPacketNumber\
+      \ = array[0]\n        \n        array = np.array(testIdBits)\n        array\
+      \ = np.packbits(array, bitorder='big')\n        array.dtype = np.uint32\n  \
+      \      \n        testId = array[0]\n        \n        array = np.array(totalPacketCountBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        totalPacketCount = array[0]\n        \n        array = np.array(payloadDataLengthBits)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \        \n        payloadDataLength = array[0]\n    \n        return length,\
+      \ currentPacketNumber, testId, totalPacketCount, payloadDataLength\n       \
+      \ \n        \n    def inputBitsToString(self, array):\n        resultString\
+      \ = \"\"\n        \n        for digit in array:\n            resultString +=\
+      \ str(digit)\n\n        return resultString"
+    affinity: ''
+    alias: ''
+    channel: '''863.4MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    path: '''C:/Users/artur/OneDrive/Desktop/foo.txt'''
+  states:
+    _io_cache: ('Packet parser', 'blk', [('path', "'C:/Users/artur/OneDrive/Desktop/foo.txt'"),
+      ('channel', "'channel'")], [('0', 'byte', 1)], [], '', ['channel', 'path'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2414, 1016]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0
@@ -241,7 +765,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [491, 185]
+    coordinate: [502, 184]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0
@@ -261,7 +785,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [462, 373]
+    coordinate: [518, 465]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0_0
@@ -281,7 +805,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [470, 578]
+    coordinate: [531, 720]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0_0_0
@@ -301,7 +825,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [452, 703]
+    coordinate: [520, 982]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0
@@ -398,7 +922,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1344, 198]
+    coordinate: [1363, 19]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0_0
@@ -495,7 +1019,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1311, 368]
+    coordinate: [1363, 337]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0_0_0
@@ -592,7 +1116,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1327, 590]
+    coordinate: [1366, 597]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0_0_0_0
@@ -689,7 +1213,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1311, 712]
+    coordinate: [1344, 871]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -1046,20 +1570,41 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [114, 217]
+    coordinate: [76, 538]
     rotation: 0
     state: true
 
 connections:
+- [analog_quadrature_demod_cf_0_0, '0', blocks_moving_average_xx_0, '0']
 - [analog_quadrature_demod_cf_0_0, '0', qtgui_time_sink_x_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0, '0', blocks_moving_average_xx_0_0, '0']
 - [analog_quadrature_demod_cf_0_0_0, '0', qtgui_time_sink_x_0_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0_0, '0', blocks_moving_average_xx_0_0_0, '0']
 - [analog_quadrature_demod_cf_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0_0_0, '0', blocks_moving_average_xx_0_0_0_0, '0']
 - [analog_quadrature_demod_cf_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0, '0']
 - [analog_simple_squelch_cc_0_0, '0', analog_quadrature_demod_cf_0_0, '0']
 - [analog_simple_squelch_cc_0_0_0, '0', analog_quadrature_demod_cf_0_0_0, '0']
 - [analog_simple_squelch_cc_0_0_0_0, '0', analog_quadrature_demod_cf_0_0_0_0, '0']
 - [analog_simple_squelch_cc_0_0_0_0_0, '0', analog_quadrature_demod_cf_0_0_0_0_0,
   '0']
+- [blocks_moving_average_xx_0, '0', digital_clock_recovery_mm_xx_0, '0']
+- [blocks_moving_average_xx_0_0, '0', digital_clock_recovery_mm_xx_0_0, '0']
+- [blocks_moving_average_xx_0_0_0, '0', digital_clock_recovery_mm_xx_0_0_0, '0']
+- [blocks_moving_average_xx_0_0_0_0, '0', digital_clock_recovery_mm_xx_0_0_0_0, '0']
+- [digital_binary_slicer_fb_0, '0', digital_correlate_access_code_bb_0, '0']
+- [digital_binary_slicer_fb_0_0, '0', digital_correlate_access_code_bb_0_0, '0']
+- [digital_binary_slicer_fb_0_0_0, '0', digital_correlate_access_code_bb_0_0_0, '0']
+- [digital_binary_slicer_fb_0_0_0_0, '0', digital_correlate_access_code_bb_0_0_0_0,
+  '0']
+- [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0, '0']
+- [digital_clock_recovery_mm_xx_0_0, '0', digital_binary_slicer_fb_0_0, '0']
+- [digital_clock_recovery_mm_xx_0_0_0, '0', digital_binary_slicer_fb_0_0_0, '0']
+- [digital_clock_recovery_mm_xx_0_0_0_0, '0', digital_binary_slicer_fb_0_0_0_0, '0']
+- [digital_correlate_access_code_bb_0, '0', epy_block_0, '0']
+- [digital_correlate_access_code_bb_0_0, '0', epy_block_0_0, '0']
+- [digital_correlate_access_code_bb_0_0_0, '0', epy_block_0_0_0, '0']
+- [digital_correlate_access_code_bb_0_0_0_0, '0', epy_block_0_0_0_0, '0']
 - [freq_xlating_fir_filter_xxx_0, '0', analog_simple_squelch_cc_0_0, '0']
 - [freq_xlating_fir_filter_xxx_0_0, '0', analog_simple_squelch_cc_0_0_0, '0']
 - [freq_xlating_fir_filter_xxx_0_0_0, '0', analog_simple_squelch_cc_0_0_0_0, '0']
