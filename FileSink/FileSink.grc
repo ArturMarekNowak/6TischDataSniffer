@@ -53,7 +53,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [220, 13]
+    coordinate: [218, 13]
     rotation: 0
     state: enabled
 - name: analog_quadrature_demod_cf_0
@@ -69,42 +69,63 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [784, 319]
+    coordinate: [1134, 145]
     rotation: 0
     state: true
-- name: analog_simple_squelch_cc_0
-  id: analog_simple_squelch_cc
+- name: analog_quadrature_demod_cf_0_0
+  id: analog_quadrature_demod_cf
   parameters:
     affinity: ''
     alias: ''
-    alpha: '1'
     comment: ''
+    gain: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
-    threshold: '-37'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [548, 311]
+    coordinate: [1167, 367]
     rotation: 0
     state: true
-- name: blocks_file_sink_0
-  id: blocks_file_sink
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
   parameters:
     affinity: ''
     alias: ''
-    append: 'False'
+    center_freq: '-50000'
     comment: ''
-    file: C:\Users\artur\OneDrive\Desktop\Workspace\6tschDataSniffer\Files\CapturedPackets\id123pcktlen100total1000.raw
-    type: complex
-    unbuffered: 'False'
-    vlen: '1'
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: '1000000'
+    taps: ' firdes.low_pass(1,samp_rate,1000000,5000)'
+    type: ccc
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [549, 385]
+    coordinate: [837, 116]
+    rotation: 0
+    state: true
+- name: freq_xlating_fir_filter_xxx_0_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: '50000'
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: '1000000'
+    taps: ' firdes.low_pass(1,samp_rate,1000000,5000)'
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [829, 339]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0
@@ -160,9 +181,9 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '""'
+    name: '"ch0"'
     nconnections: '1'
-    size: '1000000'
+    size: '1024'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -182,7 +203,7 @@ blocks:
     tr_slope: qtgui.TRIG_SLOPE_POS
     tr_tag: '""'
     type: float
-    update_time: '1'
+    update_time: '0.10'
     width1: '1'
     width10: '1'
     width2: '1'
@@ -201,10 +222,107 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1056, 304]
+    coordinate: [1318, 41]
     rotation: 0
     state: true
-- name: qtgui_waterfall_sink_x_0
+- name: qtgui_time_sink_x_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"ch1"'
+    nconnections: '1'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1335, 239]
+    rotation: 0
+    state: true
+- name: qtgui_waterfall_sink_x_0_0
   id: qtgui_waterfall_sink_x
   parameters:
     affinity: ''
@@ -252,7 +370,7 @@ blocks:
     legend: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    name: '""'
+    name: '"ch0"'
     nconnections: '1'
     showports: 'False'
     type: complex
@@ -262,7 +380,68 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [549, 205]
+    coordinate: [911, 15]
+    rotation: 0
+    state: true
+- name: qtgui_waterfall_sink_x_0_0_0
+  id: qtgui_waterfall_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    int_max: '10'
+    int_min: '-140'
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '"ch1"'
+    nconnections: '1'
+    showports: 'False'
+    type: complex
+    update_time: '0.10'
+    wintype: firdes.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1011, 492]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -303,8 +482,8 @@ blocks:
     ant8: ''
     ant9: ''
     args: '""'
-    bb_gain0: '10'
-    bb_gain1: '20'
+    bb_gain0: '20'
+    bb_gain1: '10'
     bb_gain10: '20'
     bb_gain11: '20'
     bb_gain12: '20'
@@ -440,8 +619,8 @@ blocks:
     dc_offset_mode7: '0'
     dc_offset_mode8: '0'
     dc_offset_mode9: '0'
-    freq0: 863.04e6
-    freq1: 100e6
+    freq0: 863.150e6
+    freq1: 863.2e6
     freq10: 100e6
     freq11: 100e6
     freq12: 100e6
@@ -472,8 +651,8 @@ blocks:
     freq7: 100e6
     freq8: 100e6
     freq9: 100e6
-    gain0: '0'
-    gain1: '10'
+    gain0: '10'
+    gain1: '0'
     gain10: '10'
     gain11: '10'
     gain12: '10'
@@ -536,8 +715,8 @@ blocks:
     gain_mode7: 'False'
     gain_mode8: 'False'
     gain_mode9: 'False'
-    if_gain0: '10'
-    if_gain1: '20'
+    if_gain0: '20'
+    if_gain1: '10'
     if_gain10: '20'
     if_gain11: '20'
     if_gain12: '20'
@@ -619,16 +798,19 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [135, 232]
+    coordinate: [207, 161]
     rotation: 0
     state: true
 
 connections:
 - [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_0, '0']
-- [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0, '0']
-- [rtlsdr_source_0, '0', analog_simple_squelch_cc_0, '0']
-- [rtlsdr_source_0, '0', blocks_file_sink_0, '0']
-- [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_0, '0']
+- [analog_quadrature_demod_cf_0_0, '0', qtgui_time_sink_x_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', analog_quadrature_demod_cf_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', qtgui_waterfall_sink_x_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', analog_quadrature_demod_cf_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', qtgui_waterfall_sink_x_0_0_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
 
 metadata:
   file_format: 1
