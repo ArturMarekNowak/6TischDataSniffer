@@ -295,29 +295,38 @@ blocks:
 - name: epy_block_0
   id: epy_block
   parameters:
-    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\n\
-      class blk(gr.sync_block): \n\n    def __init__(self, path='C:/Users/artur/OneDrive/Desktop/foo.txt',\
-      \ channel='channel'):  \n\n        gr.sync_block.__init__(\n            self,\n\
-      \            name='Packet parser',   \n            in_sig=[np.byte],\n     \
-      \       out_sig=[]\n        )\n        \n        self.path = path\n        self.channel\
-      \ = channel\n        \n    def work(self, input_items, output_items):\n    \
-      \    \n        file = open(self.path, 'a')\n        \n        for i in range(len(input_items[0])):\n\
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
+      import sqlite3\nimport uuid\n\n\nclass blk(gr.sync_block): \n\n    def __init__(self,\
+      \ path='C:/Users/artur/OneDrive/Desktop/foo.txt', channel='channel'):  \n\n\
+      \        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[]\n     \
+      \   )\n        \n        self.path = path\n        self.channel = channel\n\
+      \        \n    def work(self, input_items, output_items):\n        \n      \
+      \  conn = sqlite3.connect(\"C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
+      )\n        file = open(self.path, 'a')\n        \n        for i in range(len(input_items[0])):\n\
       \        \n            if input_items[0][i] == 2:\n            \n          \
-      \      file.write(str(datetime.datetime.now()))\n                input_items[0][i]\
-      \ = 0\n   \n                length, currentPacketNumber, testId, totalPacketCount,\
-      \ payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8], input_items[0][i+8:i+24],\
-      \ input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])\n\
-      \                file.write(\"{: >20} {: >20} {: >20} {: >20} {: >20} {: >20}\\\
-      n\".format(self.channel, length, currentPacketNumber, testId, totalPacketCount,\
-      \ payloadDataLength))\n                \n            if input_items[0][i] ==\
-      \ 3:\n                \n                file.write(str(datetime.datetime.now()))\n\
+      \      timestamp = str(datetime.datetime.now())\n                file.write(timestamp)\n\
+      \                input_items[0][i] = 0\n   \n                length, currentPacketNumber,\
+      \ testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8],\
+      \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
+      \ input_items[0][i+72:i+88])\n                file.write(\"{: >20} {: >20} {:\
+      \ >20} {: >20} {: >20} {: >20}\\n\".format(self.channel, length, currentPacketNumber,\
+      \ testId, totalPacketCount, payloadDataLength))\n                conn.execute(f\"\
+      INSERT INTO Log (Guid,Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{uuid.uuid4()}', '{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                \n    \
+      \        if input_items[0][i] == 3:\n                \n                file.write(str(datetime.datetime.now()))\n\
       \                input_items[0][i] = 1\n                \n                length,\
       \ currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8],\
       \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
       \ input_items[0][i+72:i+88])\n                file.write(\"{: >20} {: >20} {:\
       \ >20} {: >20} {: >20} {: >20}\\n\".format(self.channel, length, currentPacketNumber,\
-      \ testId, totalPacketCount, payloadDataLength))\n    \n        file.close()\n\
-      \        return 0\n        \n    def decodePacketPayload(self, lengthBits, currentPacketNumberBits,\
+      \ testId, totalPacketCount, payloadDataLength))\n    \n                conn.execute(f\"\
+      INSERT INTO Log (Guid,Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{uuid.uuid4()}', '{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                \n    \
+      \    file.close()\n        conn.commit()\n        conn.close()\n        return\
+      \ 0\n        \n    def decodePacketPayload(self, lengthBits, currentPacketNumberBits,\
       \ testIdBits, totalPacketCountBits, payloadDataLengthBits):\n    \n        array\
       \ = np.array(lengthBits)\n        array = np.packbits(array, bitorder='big')\n\
       \        array.dtype = np.uint8\n        \n        length = array[0]\n     \

@@ -1,6 +1,9 @@
 import numpy as np
 from gnuradio import gr
 import datetime
+import sqlite3
+import uuid
+
 
 class blk(gr.sync_block): 
 
@@ -18,17 +21,20 @@ class blk(gr.sync_block):
         
     def work(self, input_items, output_items):
         
+        conn = sqlite3.connect("C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db")
         file = open(self.path, 'a')
         
         for i in range(len(input_items[0])):
         
             if input_items[0][i] == 2:
             
-                file.write(str(datetime.datetime.now()))
+                timestamp = str(datetime.datetime.now())
+                file.write(timestamp)
                 input_items[0][i] = 0
    
                 length, currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8], input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])
                 file.write("{: >20} {: >20} {: >20} {: >20} {: >20} {: >20}\n".format(self.channel, length, currentPacketNumber, testId, totalPacketCount, payloadDataLength))
+                conn.execute(f"INSERT INTO Log (Guid,Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength) VALUES ('{uuid.uuid4()}', '{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}', '{totalPacketCount}', '{payloadDataLength}' )");
                 
             if input_items[0][i] == 3:
                 
@@ -38,7 +44,11 @@ class blk(gr.sync_block):
                 length, currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.decodePacketPayload(input_items[0][i:i+8], input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])
                 file.write("{: >20} {: >20} {: >20} {: >20} {: >20} {: >20}\n".format(self.channel, length, currentPacketNumber, testId, totalPacketCount, payloadDataLength))
     
+                conn.execute(f"INSERT INTO Log (Guid,Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength) VALUES ('{uuid.uuid4()}', '{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}', '{totalPacketCount}', '{payloadDataLength}' )");
+                
         file.close()
+        conn.commit()
+        conn.close()
         return 0
         
     def decodePacketPayload(self, lengthBits, currentPacketNumberBits, testIdBits, totalPacketCountBits, payloadDataLengthBits):
