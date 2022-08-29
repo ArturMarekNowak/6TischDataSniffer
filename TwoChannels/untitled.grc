@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: MultichannelDataSniffer
+    id: untitled
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -41,7 +41,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [330, 12]
+    coordinate: [431, 24]
     rotation: 0
     state: enabled
 - name: numpoints
@@ -53,7 +53,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [910, 23]
+    coordinate: [1011, 35]
     rotation: 0
     state: enabled
 - name: omega
@@ -65,7 +65,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [820, 16]
+    coordinate: [921, 28]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -77,7 +77,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [207, 18]
+    coordinate: [308, 30]
     rotation: 0
     state: enabled
 - name: samp_rate_divide
@@ -89,9 +89,30 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [536, 19]
+    coordinate: [637, 31]
     rotation: 0
     state: enabled
+- name: squelchThreshold
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: ''
+    min_len: '200'
+    orient: Qt.Horizontal
+    rangeType: float
+    start: '-100'
+    step: '1'
+    stop: '0'
+    value: '-40'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1195, 15]
+    rotation: 0
+    state: true
 - name: threshold
   id: variable
   parameters:
@@ -101,7 +122,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [697, 19]
+    coordinate: [798, 31]
     rotation: 0
     state: enabled
 - name: analog_quadrature_demod_cf_0_0
@@ -117,7 +138,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [807, 205]
+    coordinate: [958, 151]
     rotation: 0
     state: true
 - name: analog_quadrature_demod_cf_0_0_0
@@ -133,7 +154,177 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [676, 488]
+    coordinate: [966, 439]
+    rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '-37'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [739, 141]
+    rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '-37'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [731, 428]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2069, 164]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2086, 445]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1557, 164]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1582, 445]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: '20'
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1279, 122]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: '20'
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1309, 415]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0_1_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1749, 148]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0_1_0_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1770, 429]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0
@@ -153,7 +344,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [442, 177]
+    coordinate: [454, 122]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0
@@ -173,10 +364,10 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [377, 464]
+    coordinate: [442, 402]
     rotation: 0
     state: true
-- name: qtgui_time_sink_x_0_1
+- name: qtgui_time_sink_x_0_0_0
   id: qtgui_time_sink_x
   parameters:
     affinity: ''
@@ -263,17 +454,17 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '1'
+    ymax: '2'
     ymin: '-1'
     yunit: '""'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1094, 176]
+    coordinate: [2221, 267]
     rotation: 0
     state: true
-- name: qtgui_time_sink_x_0_1_0
+- name: qtgui_time_sink_x_0_0_0_0
   id: qtgui_time_sink_x
   parameters:
     affinity: ''
@@ -360,6 +551,103 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
+    ymax: '2'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2247, 517]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_0_0_0_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"27"'
+    nconnections: '1'
+    size: '10240'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
     ymax: '1'
     ymin: '-1'
     yunit: '""'
@@ -367,11 +655,11 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [980, 467]
+    coordinate: [1151, 530]
     rotation: 0
     state: true
-- name: qtgui_waterfall_sink_x_0
-  id: qtgui_waterfall_sink_x
+- name: qtgui_time_sink_x_0_0_0_0_0_0
+  id: qtgui_time_sink_x
   parameters:
     affinity: ''
     alias: ''
@@ -385,111 +673,86 @@ blocks:
     alpha7: '1.0'
     alpha8: '1.0'
     alpha9: '1.0'
+    autoscale: 'False'
     axislabels: 'True'
-    bw: samp_rate
-    color1: '0'
-    color10: '0'
-    color2: '0'
-    color3: '0'
-    color4: '0'
-    color5: '0'
-    color6: '0'
-    color7: '0'
-    color8: '0'
-    color9: '0'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
     comment: ''
-    fc: '0'
-    fftsize: '1024'
-    freqhalf: 'True'
+    ctrlpanel: 'False'
+    entags: 'True'
     grid: 'False'
     gui_hint: ''
-    int_max: '10'
-    int_min: '-140'
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
     legend: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"13"'
     nconnections: '1'
-    showports: 'False'
-    type: complex
+    size: '10240'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
     update_time: '0.10'
-    wintype: firdes.WIN_BLACKMAN_hARRIS
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [696, 354]
-    rotation: 0
-    state: true
-- name: qtgui_waterfall_sink_x_0_0
-  id: qtgui_waterfall_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    axislabels: 'True'
-    bw: samp_rate
-    color1: '0'
-    color10: '0'
-    color2: '0'
-    color3: '0'
-    color4: '0'
-    color5: '0'
-    color6: '0'
-    color7: '0'
-    color8: '0'
-    color9: '0'
-    comment: ''
-    fc: '0'
-    fftsize: '1024'
-    freqhalf: 'True'
-    grid: 'False'
-    gui_hint: ''
-    int_max: '10'
-    int_min: '-140'
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    legend: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '""'
-    nconnections: '1'
-    showports: 'False'
-    type: complex
-    update_time: '0.10'
-    wintype: firdes.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [672, 618]
+    coordinate: [1176, 238]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -846,17 +1109,27 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [78, 222]
+    coordinate: [87, 179]
     rotation: 0
     state: true
 
 connections:
-- [analog_quadrature_demod_cf_0_0, '0', qtgui_time_sink_x_0_1, '0']
-- [analog_quadrature_demod_cf_0_0_0, '0', qtgui_time_sink_x_0_1_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', analog_quadrature_demod_cf_0_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', qtgui_waterfall_sink_x_0, '0']
-- [freq_xlating_fir_filter_xxx_0_0, '0', analog_quadrature_demod_cf_0_0_0, '0']
-- [freq_xlating_fir_filter_xxx_0_0, '0', qtgui_waterfall_sink_x_0_0, '0']
+- [analog_quadrature_demod_cf_0_0, '0', digital_clock_recovery_mm_xx_0, '0']
+- [analog_quadrature_demod_cf_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0, '0', digital_clock_recovery_mm_xx_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0, '0']
+- [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0_0, '0']
+- [analog_simple_squelch_cc_0_0, '0', analog_quadrature_demod_cf_0_0_0, '0']
+- [blocks_uchar_to_float_0_0, '0', qtgui_time_sink_x_0_0_0, '0']
+- [blocks_uchar_to_float_0_0_0, '0', qtgui_time_sink_x_0_0_0_0, '0']
+- [digital_binary_slicer_fb_0, '0', digital_correlate_access_code_bb_0_1_0, '0']
+- [digital_binary_slicer_fb_0_0, '0', digital_correlate_access_code_bb_0_1_0_0, '0']
+- [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0, '0']
+- [digital_clock_recovery_mm_xx_0_0, '0', digital_binary_slicer_fb_0_0, '0']
+- [digital_correlate_access_code_bb_0_1_0, '0', blocks_uchar_to_float_0_0, '0']
+- [digital_correlate_access_code_bb_0_1_0_0, '0', blocks_uchar_to_float_0_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', analog_simple_squelch_cc_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', analog_simple_squelch_cc_0_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
 
