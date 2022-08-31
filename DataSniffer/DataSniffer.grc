@@ -10,7 +10,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: FileSink
+    id: DataSniffer
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -32,46 +32,78 @@ options:
     state: enabled
 
 blocks:
-- name: points
+- name: filterFIR
   id: variable
   parameters:
     comment: ''
-    value: '7000'
+    value: ' firdes.low_pass(1,samp_rate,70000,5000)'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [335, 13]
+    coordinate: [431, 24]
     rotation: 0
-    state: true
+    state: enabled
+- name: numpoints
+  id: variable
+  parameters:
+    comment: ''
+    value: '10240'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [801, 30]
+    rotation: 0
+    state: enabled
+- name: omega
+  id: variable
+  parameters:
+    comment: ''
+    value: '20.05'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [921, 33]
+    rotation: 0
+    state: enabled
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: '2000000'
+    value: '1000000'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [218, 13]
+    coordinate: [308, 30]
     rotation: 0
     state: enabled
-- name: analog_quadrature_demod_cf_0
-  id: analog_quadrature_demod_cf
+- name: samp_rate_divide
+  id: variable
   parameters:
-    affinity: ''
-    alias: ''
     comment: ''
-    gain: '1'
-    maxoutbuf: '0'
-    minoutbuf: '0'
+    value: 'samp_rate '
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1134, 145]
+    coordinate: [637, 31]
     rotation: 0
-    state: true
+    state: enabled
+- name: threshold
+  id: variable
+  parameters:
+    comment: ''
+    value: '-33'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1066, 29]
+    rotation: 0
+    state: enabled
 - name: analog_quadrature_demod_cf_0_0
   id: analog_quadrature_demod_cf
   parameters:
@@ -85,7 +117,265 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1167, 367]
+    coordinate: [958, 240]
+    rotation: 0
+    state: true
+- name: analog_quadrature_demod_cf_0_0_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [966, 528]
+    rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: threshold
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [739, 230]
+    rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: threshold
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [731, 517]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0_0_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2229, 244]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0_0_0_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2202, 525]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1448, 251]
+    rotation: 0
+    state: true
+- name: digital_binary_slicer_fb_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1473, 532]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1187, 205]
+    rotation: 0
+    state: true
+- name: digital_clock_recovery_mm_xx_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1195, 492]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0_1_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1640, 235]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_bb_0_1_0_0
+  id: digital_correlate_access_code_bb
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1661, 516]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
+      class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
+      \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
+      C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
+      , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
+      )\n        self.SQL_QUERY = \"\"\"\n                            INSERT INTO\
+      \ Log (\n                                 Timestamp, Channel, Length, CurrentPacketNumber,\
+      \ TestId, TotalPacketCount, PayloadDataLength\n                            \
+      \     )\n                            VALUES (?, ?, ?, ?, ?, ?, ?)\n        \
+      \                \"\"\"\n        \n    def __del__(self):\n        self.conn.close()\n\
+      \n    def work(self, input_items, output_items):\n        \n        for i in\
+      \ range(len(input_items[0]) - 88):\n                   \n            if input_items[0][i]\
+      \ == 2:  \n                timestamp = str(datetime.datetime.now())\n      \
+      \          input_items[0][i] = 0\n                length, currentPacketNumber,\
+      \ testId, totalPacketCount, payloadDataLength = self.littleEndianToBig(input_items[0][i:i+8],\
+      \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
+      \ input_items[0][i+72:i+88])\n                self.conn.execute(f\"INSERT INTO\
+      \ Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                #self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{input_items[0][i:i+8]}', '{input_items[0][i+8:i+24]}','{input_items[0][i+24:i+56]}',\
+      \ '{input_items[0][i+56:i+72]}', '{input_items[0][i+72:i+88]}' )\");\n     \
+      \   \n        output_items[0][:] = input_items[0][:]\n        self.conn.commit()\n\
+      \        return len(output_items[0])\n\n        \n    def littleEndianToBig(self,\
+      \ length, currentPacketNumber, testId, totalPacketCount, payloadDataLength):\n\
+      \    \n        '''\n        try:\n            array = np.array(length)\n   \
+      \         array = np.packbits(array, bitorder='big')\n            \n       \
+      \     length = array[0]\n            \n            array = np.array(currentPacketNumber)\n\
+      \            array = np.packbits(array, bitorder='big')\n            \n    \
+      \        currentPacketNumber = array[0]\n            \n            array = np.array(testId)\n\
+      \            array = np.packbits(array, bitorder='big')\n            \n    \
+      \        testId = array[0]\n            \n            array = np.array(totalPacketCount)\n\
+      \            array = np.packbits(array, bitorder='big')\n            \n    \
+      \        totalPacketCount = array[0]\n            \n            array = np.array(payloadDataLength)\n\
+      \            array = np.packbits(array, bitorder='big')\n            \n    \
+      \        payloadDataLength = array[0]\n\n        except:\n            print(\"\
+      littleEndianToBig error\")\n            return 0,0,0,0,0\n        '''\n    \
+      \    array = np.array(length)\n        array = np.packbits(array, bitorder='big')\n\
+      \        array.dtype = np.uint8\n        \n        length = array[0]\n     \
+      \       \n        array = np.array(currentPacketNumber)\n        array = np.packbits(array,\
+      \ bitorder='big')\n        array.dtype = np.uint16\n          \n        currentPacketNumber\
+      \ = array[0]\n            \n        array = np.array(testId)\n        array\
+      \ = np.packbits(array, bitorder='big')\n        array.dtype = np.uint32\n  \
+      \         \n        testId = array[0]\n            \n        array = np.array(totalPacketCount)\n\
+      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
+      \            \n        totalPacketCount = array[0]\n            \n        array\
+      \ = np.array(payloadDataLength)\n        array = np.packbits(array, bitorder='big')\n\
+      \        array.dtype = np.uint16\n            \n        payloadDataLength =\
+      \ array[0]\n            \n        return length, currentPacketNumber, testId,\
+      \ totalPacketCount, payloadDataLength"
+    affinity: ''
+    alias: ''
+    channel: '''864.4MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+      1)], [('0', 'byte', 1)], '', ['channel'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1974, 245]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0
@@ -93,19 +383,19 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: '-50000'
+    center_freq: '-700000'
     comment: ''
     decim: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
-    samp_rate: '1000000'
-    taps: ' firdes.low_pass(1,samp_rate,1000000,5000)'
+    samp_rate: samp_rate_divide
+    taps: filterFIR
     type: ccc
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [837, 116]
+    coordinate: [454, 211]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0
@@ -113,22 +403,22 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: '50000'
+    center_freq: '700000'
     comment: ''
     decim: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
-    samp_rate: '1000000'
-    taps: ' firdes.low_pass(1,samp_rate,1000000,5000)'
+    samp_rate: samp_rate_divide
+    taps: filterFIR
     type: ccc
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [829, 339]
+    coordinate: [442, 491]
     rotation: 0
     state: true
-- name: qtgui_time_sink_x_0
+- name: qtgui_time_sink_x_0_0_0_0_0
   id: qtgui_time_sink_x
   parameters:
     affinity: ''
@@ -181,9 +471,9 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '"ch0"'
+    name: '"13"'
     nconnections: '1'
-    size: '1024'
+    size: '102400'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -215,17 +505,17 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '1'
+    ymax: '2'
     ymin: '-1'
     yunit: '""'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1318, 41]
+    coordinate: [2430, 208]
     rotation: 0
     state: true
-- name: qtgui_time_sink_x_0_0
+- name: qtgui_time_sink_x_0_0_0_0_0_2
   id: qtgui_time_sink_x
   parameters:
     affinity: ''
@@ -278,9 +568,9 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '"ch1"'
+    name: '"27"'
     nconnections: '1'
-    size: '1024'
+    size: '102400'
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -312,136 +602,14 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '1'
+    ymax: '2'
     ymin: '-1'
     yunit: '""'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1335, 239]
-    rotation: 0
-    state: true
-- name: qtgui_waterfall_sink_x_0_0
-  id: qtgui_waterfall_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    axislabels: 'True'
-    bw: samp_rate
-    color1: '0'
-    color10: '0'
-    color2: '0'
-    color3: '0'
-    color4: '0'
-    color5: '0'
-    color6: '0'
-    color7: '0'
-    color8: '0'
-    color9: '0'
-    comment: ''
-    fc: '0'
-    fftsize: '1024'
-    freqhalf: 'True'
-    grid: 'False'
-    gui_hint: ''
-    int_max: '10'
-    int_min: '-140'
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    legend: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '"ch0"'
-    nconnections: '1'
-    showports: 'False'
-    type: complex
-    update_time: '0.10'
-    wintype: firdes.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [911, 15]
-    rotation: 0
-    state: true
-- name: qtgui_waterfall_sink_x_0_0_0
-  id: qtgui_waterfall_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    axislabels: 'True'
-    bw: samp_rate
-    color1: '0'
-    color10: '0'
-    color2: '0'
-    color3: '0'
-    color4: '0'
-    color5: '0'
-    color6: '0'
-    color7: '0'
-    color8: '0'
-    color9: '0'
-    comment: ''
-    fc: '0'
-    fftsize: '1024'
-    freqhalf: 'True'
-    grid: 'False'
-    gui_hint: ''
-    int_max: '10'
-    int_min: '-140'
-    label1: ''
-    label10: ''
-    label2: ''
-    label3: ''
-    label4: ''
-    label5: ''
-    label6: ''
-    label7: ''
-    label8: ''
-    label9: ''
-    legend: 'True'
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    name: '"ch1"'
-    nconnections: '1'
-    showports: 'False'
-    type: complex
-    update_time: '0.10'
-    wintype: firdes.WIN_BLACKMAN_hARRIS
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1011, 492]
+    coordinate: [2406, 483]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -619,7 +787,7 @@ blocks:
     dc_offset_mode7: '0'
     dc_offset_mode8: '0'
     dc_offset_mode9: '0'
-    freq0: 863.150e6
+    freq0: 865.1e6
     freq1: 863.2e6
     freq10: 100e6
     freq11: 100e6
@@ -798,17 +966,27 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [207, 161]
+    coordinate: [87, 268]
     rotation: 0
     state: true
 
 connections:
-- [analog_quadrature_demod_cf_0, '0', qtgui_time_sink_x_0, '0']
-- [analog_quadrature_demod_cf_0_0, '0', qtgui_time_sink_x_0_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', analog_quadrature_demod_cf_0, '0']
-- [freq_xlating_fir_filter_xxx_0, '0', qtgui_waterfall_sink_x_0_0, '0']
-- [freq_xlating_fir_filter_xxx_0_0, '0', analog_quadrature_demod_cf_0_0, '0']
-- [freq_xlating_fir_filter_xxx_0_0, '0', qtgui_waterfall_sink_x_0_0_0, '0']
+- [analog_quadrature_demod_cf_0_0, '0', digital_clock_recovery_mm_xx_0, '0']
+- [analog_quadrature_demod_cf_0_0_0, '0', digital_clock_recovery_mm_xx_0_0, '0']
+- [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0_0, '0']
+- [analog_simple_squelch_cc_0_0, '0', analog_quadrature_demod_cf_0_0_0, '0']
+- [blocks_uchar_to_float_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0, '0']
+- [blocks_uchar_to_float_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_2, '0']
+- [digital_binary_slicer_fb_0, '0', digital_correlate_access_code_bb_0_1_0, '0']
+- [digital_binary_slicer_fb_0_0, '0', digital_correlate_access_code_bb_0_1_0_0, '0']
+- [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0, '0']
+- [digital_clock_recovery_mm_xx_0_0, '0', digital_binary_slicer_fb_0_0, '0']
+- [digital_correlate_access_code_bb_0_1_0, '0', epy_block_0_0_0_0_0_0_0, '0']
+- [digital_correlate_access_code_bb_0_1_0_0, '0', blocks_uchar_to_float_0_0_0_0_0,
+  '0']
+- [epy_block_0_0_0_0_0_0_0, '0', blocks_uchar_to_float_0_0_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', analog_simple_squelch_cc_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0, '0', analog_simple_squelch_cc_0_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
 
