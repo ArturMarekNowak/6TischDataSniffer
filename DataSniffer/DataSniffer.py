@@ -36,13 +36,13 @@ import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-from gnuradio.qtgui import Range, RangeWidget
+import epy_block_0_0_0_0_0_0_0
 import osmosdr
 import time
 
 from gnuradio import qtgui
 
-class untitled(gr.top_block, Qt.QWidget):
+class DataSniffer(gr.top_block, Qt.QWidget):
 
     def __init__(self):
         gr.top_block.__init__(self, "Not titled yet")
@@ -65,7 +65,7 @@ class untitled(gr.top_block, Qt.QWidget):
         self.top_grid_layout = Qt.QGridLayout()
         self.top_layout.addLayout(self.top_grid_layout)
 
-        self.settings = Qt.QSettings("GNU Radio", "untitled")
+        self.settings = Qt.QSettings("GNU Radio", "DataSniffer")
 
         try:
             if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
@@ -79,19 +79,15 @@ class untitled(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 1000000
-        self.threshold = threshold = -3
-        self.squelchThreshold = squelchThreshold = -40
+        self.threshold = threshold = -33
         self.samp_rate_divide = samp_rate_divide = samp_rate
-        self.omega = omega = samp_rate / 50000
+        self.omega = omega = 20.05
         self.numpoints = numpoints = 10240
         self.filterFIR = filterFIR =  firdes.low_pass(1,samp_rate,70000,5000)
 
         ##################################################
         # Blocks
         ##################################################
-        self._squelchThreshold_range = Range(-100, 0, 1, -40, 200)
-        self._squelchThreshold_win = RangeWidget(self._squelchThreshold_range, self.set_squelchThreshold, 'squelchThreshold', "counter_slider", float)
-        self.top_grid_layout.addWidget(self._squelchThreshold_win)
         self.rtlsdr_source_0 = osmosdr.source(
             args="numchan=" + str(1) + " " + ""
         )
@@ -106,24 +102,24 @@ class untitled(gr.top_block, Qt.QWidget):
         self.rtlsdr_source_0.set_bb_gain(20, 0)
         self.rtlsdr_source_0.set_antenna('', 0)
         self.rtlsdr_source_0.set_bandwidth(0, 0)
-        self.qtgui_time_sink_x_0_0_0_0_0_0 = qtgui.time_sink_f(
-            10240, #size
+        self.qtgui_time_sink_x_0_0_0_0_0_2 = qtgui.time_sink_f(
+            102400, #size
             samp_rate, #samp_rate
-            "13", #name
+            "27", #name
             1 #number of inputs
         )
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_y_axis(-1, 1)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.set_update_time(0.10)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.set_y_axis(-1, 2)
 
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_y_label('Amplitude', "")
+        self.qtgui_time_sink_x_0_0_0_0_0_2.set_y_label('Amplitude', "")
 
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_tags(True)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_grid(False)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.enable_stem_plot(False)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.enable_tags(True)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0_0_0_0_0_2.enable_autoscale(False)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.enable_grid(False)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.enable_axis_labels(True)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.enable_control_panel(False)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.enable_stem_plot(False)
 
 
         labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
@@ -142,25 +138,25 @@ class untitled(gr.top_block, Qt.QWidget):
 
         for i in range(1):
             if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_label(i, "Data {0}".format(i))
+                self.qtgui_time_sink_x_0_0_0_0_0_2.set_line_label(i, "Data {0}".format(i))
             else:
-                self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_0_0_0_0_0.set_line_alpha(i, alphas[i])
+                self.qtgui_time_sink_x_0_0_0_0_0_2.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_0_0_0_0_0_2.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_0_0_0_0_0_2.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_0_0_0_0_0_2.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_0_0_0_0_0_2.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_0_0_0_0_0_2.set_line_alpha(i, alphas[i])
 
-        self._qtgui_time_sink_x_0_0_0_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_0_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_0_win)
+        self._qtgui_time_sink_x_0_0_0_0_0_2_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_0_2.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_2_win)
         self.qtgui_time_sink_x_0_0_0_0_0 = qtgui.time_sink_f(
-            10240, #size
+            102400, #size
             samp_rate, #samp_rate
-            "27", #name
+            "13", #name
             1 #number of inputs
         )
         self.qtgui_time_sink_x_0_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0_0.set_y_axis(-1, 1)
+        self.qtgui_time_sink_x_0_0_0_0_0.set_y_axis(-1, 2)
 
         self.qtgui_time_sink_x_0_0_0_0_0.set_y_label('Amplitude', "")
 
@@ -200,112 +196,19 @@ class untitled(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_0_0_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_win)
-        self.qtgui_time_sink_x_0_0_0_0 = qtgui.time_sink_f(
-            102400, #size
-            samp_rate, #samp_rate
-            "27", #name
-            1 #number of inputs
-        )
-        self.qtgui_time_sink_x_0_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0_0.set_y_axis(-1, 2)
-
-        self.qtgui_time_sink_x_0_0_0_0.set_y_label('Amplitude', "")
-
-        self.qtgui_time_sink_x_0_0_0_0.enable_tags(True)
-        self.qtgui_time_sink_x_0_0_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0_0_0.enable_grid(False)
-        self.qtgui_time_sink_x_0_0_0_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_0_0_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_0_0_0_0.enable_stem_plot(False)
-
-
-        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
-            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
-        widths = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        colors = ['blue', 'red', 'green', 'black', 'cyan',
-            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0]
-        styles = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1]
-
-
-        for i in range(1):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_0_0_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0_0_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_0_0_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_0_0_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_0_0_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_0_0_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_0_0_0.set_line_alpha(i, alphas[i])
-
-        self._qtgui_time_sink_x_0_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_win)
-        self.qtgui_time_sink_x_0_0_0 = qtgui.time_sink_f(
-            102400, #size
-            samp_rate, #samp_rate
-            "13", #name
-            1 #number of inputs
-        )
-        self.qtgui_time_sink_x_0_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0_0.set_y_axis(-1, 2)
-
-        self.qtgui_time_sink_x_0_0_0.set_y_label('Amplitude', "")
-
-        self.qtgui_time_sink_x_0_0_0.enable_tags(True)
-        self.qtgui_time_sink_x_0_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0_0.enable_grid(False)
-        self.qtgui_time_sink_x_0_0_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_0_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_0_0_0.enable_stem_plot(False)
-
-
-        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
-            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
-        widths = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        colors = ['blue', 'red', 'green', 'black', 'cyan',
-            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0]
-        styles = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1]
-
-
-        for i in range(1):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_0_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_0_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_0_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_0_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_0_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_0_0.set_line_alpha(i, alphas[i])
-
-        self._qtgui_time_sink_x_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0.pyqwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_win)
         self.freq_xlating_fir_filter_xxx_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, 700000, samp_rate_divide)
         self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, -700000, samp_rate_divide)
+        self.epy_block_0_0_0_0_0_0_0 = epy_block_0_0_0_0_0_0_0.blk(channel='864.4MHz')
         self.digital_correlate_access_code_bb_0_1_0_0 = digital.correlate_access_code_bb('1001000001001110', 0)
         self.digital_correlate_access_code_bb_0_1_0 = digital.correlate_access_code_bb('1001000001001110', 0)
-        self.digital_clock_recovery_mm_xx_0_0 = digital.clock_recovery_mm_ff(20, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
-        self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(20, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
+        self.digital_clock_recovery_mm_xx_0_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
+        self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
         self.digital_binary_slicer_fb_0_0 = digital.binary_slicer_fb()
         self.digital_binary_slicer_fb_0 = digital.binary_slicer_fb()
-        self.blocks_uchar_to_float_0_0_0 = blocks.uchar_to_float()
-        self.blocks_uchar_to_float_0_0 = blocks.uchar_to_float()
-        self.analog_simple_squelch_cc_0_0 = analog.simple_squelch_cc(-37, 1)
-        self.analog_simple_squelch_cc_0 = analog.simple_squelch_cc(-37, 1)
+        self.blocks_uchar_to_float_0_0_0_0_0 = blocks.uchar_to_float()
+        self.blocks_uchar_to_float_0_0_0_0 = blocks.uchar_to_float()
+        self.analog_simple_squelch_cc_0_0 = analog.simple_squelch_cc(threshold, 1)
+        self.analog_simple_squelch_cc_0 = analog.simple_squelch_cc(threshold, 1)
         self.analog_quadrature_demod_cf_0_0_0 = analog.quadrature_demod_cf(1)
         self.analog_quadrature_demod_cf_0_0 = analog.quadrature_demod_cf(1)
 
@@ -315,19 +218,18 @@ class untitled(gr.top_block, Qt.QWidget):
         # Connections
         ##################################################
         self.connect((self.analog_quadrature_demod_cf_0_0, 0), (self.digital_clock_recovery_mm_xx_0, 0))
-        self.connect((self.analog_quadrature_demod_cf_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0_0, 0))
         self.connect((self.analog_quadrature_demod_cf_0_0_0, 0), (self.digital_clock_recovery_mm_xx_0_0, 0))
-        self.connect((self.analog_quadrature_demod_cf_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
         self.connect((self.analog_simple_squelch_cc_0, 0), (self.analog_quadrature_demod_cf_0_0, 0))
         self.connect((self.analog_simple_squelch_cc_0_0, 0), (self.analog_quadrature_demod_cf_0_0_0, 0))
-        self.connect((self.blocks_uchar_to_float_0_0, 0), (self.qtgui_time_sink_x_0_0_0, 0))
-        self.connect((self.blocks_uchar_to_float_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0, 0))
+        self.connect((self.blocks_uchar_to_float_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
+        self.connect((self.blocks_uchar_to_float_0_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0_2, 0))
         self.connect((self.digital_binary_slicer_fb_0, 0), (self.digital_correlate_access_code_bb_0_1_0, 0))
         self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.digital_correlate_access_code_bb_0_1_0_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.digital_binary_slicer_fb_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0_0, 0), (self.digital_binary_slicer_fb_0_0, 0))
-        self.connect((self.digital_correlate_access_code_bb_0_1_0, 0), (self.blocks_uchar_to_float_0_0, 0))
-        self.connect((self.digital_correlate_access_code_bb_0_1_0_0, 0), (self.blocks_uchar_to_float_0_0_0, 0))
+        self.connect((self.digital_correlate_access_code_bb_0_1_0, 0), (self.epy_block_0_0_0_0_0_0_0, 0))
+        self.connect((self.digital_correlate_access_code_bb_0_1_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0_0, 0))
+        self.connect((self.epy_block_0_0_0_0_0_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.analog_simple_squelch_cc_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0_0, 0), (self.analog_simple_squelch_cc_0_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.freq_xlating_fir_filter_xxx_0, 0))
@@ -335,7 +237,7 @@ class untitled(gr.top_block, Qt.QWidget):
 
 
     def closeEvent(self, event):
-        self.settings = Qt.QSettings("GNU Radio", "untitled")
+        self.settings = Qt.QSettings("GNU Radio", "DataSniffer")
         self.settings.setValue("geometry", self.saveGeometry())
         event.accept()
 
@@ -345,12 +247,9 @@ class untitled(gr.top_block, Qt.QWidget):
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
         self.set_filterFIR( firdes.low_pass(1,self.samp_rate,70000,5000))
-        self.set_omega(self.samp_rate / 50000)
         self.set_samp_rate_divide(self.samp_rate )
-        self.qtgui_time_sink_x_0_0_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_0_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_0_0_0_0_0.set_samp_rate(self.samp_rate)
+        self.qtgui_time_sink_x_0_0_0_0_0_2.set_samp_rate(self.samp_rate)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
 
     def get_threshold(self):
@@ -358,12 +257,8 @@ class untitled(gr.top_block, Qt.QWidget):
 
     def set_threshold(self, threshold):
         self.threshold = threshold
-
-    def get_squelchThreshold(self):
-        return self.squelchThreshold
-
-    def set_squelchThreshold(self, squelchThreshold):
-        self.squelchThreshold = squelchThreshold
+        self.analog_simple_squelch_cc_0.set_threshold(self.threshold)
+        self.analog_simple_squelch_cc_0_0.set_threshold(self.threshold)
 
     def get_samp_rate_divide(self):
         return self.samp_rate_divide
@@ -376,6 +271,8 @@ class untitled(gr.top_block, Qt.QWidget):
 
     def set_omega(self, omega):
         self.omega = omega
+        self.digital_clock_recovery_mm_xx_0.set_omega(self.omega)
+        self.digital_clock_recovery_mm_xx_0_0.set_omega(self.omega)
 
     def get_numpoints(self):
         return self.numpoints
@@ -395,7 +292,7 @@ class untitled(gr.top_block, Qt.QWidget):
 
 
 
-def main(top_block_cls=untitled, options=None):
+def main(top_block_cls=DataSniffer, options=None):
 
     if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
         style = gr.prefs().get_string('qtgui', 'style', 'raster')
