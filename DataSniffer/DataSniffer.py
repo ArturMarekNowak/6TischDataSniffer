@@ -78,12 +78,12 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 1000000
-        self.threshold = threshold = -33
+        self.samp_rate = samp_rate = 1500000
+        self.threshold = threshold = -37
         self.samp_rate_divide = samp_rate_divide = samp_rate
-        self.omega = omega = 20.05
+        self.omega = omega = 30.1
         self.numpoints = numpoints = 10240
-        self.filterFIR = filterFIR =  firdes.low_pass(1,samp_rate,70000,5000)
+        self.filterFIR = filterFIR =  firdes.low_pass(1,samp_rate,120000,50000)
 
         ##################################################
         # Blocks
@@ -246,7 +246,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.set_filterFIR( firdes.low_pass(1,self.samp_rate,70000,5000))
+        self.set_filterFIR( firdes.low_pass(1,self.samp_rate,120000,50000))
         self.set_samp_rate_divide(self.samp_rate )
         self.qtgui_time_sink_x_0_0_0_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0_0_2.set_samp_rate(self.samp_rate)
