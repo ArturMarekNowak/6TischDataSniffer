@@ -37,6 +37,7 @@ from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
 import epy_block_0_0_0_0_0_0_0
+import epy_block_0_0_0_0_0_0_0_0
 import osmosdr
 import time
 
@@ -78,12 +79,12 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
-        self.samp_rate = samp_rate = 1500000
+        self.samp_rate = samp_rate = 1000000
         self.threshold = threshold = -37
         self.samp_rate_divide = samp_rate_divide = samp_rate
-        self.omega = omega = 30.1
+        self.omega = omega = samp_rate // 50000 + 0.1
         self.numpoints = numpoints = 10240
-        self.filterFIR = filterFIR =  firdes.low_pass(1,samp_rate,120000,50000)
+        self.filterFIR = filterFIR =  firdes.low_pass(1,samp_rate,120000,70000)
 
         ##################################################
         # Blocks
@@ -92,7 +93,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
             args="numchan=" + str(1) + " " + ""
         )
         self.rtlsdr_source_0.set_sample_rate(samp_rate)
-        self.rtlsdr_source_0.set_center_freq(865.1e6, 0)
+        self.rtlsdr_source_0.set_center_freq(869.1e6, 0)
         self.rtlsdr_source_0.set_freq_corr(0, 0)
         self.rtlsdr_source_0.set_dc_offset_mode(0, 0)
         self.rtlsdr_source_0.set_iq_balance_mode(0, 0)
@@ -102,10 +103,109 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.rtlsdr_source_0.set_bb_gain(20, 0)
         self.rtlsdr_source_0.set_antenna('', 0)
         self.rtlsdr_source_0.set_bandwidth(0, 0)
+        self.qtgui_waterfall_sink_x_1 = qtgui.waterfall_sink_c(
+            1024, #size
+            firdes.WIN_BLACKMAN_hARRIS, #wintype
+            0, #fc
+            samp_rate, #bw
+            "", #name
+            1 #number of inputs
+        )
+        self.qtgui_waterfall_sink_x_1.set_update_time(0.10)
+        self.qtgui_waterfall_sink_x_1.enable_grid(False)
+        self.qtgui_waterfall_sink_x_1.enable_axis_labels(True)
+
+
+
+        labels = ['', '', '', '', '',
+                  '', '', '', '', '']
+        colors = [0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_waterfall_sink_x_1.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_waterfall_sink_x_1.set_line_label(i, labels[i])
+            self.qtgui_waterfall_sink_x_1.set_color_map(i, colors[i])
+            self.qtgui_waterfall_sink_x_1.set_line_alpha(i, alphas[i])
+
+        self.qtgui_waterfall_sink_x_1.set_intensity_range(-140, 10)
+
+        self._qtgui_waterfall_sink_x_1_win = sip.wrapinstance(self.qtgui_waterfall_sink_x_1.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_waterfall_sink_x_1_win)
+        self.qtgui_waterfall_sink_x_0_0 = qtgui.waterfall_sink_c(
+            1024, #size
+            firdes.WIN_BLACKMAN_hARRIS, #wintype
+            800000, #fc
+            samp_rate, #bw
+            "", #name
+            1 #number of inputs
+        )
+        self.qtgui_waterfall_sink_x_0_0.set_update_time(0.00010)
+        self.qtgui_waterfall_sink_x_0_0.enable_grid(False)
+        self.qtgui_waterfall_sink_x_0_0.enable_axis_labels(True)
+
+
+
+        labels = ['', '', '', '', '',
+                  '', '', '', '', '']
+        colors = [0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_waterfall_sink_x_0_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_waterfall_sink_x_0_0.set_line_label(i, labels[i])
+            self.qtgui_waterfall_sink_x_0_0.set_color_map(i, colors[i])
+            self.qtgui_waterfall_sink_x_0_0.set_line_alpha(i, alphas[i])
+
+        self.qtgui_waterfall_sink_x_0_0.set_intensity_range(-140, 10)
+
+        self._qtgui_waterfall_sink_x_0_0_win = sip.wrapinstance(self.qtgui_waterfall_sink_x_0_0.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_waterfall_sink_x_0_0_win)
+        self.qtgui_waterfall_sink_x_0 = qtgui.waterfall_sink_c(
+            1024, #size
+            firdes.WIN_BLACKMAN_hARRIS, #wintype
+            -800000, #fc
+            samp_rate, #bw
+            "", #name
+            1 #number of inputs
+        )
+        self.qtgui_waterfall_sink_x_0.set_update_time(0.00010)
+        self.qtgui_waterfall_sink_x_0.enable_grid(False)
+        self.qtgui_waterfall_sink_x_0.enable_axis_labels(True)
+
+
+
+        labels = ['', '', '', '', '',
+                  '', '', '', '', '']
+        colors = [0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_waterfall_sink_x_0.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_waterfall_sink_x_0.set_line_label(i, labels[i])
+            self.qtgui_waterfall_sink_x_0.set_color_map(i, colors[i])
+            self.qtgui_waterfall_sink_x_0.set_line_alpha(i, alphas[i])
+
+        self.qtgui_waterfall_sink_x_0.set_intensity_range(-140, 10)
+
+        self._qtgui_waterfall_sink_x_0_win = sip.wrapinstance(self.qtgui_waterfall_sink_x_0.pyqwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_waterfall_sink_x_0_win)
         self.qtgui_time_sink_x_0_0_0_0_0_2 = qtgui.time_sink_f(
             102400, #size
             samp_rate, #samp_rate
-            "27", #name
+            "68", #name
             1 #number of inputs
         )
         self.qtgui_time_sink_x_0_0_0_0_0_2.set_update_time(0.10)
@@ -152,7 +252,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.qtgui_time_sink_x_0_0_0_0_0 = qtgui.time_sink_f(
             102400, #size
             samp_rate, #samp_rate
-            "13", #name
+            "52", #name
             1 #number of inputs
         )
         self.qtgui_time_sink_x_0_0_0_0_0.set_update_time(0.10)
@@ -196,9 +296,10 @@ class DataSniffer(gr.top_block, Qt.QWidget):
 
         self._qtgui_time_sink_x_0_0_0_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0_0_0_0.pyqwidget(), Qt.QWidget)
         self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_win)
-        self.freq_xlating_fir_filter_xxx_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, 700000, samp_rate_divide)
-        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, -700000, samp_rate_divide)
-        self.epy_block_0_0_0_0_0_0_0 = epy_block_0_0_0_0_0_0_0.blk(channel='864.4MHz')
+        self.freq_xlating_fir_filter_xxx_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, 800000, samp_rate_divide)
+        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, -800000, samp_rate_divide)
+        self.epy_block_0_0_0_0_0_0_0_0 = epy_block_0_0_0_0_0_0_0_0.blk(channel='869.9MHz')
+        self.epy_block_0_0_0_0_0_0_0 = epy_block_0_0_0_0_0_0_0.blk(channel='868.3MHz')
         self.digital_correlate_access_code_bb_0_1_0_0 = digital.correlate_access_code_bb('1001000001001110', 0)
         self.digital_correlate_access_code_bb_0_1_0 = digital.correlate_access_code_bb('1001000001001110', 0)
         self.digital_clock_recovery_mm_xx_0_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
@@ -207,6 +308,8 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.digital_binary_slicer_fb_0 = digital.binary_slicer_fb()
         self.blocks_uchar_to_float_0_0_0_0_0 = blocks.uchar_to_float()
         self.blocks_uchar_to_float_0_0_0_0 = blocks.uchar_to_float()
+        self.blocks_moving_average_xx_0_0 = blocks.moving_average_ff(5, 1, 4000, 1)
+        self.blocks_moving_average_xx_0 = blocks.moving_average_ff(5, 1, 4000, 1)
         self.analog_simple_squelch_cc_0_0 = analog.simple_squelch_cc(threshold, 1)
         self.analog_simple_squelch_cc_0 = analog.simple_squelch_cc(threshold, 1)
         self.analog_quadrature_demod_cf_0_0_0 = analog.quadrature_demod_cf(1)
@@ -217,10 +320,12 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_quadrature_demod_cf_0_0, 0), (self.digital_clock_recovery_mm_xx_0, 0))
-        self.connect((self.analog_quadrature_demod_cf_0_0_0, 0), (self.digital_clock_recovery_mm_xx_0_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0_0, 0), (self.blocks_moving_average_xx_0, 0))
+        self.connect((self.analog_quadrature_demod_cf_0_0_0, 0), (self.blocks_moving_average_xx_0_0, 0))
         self.connect((self.analog_simple_squelch_cc_0, 0), (self.analog_quadrature_demod_cf_0_0, 0))
         self.connect((self.analog_simple_squelch_cc_0_0, 0), (self.analog_quadrature_demod_cf_0_0_0, 0))
+        self.connect((self.blocks_moving_average_xx_0, 0), (self.digital_clock_recovery_mm_xx_0, 0))
+        self.connect((self.blocks_moving_average_xx_0_0, 0), (self.digital_clock_recovery_mm_xx_0_0, 0))
         self.connect((self.blocks_uchar_to_float_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0, 0))
         self.connect((self.blocks_uchar_to_float_0_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0_2, 0))
         self.connect((self.digital_binary_slicer_fb_0, 0), (self.digital_correlate_access_code_bb_0_1_0, 0))
@@ -228,12 +333,16 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.digital_binary_slicer_fb_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0_0, 0), (self.digital_binary_slicer_fb_0_0, 0))
         self.connect((self.digital_correlate_access_code_bb_0_1_0, 0), (self.epy_block_0_0_0_0_0_0_0, 0))
-        self.connect((self.digital_correlate_access_code_bb_0_1_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0_0, 0))
+        self.connect((self.digital_correlate_access_code_bb_0_1_0_0, 0), (self.epy_block_0_0_0_0_0_0_0_0, 0))
         self.connect((self.epy_block_0_0_0_0_0_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0, 0))
+        self.connect((self.epy_block_0_0_0_0_0_0_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.analog_simple_squelch_cc_0, 0))
+        self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.qtgui_waterfall_sink_x_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0_0, 0), (self.analog_simple_squelch_cc_0_0, 0))
+        self.connect((self.freq_xlating_fir_filter_xxx_0_0, 0), (self.qtgui_waterfall_sink_x_0_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.freq_xlating_fir_filter_xxx_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.freq_xlating_fir_filter_xxx_0_0, 0))
+        self.connect((self.rtlsdr_source_0, 0), (self.qtgui_waterfall_sink_x_1, 0))
 
 
     def closeEvent(self, event):
@@ -246,10 +355,14 @@ class DataSniffer(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.set_filterFIR( firdes.low_pass(1,self.samp_rate,120000,50000))
+        self.set_filterFIR( firdes.low_pass(1,self.samp_rate,120000,70000))
+        self.set_omega(self.samp_rate // 50000 + 0.1)
         self.set_samp_rate_divide(self.samp_rate )
         self.qtgui_time_sink_x_0_0_0_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0_0_2.set_samp_rate(self.samp_rate)
+        self.qtgui_waterfall_sink_x_0.set_frequency_range(-800000, self.samp_rate)
+        self.qtgui_waterfall_sink_x_0_0.set_frequency_range(800000, self.samp_rate)
+        self.qtgui_waterfall_sink_x_1.set_frequency_range(0, self.samp_rate)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
 
     def get_threshold(self):

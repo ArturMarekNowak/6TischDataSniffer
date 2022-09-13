@@ -37,10 +37,8 @@ class blk(gr.sync_block):
                    
             if input_items[0][i] == 2:  
                 timestamp = str(datetime.datetime.now())
-                input_items[0][i] = 0
-                length, currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.littleEndianToBig(input_items[0][i:i+8], input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])
+                length, currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.littleEndianToBig(input_items[0][i+1:i+8], input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])
                 self.conn.execute(f"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength) VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}', '{totalPacketCount}', '{payloadDataLength}' )");
-                #self.conn.execute(f"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength) VALUES ('{timestamp}', '{self.channel}', '{input_items[0][i:i+8]}', '{input_items[0][i+8:i+24]}','{input_items[0][i+24:i+56]}', '{input_items[0][i+56:i+72]}', '{input_items[0][i+72:i+88]}' )");
         
         output_items[0][:] = input_items[0][:]
         self.conn.commit()
@@ -49,37 +47,6 @@ class blk(gr.sync_block):
         
     def littleEndianToBig(self, length, currentPacketNumber, testId, totalPacketCount, payloadDataLength):
     
-        '''
-        try:
-            array = np.array(length)
-            array = np.packbits(array, bitorder='big')
-            
-            length = array[0]
-            
-            array = np.array(currentPacketNumber)
-            array = np.packbits(array, bitorder='big')
-            
-            currentPacketNumber = array[0]
-            
-            array = np.array(testId)
-            array = np.packbits(array, bitorder='big')
-            
-            testId = array[0]
-            
-            array = np.array(totalPacketCount)
-            array = np.packbits(array, bitorder='big')
-            
-            totalPacketCount = array[0]
-            
-            array = np.array(payloadDataLength)
-            array = np.packbits(array, bitorder='big')
-            
-            payloadDataLength = array[0]
-
-        except:
-            print("littleEndianToBig error")
-            return 0,0,0,0,0
-        '''
         array = np.array(length)
         array = np.packbits(array, bitorder='big')
         array.dtype = np.uint8
