@@ -549,7 +549,7 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '"52"'
+    name: '"Channel 52"'
     nconnections: '1'
     size: '102400'
     srate: samp_rate
@@ -646,7 +646,7 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '"68"'
+    name: '"Channel 68"'
     nconnections: '1'
     size: '102400'
     srate: samp_rate
@@ -718,7 +718,7 @@ blocks:
     color8: '0'
     color9: '0'
     comment: ''
-    fc: '-800000'
+    fc: '0'
     fftsize: '1024'
     freqhalf: 'True'
     grid: 'False'
@@ -738,7 +738,7 @@ blocks:
     legend: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    name: '""'
+    name: '"Channel 52"'
     nconnections: '1'
     showports: 'False'
     type: complex
@@ -748,7 +748,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [833, 133]
+    coordinate: [821, 118]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_0
@@ -779,7 +779,7 @@ blocks:
     color8: '0'
     color9: '0'
     comment: ''
-    fc: '800000'
+    fc: '0'
     fftsize: '1024'
     freqhalf: 'True'
     grid: 'False'
@@ -799,7 +799,7 @@ blocks:
     legend: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    name: '""'
+    name: '"Channel 68"'
     nconnections: '1'
     showports: 'False'
     type: complex
@@ -809,7 +809,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [780, 502]
+    coordinate: [811, 570]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_1
@@ -860,7 +860,7 @@ blocks:
     legend: 'True'
     maxoutbuf: '0'
     minoutbuf: '0'
-    name: '""'
+    name: '"Whole spectrum"'
     nconnections: '1'
     showports: 'False'
     type: complex
@@ -1227,7 +1227,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [83, 329]
+    coordinate: [83, 330]
     rotation: 0
     state: true
 

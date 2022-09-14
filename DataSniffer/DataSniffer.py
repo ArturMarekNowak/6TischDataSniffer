@@ -108,7 +108,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
             firdes.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
             samp_rate, #bw
-            "", #name
+            "Whole spectrum", #name
             1 #number of inputs
         )
         self.qtgui_waterfall_sink_x_0_1.set_update_time(0.00010)
@@ -139,9 +139,9 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.qtgui_waterfall_sink_x_0_0 = qtgui.waterfall_sink_c(
             1024, #size
             firdes.WIN_BLACKMAN_hARRIS, #wintype
-            800000, #fc
+            0, #fc
             samp_rate, #bw
-            "", #name
+            "Channel 68", #name
             1 #number of inputs
         )
         self.qtgui_waterfall_sink_x_0_0.set_update_time(0.00010)
@@ -172,9 +172,9 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.qtgui_waterfall_sink_x_0 = qtgui.waterfall_sink_c(
             1024, #size
             firdes.WIN_BLACKMAN_hARRIS, #wintype
-            -800000, #fc
+            0, #fc
             samp_rate, #bw
-            "", #name
+            "Channel 52", #name
             1 #number of inputs
         )
         self.qtgui_waterfall_sink_x_0.set_update_time(0.00010)
@@ -205,7 +205,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.qtgui_time_sink_x_0_0_0_0_0_2 = qtgui.time_sink_f(
             102400, #size
             samp_rate, #samp_rate
-            "68", #name
+            "Channel 68", #name
             1 #number of inputs
         )
         self.qtgui_time_sink_x_0_0_0_0_0_2.set_update_time(0.10)
@@ -252,7 +252,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.qtgui_time_sink_x_0_0_0_0_0 = qtgui.time_sink_f(
             102400, #size
             samp_rate, #samp_rate
-            "52", #name
+            "Channel 52", #name
             1 #number of inputs
         )
         self.qtgui_time_sink_x_0_0_0_0_0.set_update_time(0.10)
@@ -360,8 +360,8 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.set_samp_rate_divide(self.samp_rate )
         self.qtgui_time_sink_x_0_0_0_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0_0_2.set_samp_rate(self.samp_rate)
-        self.qtgui_waterfall_sink_x_0.set_frequency_range(-800000, self.samp_rate)
-        self.qtgui_waterfall_sink_x_0_0.set_frequency_range(800000, self.samp_rate)
+        self.qtgui_waterfall_sink_x_0.set_frequency_range(0, self.samp_rate)
+        self.qtgui_waterfall_sink_x_0_0.set_frequency_range(0, self.samp_rate)
         self.qtgui_waterfall_sink_x_0_1.set_frequency_range(0, self.samp_rate)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
 
