@@ -13,7 +13,7 @@ class blk(gr.sync_block):
 
         gr.sync_block.__init__(
             self,
-            name='Packet parser',   
+            name='Packet parser IEEE',   
             in_sig=[np.byte],
             out_sig=[np.byte]
         )
@@ -21,60 +21,31 @@ class blk(gr.sync_block):
         self.channel = channel
         self.conn = sqlite3.connect("C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db", check_same_thread=False)
         self.conn.execute("PRAGMA synchronous=OFF")
-        self.SQL_QUERY = """
-                            INSERT INTO Log (
-                                 Timestamp, Channel, Length, CurrentPacketNumber, TestId, TotalPacketCount, PayloadDataLength
-                                 )
-                            VALUES (?, ?, ?, ?, ?, ?, ?)
-                        """
         
     def __del__(self):
         self.conn.close()
+        
+        
 
     def work(self, input_items, output_items):
         
-        for i in range(len(input_items[0]) - 88):
+        #for i in range(len(input_items[0]) - 88):
+        for i in range(len(input_items[0]) - 140):
                    
-            if input_items[0][i] == 2:  
+            if input_items[0][i] == 2 and i > 16:  
                 timestamp = str(datetime.datetime.now())
-                length, currentPacketNumber, testId, totalPacketCount, payloadDataLength = self.littleEndianToBig(input_items[0][i+1:i+8], input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])
-                self.conn.execute(f"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength) VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}', '{totalPacketCount}', '{payloadDataLength}' )");
+                input_items[0][i] = 0
+                               
+                self.conn.execute(f"INSERT INTO LogIEEE (Timestamp,Channel,SFD,MiddleBytes,Address) VALUES ('{timestamp}', '{self.channel}', '{self.getBytesInHex(input_items[0][i-16:i])}', '{self.getBytesInHex(input_items[0][i:i+64])}', '{self.getBytesInHex(input_items[0][i+64:i+128])}')");
         
         output_items[0][:] = input_items[0][:]
         self.conn.commit()
         return len(output_items[0])
 
+    def getBytesInHex(self, foo):
         
-    def littleEndianToBig(self, length, currentPacketNumber, testId, totalPacketCount, payloadDataLength):
-    
-        array = np.array(length)
-        array = np.packbits(array, bitorder='big')
-        array.dtype = np.uint8
+        rc = ""
+        for i in range(0, len(foo), 8):
+            rc += str("0x{:02x}".format(np.packbits(foo[i:i+8])[0])[2:])
         
-        length = array[0]
-            
-        array = np.array(currentPacketNumber)
-        array = np.packbits(array, bitorder='big')
-        array.dtype = np.uint16
-          
-        currentPacketNumber = array[0]
-            
-        array = np.array(testId)
-        array = np.packbits(array, bitorder='big')
-        array.dtype = np.uint32
-           
-        testId = array[0]
-            
-        array = np.array(totalPacketCount)
-        array = np.packbits(array, bitorder='big')
-        array.dtype = np.uint16
-            
-        totalPacketCount = array[0]
-            
-        array = np.array(payloadDataLength)
-        array = np.packbits(array, bitorder='big')
-        array.dtype = np.uint16
-            
-        payloadDataLength = array[0]
-            
-        return length, currentPacketNumber, testId, totalPacketCount, payloadDataLength
+        return rc

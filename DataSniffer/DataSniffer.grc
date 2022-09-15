@@ -353,39 +353,24 @@ blocks:
       import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
       class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
       \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
-      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \ parser IEEE',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
       C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
       , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n        self.SQL_QUERY = \"\"\"\n                            INSERT INTO\
-      \ Log (\n                                 Timestamp, Channel, Length, CurrentPacketNumber,\
-      \ TestId, TotalPacketCount, PayloadDataLength\n                            \
-      \     )\n                            VALUES (?, ?, ?, ?, ?, ?, ?)\n        \
-      \                \"\"\"\n        \n    def __del__(self):\n        self.conn.close()\n\
-      \n    def work(self, input_items, output_items):\n        \n        for i in\
-      \ range(len(input_items[0]) - 88):\n                   \n            if input_items[0][i]\
-      \ == 2:  \n                timestamp = str(datetime.datetime.now())\n      \
-      \          length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
-      \ = self.littleEndianToBig(input_items[0][i+1:i+8], input_items[0][i+8:i+24],\
-      \ input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])\n\
-      \                self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
-      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n        \n        output_items[0][:]\
-      \ = input_items[0][:]\n        self.conn.commit()\n        return len(output_items[0])\n\
-      \n        \n    def littleEndianToBig(self, length, currentPacketNumber, testId,\
-      \ totalPacketCount, payloadDataLength):\n    \n        array = np.array(length)\n\
-      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint8\n\
-      \        \n        length = array[0]\n            \n        array = np.array(currentPacketNumber)\n\
-      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
-      \          \n        currentPacketNumber = array[0]\n            \n        array\
-      \ = np.array(testId)\n        array = np.packbits(array, bitorder='big')\n \
-      \       array.dtype = np.uint32\n           \n        testId = array[0]\n  \
-      \          \n        array = np.array(totalPacketCount)\n        array = np.packbits(array,\
-      \ bitorder='big')\n        array.dtype = np.uint16\n            \n        totalPacketCount\
-      \ = array[0]\n            \n        array = np.array(payloadDataLength)\n  \
-      \      array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
-      \            \n        payloadDataLength = array[0]\n            \n        return\
-      \ length, currentPacketNumber, testId, totalPacketCount, payloadDataLength"
+      )\n        \n    def __del__(self):\n        self.conn.close()\n        \n \
+      \       \n\n    def work(self, input_items, output_items):\n        \n     \
+      \   #for i in range(len(input_items[0]) - 88):\n        for i in range(len(input_items[0])\
+      \ - 140):\n                   \n            if input_items[0][i] == 2 and i\
+      \ > 16:  \n                timestamp = str(datetime.datetime.now())\n      \
+      \          input_items[0][i] = 0\n                               \n        \
+      \        self.conn.execute(f\"INSERT INTO LogIEEE (Timestamp,Channel,SFD,MiddleBytes,Address)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{self.getBytesInHex(input_items[0][i-16:i])}',\
+      \ '{self.getBytesInHex(input_items[0][i:i+64])}', '{self.getBytesInHex(input_items[0][i+64:i+128])}')\"\
+      );\n        \n        output_items[0][:] = input_items[0][:]\n        self.conn.commit()\n\
+      \        return len(output_items[0])\n\n    def getBytesInHex(self, foo):\n\
+      \        \n        rc = \"\"\n        for i in range(0, len(foo), 8):\n    \
+      \        rc += str(\"0x{:02x}\".format(np.packbits(foo[i:i+8])[0])[2:])\n  \
+      \      \n        return rc"
     affinity: ''
     alias: ''
     channel: '''868.3MHz'''
@@ -393,7 +378,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+    _io_cache: ('Packet parser IEEE', 'blk', [('channel', "'channel'")], [('0', 'byte',
       1)], [('0', 'byte', 1)], '', ['channel'])
     bus_sink: false
     bus_source: false
@@ -408,39 +393,24 @@ blocks:
       import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
       class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
       \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
-      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \ parser IEEE',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
       C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
       , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n        self.SQL_QUERY = \"\"\"\n                            INSERT INTO\
-      \ Log (\n                                 Timestamp, Channel, Length, CurrentPacketNumber,\
-      \ TestId, TotalPacketCount, PayloadDataLength\n                            \
-      \     )\n                            VALUES (?, ?, ?, ?, ?, ?, ?)\n        \
-      \                \"\"\"\n        \n    def __del__(self):\n        self.conn.close()\n\
-      \n    def work(self, input_items, output_items):\n        \n        for i in\
-      \ range(len(input_items[0]) - 88):\n                   \n            if input_items[0][i]\
-      \ == 2:  \n                timestamp = str(datetime.datetime.now())\n      \
-      \          length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
-      \ = self.littleEndianToBig(input_items[0][i+1:i+8], input_items[0][i+8:i+24],\
-      \ input_items[0][i+24:i+56], input_items[0][i+56:i+72], input_items[0][i+72:i+88])\n\
-      \                self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
-      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n        \n        output_items[0][:]\
-      \ = input_items[0][:]\n        self.conn.commit()\n        return len(output_items[0])\n\
-      \n        \n    def littleEndianToBig(self, length, currentPacketNumber, testId,\
-      \ totalPacketCount, payloadDataLength):\n    \n        array = np.array(length)\n\
-      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint8\n\
-      \        \n        length = array[0]\n            \n        array = np.array(currentPacketNumber)\n\
-      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
-      \          \n        currentPacketNumber = array[0]\n            \n        array\
-      \ = np.array(testId)\n        array = np.packbits(array, bitorder='big')\n \
-      \       array.dtype = np.uint32\n           \n        testId = array[0]\n  \
-      \          \n        array = np.array(totalPacketCount)\n        array = np.packbits(array,\
-      \ bitorder='big')\n        array.dtype = np.uint16\n            \n        totalPacketCount\
-      \ = array[0]\n            \n        array = np.array(payloadDataLength)\n  \
-      \      array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
-      \            \n        payloadDataLength = array[0]\n            \n        return\
-      \ length, currentPacketNumber, testId, totalPacketCount, payloadDataLength"
+      )\n        \n    def __del__(self):\n        self.conn.close()\n        \n \
+      \       \n\n    def work(self, input_items, output_items):\n        \n     \
+      \   #for i in range(len(input_items[0]) - 88):\n        for i in range(len(input_items[0])\
+      \ - 140):\n                   \n            if input_items[0][i] == 2 and i\
+      \ > 16:  \n                timestamp = str(datetime.datetime.now())\n      \
+      \          input_items[0][i] = 0\n                               \n        \
+      \        self.conn.execute(f\"INSERT INTO LogIEEE (Timestamp,Channel,SFD,MiddleBytes,Address)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{self.getBytesInHex(input_items[0][i-16:i])}',\
+      \ '{self.getBytesInHex(input_items[0][i:i+64])}', '{self.getBytesInHex(input_items[0][i+64:i+128])}')\"\
+      );\n        \n        output_items[0][:] = input_items[0][:]\n        self.conn.commit()\n\
+      \        return len(output_items[0])\n\n    def getBytesInHex(self, foo):\n\
+      \        \n        rc = \"\"\n        for i in range(0, len(foo), 8):\n    \
+      \        rc += str(\"0x{:02x}\".format(np.packbits(foo[i:i+8])[0])[2:])\n  \
+      \      \n        return rc"
     affinity: ''
     alias: ''
     channel: '''869.9MHz'''
@@ -448,12 +418,12 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+    _io_cache: ('Packet parser IEEE', 'blk', [('channel', "'channel'")], [('0', 'byte',
       1)], [('0', 'byte', 1)], '', ['channel'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [845, 871]
+    coordinate: [846, 871]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0
