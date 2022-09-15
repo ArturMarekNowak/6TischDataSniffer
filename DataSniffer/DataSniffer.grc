@@ -353,24 +353,45 @@ blocks:
       import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
       class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
       \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
-      \ parser IEEE',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
       C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
       , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n        \n    def __del__(self):\n        self.conn.close()\n        \n \
-      \       \n\n    def work(self, input_items, output_items):\n        \n     \
-      \   #for i in range(len(input_items[0]) - 88):\n        for i in range(len(input_items[0])\
-      \ - 140):\n                   \n            if input_items[0][i] == 2 and i\
-      \ > 16:  \n                timestamp = str(datetime.datetime.now())\n      \
-      \          input_items[0][i] = 0\n                               \n        \
-      \        self.conn.execute(f\"INSERT INTO LogIEEE (Timestamp,Channel,SFD,MiddleBytes,Address)\
-      \ VALUES ('{timestamp}', '{self.channel}', '{self.getBytesInHex(input_items[0][i-16:i])}',\
-      \ '{self.getBytesInHex(input_items[0][i:i+64])}', '{self.getBytesInHex(input_items[0][i+64:i+128])}')\"\
-      );\n        \n        output_items[0][:] = input_items[0][:]\n        self.conn.commit()\n\
-      \        return len(output_items[0])\n\n    def getBytesInHex(self, foo):\n\
-      \        \n        rc = \"\"\n        for i in range(0, len(foo), 8):\n    \
-      \        rc += str(\"0x{:02x}\".format(np.packbits(foo[i:i+8])[0])[2:])\n  \
-      \      \n        return rc"
+      )\n        self.SQL_QUERY = \"\"\"\n                            INSERT INTO\
+      \ Log (\n                                 Timestamp, Channel, Length, CurrentPacketNumber,\
+      \ TestId, TotalPacketCount, PayloadDataLength\n                            \
+      \     )\n                            VALUES (?, ?, ?, ?, ?, ?, ?)\n        \
+      \                \"\"\"\n        self.buffer = []\n        self.bufferTimestamp\
+      \ = str(datetime.datetime.now())\n        \n    def __del__(self):\n       \
+      \ self.conn.close()\n\n    def work(self, input_items, output_items):\n    \
+      \    \n        for i in range(len(input_items[0])):            \n          \
+      \  \n            if input_items[0][i] == 2 and len(self.buffer) == 0:  \n  \
+      \              \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
+      \                self.buffer.append(0)\n                continue\n         \
+      \       \n            if len(self.buffer) > 0 and len(self.buffer) < 88: \n\
+      \                \n                self.buffer.append(input_items[0][i])\n \
+      \           \n            if len(self.buffer) == 88:  \n                \n \
+      \               length = np.array(self.buffer[:8])\n                length =\
+      \ np.packbits(length, bitorder='big')\n                length.dtype = np.uint8\n\
+      \                                    \n                currentPacketNumber =\
+      \ np.array(self.buffer[8:24])\n                currentPacketNumber = np.packbits(currentPacketNumber,\
+      \ bitorder='big')\n                currentPacketNumber.dtype = np.uint16\n \
+      \                                     \n                testId = np.array(self.buffer[24:56])\n\
+      \                testId = np.packbits(testId, bitorder='big')\n            \
+      \    testId.dtype = np.uint32\n                                       \n   \
+      \             totalPacketCount = np.array(self.buffer[56:72])\n            \
+      \    totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n    \
+      \            totalPacketCount.dtype = np.uint16\n                          \
+      \              \n                payloadDataLength = np.array(self.buffer[72:88])\n\
+      \                payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n\
+      \                payloadDataLength.dtype = np.uint16\n                \n   \
+      \             #input_items[0][i+1:i+8], input_items[0][i+8:i+24], input_items[0][i+24:i+56],\
+      \ input_items[0][i+56:i+72], input_items[0][i+72:i+88]\n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n        \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0])"
     affinity: ''
     alias: ''
     channel: '''868.3MHz'''
@@ -378,12 +399,12 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('Packet parser IEEE', 'blk', [('channel', "'channel'")], [('0', 'byte',
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
       1)], [('0', 'byte', 1)], '', ['channel'])
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [812, 492]
+    coordinate: [810, 493]
     rotation: 0
     state: true
 - name: epy_block_0_0_0_0_0_0_0_0
@@ -393,24 +414,46 @@ blocks:
       import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
       class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
       \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
-      \ parser IEEE',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
       C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
       , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n        \n    def __del__(self):\n        self.conn.close()\n        \n \
-      \       \n\n    def work(self, input_items, output_items):\n        \n     \
-      \   #for i in range(len(input_items[0]) - 88):\n        for i in range(len(input_items[0])\
-      \ - 140):\n                   \n            if input_items[0][i] == 2 and i\
-      \ > 16:  \n                timestamp = str(datetime.datetime.now())\n      \
-      \          input_items[0][i] = 0\n                               \n        \
-      \        self.conn.execute(f\"INSERT INTO LogIEEE (Timestamp,Channel,SFD,MiddleBytes,Address)\
-      \ VALUES ('{timestamp}', '{self.channel}', '{self.getBytesInHex(input_items[0][i-16:i])}',\
-      \ '{self.getBytesInHex(input_items[0][i:i+64])}', '{self.getBytesInHex(input_items[0][i+64:i+128])}')\"\
-      );\n        \n        output_items[0][:] = input_items[0][:]\n        self.conn.commit()\n\
-      \        return len(output_items[0])\n\n    def getBytesInHex(self, foo):\n\
-      \        \n        rc = \"\"\n        for i in range(0, len(foo), 8):\n    \
-      \        rc += str(\"0x{:02x}\".format(np.packbits(foo[i:i+8])[0])[2:])\n  \
-      \      \n        return rc"
+      )\n        self.SQL_QUERY = \"\"\"\n                            INSERT INTO\
+      \ Log (\n                                 Timestamp, Channel, Length, CurrentPacketNumber,\
+      \ TestId, TotalPacketCount, PayloadDataLength\n                            \
+      \     )\n                            VALUES (?, ?, ?, ?, ?, ?, ?)\n        \
+      \                \"\"\"\n        self.buffer = []\n        self.bufferTimestamp\
+      \ = str(datetime.datetime.now())\n        \n    def __del__(self):\n       \
+      \ self.conn.close()\n\n    def work(self, input_items, output_items):\n    \
+      \    \n        for i in range(len(input_items[0])):            \n          \
+      \  \n            if input_items[0][i] == 2 and len(self.buffer) == 0:  \n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.append(0)\n                continue\n                \n\
+      \            if input_items[0][i] == 3 and len(self.buffer) == 0:  \n      \
+      \          self.bufferTimestamp = str(datetime.datetime.now())\n           \
+      \     self.buffer.append(1)\n                continue\n                \n  \
+      \          if len(self.buffer) > 0 and len(self.buffer) < 88: \n           \
+      \     self.buffer.append(input_items[0][i])\n            \n            if len(self.buffer)\
+      \ == 88:\n                                \n                length = np.array(self.buffer[i:i+8],\
+      \ dtype=np.int)\n                length = np.packbits(length, bitorder='big')\n\
+      \                length.dtype = np.uint8\n                            \n   \
+      \             currentPacketNumber = np.array(self.buffer[i+8:i+24], dtype=np.int)\n\
+      \                currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \                currentPacketNumber.dtype = np.uint16\n                   \
+      \                   \n                testId = np.array(self.buffer[i+24:i+56],\
+      \ dtype=np.int)\n                testId = np.packbits(testId, bitorder='big')\n\
+      \                testId.dtype = np.uint32\n                                \
+      \       \n                totalPacketCount = np.array(self.buffer[i+56:i+72],\
+      \ dtype=np.int)\n                totalPacketCount = np.packbits(totalPacketCount,\
+      \ bitorder='big')\n                totalPacketCount.dtype = np.uint16\n    \
+      \                                    \n                payloadDataLength = np.array(self.buffer[i+72:i+88],\
+      \ dtype=np.int)\n                payloadDataLength = np.packbits(payloadDataLength,\
+      \ bitorder='big')\n                payloadDataLength.dtype = np.uint16\n   \
+      \                 \n                self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n        \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0])"
     affinity: ''
     alias: ''
     channel: '''869.9MHz'''
@@ -418,7 +461,7 @@ blocks:
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('Packet parser IEEE', 'blk', [('channel', "'channel'")], [('0', 'byte',
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
       1)], [('0', 'byte', 1)], '', ['channel'])
     bus_sink: false
     bus_source: false
@@ -779,7 +822,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [811, 570]
+    coordinate: [771, 585]
     rotation: 0
     state: true
 - name: qtgui_waterfall_sink_x_0_1
