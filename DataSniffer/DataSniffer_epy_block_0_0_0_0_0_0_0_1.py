@@ -19,7 +19,7 @@ class blk(gr.sync_block):
         )
         
         self.channel = channel
-        self.conn = sqlite3.connect("C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db", check_same_thread=False)
+        self.conn = sqlite3.connect("/mnt/c/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db", check_same_thread=False)
         self.conn.execute("PRAGMA synchronous=OFF")
 
         self.buffer = []
