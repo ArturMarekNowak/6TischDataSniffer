@@ -21,50 +21,58 @@ class blk(gr.sync_block):
         self.channel = channel
         self.conn = sqlite3.connect("C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db", check_same_thread=False)
         self.conn.execute("PRAGMA synchronous=OFF")
-        self.SQL_QUERY = """
-                            INSERT INTO Log (
-                                 Timestamp, Channel, Length, CurrentPacketNumber, TestId, TotalPacketCount, PayloadDataLength
-                                 )
-                            VALUES (?, ?, ?, ?, ?, ?, ?)
-                        """
+
+        self.buffer = []
+        self.bufferTimestamp = str(datetime.datetime.now())
         
     def __del__(self):
         self.conn.close()
 
     def work(self, input_items, output_items):
         
-        inp = input_items[0]
-        indices = numpy.where(inp[:-96] == 2)
-        if indices:
-            self.conn.executemany(self.SQL_QUERY,
-                                   zip(
-                                   [time.time_ns()] * len(indices),
-                                   [self.channel] * len(indices),
-                                   #[self.littleEndianToBig(inp[i:i+16]) for i in indices],
-                                   #[self.littleEndianToBig(inp[i+16:i+32]) for i in indices],
-                                   #[self.littleEndianToBig(inp[i+32:i+64]) for i in indices],
-                                   #[self.littleEndianToBig(inp[i+64:i+80]) for i in indices],
-                                   #[self.littleEndianToBig(inp[i+80:i+96]) for i in indices]
-                                   [0],
-                                   [0],
-                                   [0],
-                                   [0],
-                                   [0]
-                                   ))
-      
-        return max(0, len(inp) - 96)  
-
+        for i in range(len(input_items[0])):            
+            
+            if input_items[0][i] == 2 and len(self.buffer) == 0:  
+                
+                self.bufferTimestamp = str(datetime.datetime.now())
+                self.buffer.append(0)
+                continue
+                
+            if input_items[0][i] == 3 and len(self.buffer) == 0:  
+                
+                self.bufferTimestamp = str(datetime.datetime.now())
+                self.buffer.append(0)
+                continue
+                
+            if len(self.buffer) > 0 and len(self.buffer) < 88: 
+                
+                self.buffer.append(input_items[0][i])
+            
+            if len(self.buffer) == 88:  
+                
+                length = np.array(self.buffer[:8])
+                length = np.packbits(length, bitorder='big')
+                length.dtype = np.uint8
+                                    
+                currentPacketNumber = np.array(self.buffer[8:24])
+                currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')
+                currentPacketNumber.dtype = np.uint16
+                                      
+                testId = np.array(self.buffer[24:56])
+                testId = np.packbits(testId, bitorder='big')
+                testId.dtype = np.uint32
+                                       
+                totalPacketCount = np.array(self.buffer[56:72])
+                totalPacketCount = np.packbits(totalPacketCount, bitorder='big')
+                totalPacketCount.dtype = np.uint16
+                                        
+                payloadDataLength = np.array(self.buffer[72:88])
+                payloadDataLength = np.packbits(payloadDataLength, bitorder='big')
+                payloadDataLength.dtype = np.uint16
+                
+                self.conn.execute(f"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength) VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length[0]}', '{currentPacketNumber[0]}','{testId[0]}', '{totalPacketCount[0]}', '{payloadDataLength[0]}' )");
+                self.buffer = []
         
-    def littleEndianToBig(self, inputBits):
-    
-        try:
-            array = np.array(inputBits)
-            array = np.packbits(array, bitorder='big')
-            
-            outputBits = array[0]
-
-        except:
-            print("littleEndianToBig error")
-            return 0
-            
-        return outputBits
+        self.conn.commit()
+        output_items[0][:] = input_items[0][:]
+        return len(output_items[0])

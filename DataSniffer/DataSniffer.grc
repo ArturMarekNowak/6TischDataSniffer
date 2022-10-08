@@ -1,6 +1,7 @@
 options:
   parameters:
     author: artur
+    catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
     comment: ''
@@ -36,7 +37,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: ' firdes.low_pass(1,samp_rate,70000,5000)'
+    value: ' firdes.low_pass(1,samp_rate,150000,70000)'
   states:
     bus_sink: false
     bus_source: false
@@ -60,7 +61,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '20.05'
+    value: 'samp_rate // 50000 '
   states:
     bus_sink: false
     bus_source: false
@@ -72,7 +73,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: '1000000'
+    value: '2000000'
   states:
     bus_sink: false
     bus_source: false
@@ -92,11 +93,23 @@ blocks:
     coordinate: [637, 31]
     rotation: 0
     state: enabled
+- name: tagName
+  id: variable
+  parameters:
+    comment: ''
+    value: '"SFD"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1184, 36.0]
+    rotation: 0
+    state: enabled
 - name: threshold
   id: variable
   parameters:
     comment: ''
-    value: '-33'
+    value: '-37'
   states:
     bus_sink: false
     bus_source: false
@@ -117,7 +130,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [958, 240]
+    coordinate: [1417, 183]
     rotation: 0
     state: true
 - name: analog_quadrature_demod_cf_0_0_0
@@ -133,7 +146,55 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [966, 528]
+    coordinate: [1462, 555]
+    rotation: 0
+    state: true
+- name: analog_quadrature_demod_cf_0_0_0_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1428, 975]
+    rotation: 0
+    state: true
+- name: analog_quadrature_demod_cf_0_0_0_0_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1438, 1374]
+    rotation: 0
+    state: true
+- name: analog_quadrature_demod_cf_0_0_0_0_0_0_0
+  id: analog_quadrature_demod_cf
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1550, 1861]
     rotation: 0
     state: true
 - name: analog_simple_squelch_cc_0
@@ -150,7 +211,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [739, 230]
+    coordinate: [1196, 175]
     rotation: 0
     state: true
 - name: analog_simple_squelch_cc_0_0
@@ -167,8 +228,172 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [731, 517]
+    coordinate: [1237, 547]
     rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0_0_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: threshold
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1203, 967]
+    rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0_0_0_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: threshold
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1213, 1366]
+    rotation: 0
+    state: true
+- name: analog_simple_squelch_cc_0_0_0_0_0_0
+  id: analog_simple_squelch_cc
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha: '1'
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    threshold: threshold
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1325, 1853]
+    rotation: 0
+    state: true
+- name: blocks_ctrlport_monitor_performance_0
+  id: blocks_ctrlport_monitor_performance
+  parameters:
+    alias: ''
+    comment: ''
+    en: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 252.0]
+    rotation: 0
+    state: true
+- name: blocks_moving_average_xx_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '15'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1443, 290]
+    rotation: 180
+    state: true
+- name: blocks_moving_average_xx_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '15'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1469, 669]
+    rotation: 180
+    state: true
+- name: blocks_moving_average_xx_0_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '15'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1435, 1089]
+    rotation: 180
+    state: true
+- name: blocks_moving_average_xx_0_0_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '15'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1445, 1488]
+    rotation: 180
+    state: true
+- name: blocks_moving_average_xx_0_0_0_0_0_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: '15'
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: '1'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1557, 1975]
+    rotation: 180
     state: true
 - name: blocks_uchar_to_float_0_0_0_0
   id: blocks_uchar_to_float
@@ -182,7 +407,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2229, 244]
+    coordinate: [1481, 445]
     rotation: 0
     state: true
 - name: blocks_uchar_to_float_0_0_0_0_0
@@ -197,7 +422,52 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2202, 525]
+    coordinate: [1516, 824]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0_0_0_0_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1482, 1244]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0_0_0_0_0_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1492, 1643]
+    rotation: 0
+    state: true
+- name: blocks_uchar_to_float_0_0_0_0_0_0_0_0_0
+  id: blocks_uchar_to_float
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1532, 2215]
     rotation: 0
     state: true
 - name: digital_binary_slicer_fb_0
@@ -212,8 +482,8 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1448, 251]
-    rotation: 0
+    coordinate: [979, 327]
+    rotation: 180
     state: true
 - name: digital_binary_slicer_fb_0_0
   id: digital_binary_slicer_fb
@@ -227,8 +497,53 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1473, 532]
-    rotation: 0
+    coordinate: [1012, 705]
+    rotation: 180
+    state: true
+- name: digital_binary_slicer_fb_0_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [978, 1125]
+    rotation: 180
+    state: true
+- name: digital_binary_slicer_fb_0_0_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [988, 1524]
+    rotation: 180
+    state: true
+- name: digital_binary_slicer_fb_0_0_0_0_0_0
+  id: digital_binary_slicer_fb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1100, 2011]
+    rotation: 180
     state: true
 - name: digital_clock_recovery_mm_xx_0
   id: digital_clock_recovery_mm_xx
@@ -248,8 +563,8 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1187, 205]
-    rotation: 0
+    coordinate: [1166, 283]
+    rotation: 180
     state: true
 - name: digital_clock_recovery_mm_xx_0_0
   id: digital_clock_recovery_mm_xx
@@ -269,11 +584,74 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1195, 492]
-    rotation: 0
+    coordinate: [1196, 661]
+    rotation: 180
     state: true
-- name: digital_correlate_access_code_bb_0_1_0
-  id: digital_correlate_access_code_bb
+- name: digital_clock_recovery_mm_xx_0_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1162, 1081]
+    rotation: 180
+    state: true
+- name: digital_clock_recovery_mm_xx_0_0_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1178, 1495]
+    rotation: 180
+    state: true
+- name: digital_clock_recovery_mm_xx_0_0_0_0_0_0
+  id: digital_clock_recovery_mm_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    gain_mu: '0.175'
+    gain_omega: 0.25*0.175*0.175
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    mu: '0.5'
+    omega: omega
+    omega_relative_limit: '0.005'
+    type: float
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1290, 1982]
+    rotation: 180
+    state: true
+- name: digital_correlate_access_code_tag_xx_0
+  id: digital_correlate_access_code_tag_xx
   parameters:
     access_code: '1001000001001110'
     affinity: ''
@@ -281,16 +659,18 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
+    tagname: tagName
     threshold: '0'
+    type: byte
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1640, 235]
+    coordinate: [976, 396.0]
     rotation: 0
     state: true
-- name: digital_correlate_access_code_bb_0_1_0_0
-  id: digital_correlate_access_code_bb
+- name: digital_correlate_access_code_tag_xx_0_0
+  id: digital_correlate_access_code_tag_xx
   parameters:
     access_code: '1001000001001110'
     affinity: ''
@@ -298,74 +678,132 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
+    tagname: tagName
     threshold: '0'
+    type: byte
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1661, 516]
+    coordinate: [952, 788.0]
     rotation: 0
     state: true
-- name: epy_block_0_0_0_0_0_0_0
+- name: digital_correlate_access_code_tag_xx_0_0_0
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 1204.0]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_tag_xx_0_0_1
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [960, 1604.0]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_tag_xx_0_0_2
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [936, 2124.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0_4_1
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
-      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
-      class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
-      \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
       \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
-      C:/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
-      , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n        self.SQL_QUERY = \"\"\"\n                            INSERT INTO\
-      \ Log (\n                                 Timestamp, Channel, Length, CurrentPacketNumber,\
-      \ TestId, TotalPacketCount, PayloadDataLength\n                            \
-      \     )\n                            VALUES (?, ?, ?, ?, ?, ?, ?)\n        \
-      \                \"\"\"\n        \n    def __del__(self):\n        self.conn.close()\n\
-      \n    def work(self, input_items, output_items):\n        \n        for i in\
-      \ range(len(input_items[0]) - 88):\n                   \n            if input_items[0][i]\
-      \ == 2:  \n                timestamp = str(datetime.datetime.now())\n      \
-      \          input_items[0][i] = 0\n                length, currentPacketNumber,\
-      \ testId, totalPacketCount, payloadDataLength = self.littleEndianToBig(input_items[0][i:i+8],\
-      \ input_items[0][i+8:i+24], input_items[0][i+24:i+56], input_items[0][i+56:i+72],\
-      \ input_items[0][i+72:i+88])\n                self.conn.execute(f\"INSERT INTO\
-      \ Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
-      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                #self.conn.execute(f\"\
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
       INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{timestamp}', '{self.channel}', '{input_items[0][i:i+8]}', '{input_items[0][i+8:i+24]}','{input_items[0][i+24:i+56]}',\
-      \ '{input_items[0][i+56:i+72]}', '{input_items[0][i+72:i+88]}' )\");\n     \
-      \   \n        output_items[0][:] = input_items[0][:]\n        self.conn.commit()\n\
-      \        return len(output_items[0])\n\n        \n    def littleEndianToBig(self,\
-      \ length, currentPacketNumber, testId, totalPacketCount, payloadDataLength):\n\
-      \    \n        '''\n        try:\n            array = np.array(length)\n   \
-      \         array = np.packbits(array, bitorder='big')\n            \n       \
-      \     length = array[0]\n            \n            array = np.array(currentPacketNumber)\n\
-      \            array = np.packbits(array, bitorder='big')\n            \n    \
-      \        currentPacketNumber = array[0]\n            \n            array = np.array(testId)\n\
-      \            array = np.packbits(array, bitorder='big')\n            \n    \
-      \        testId = array[0]\n            \n            array = np.array(totalPacketCount)\n\
-      \            array = np.packbits(array, bitorder='big')\n            \n    \
-      \        totalPacketCount = array[0]\n            \n            array = np.array(payloadDataLength)\n\
-      \            array = np.packbits(array, bitorder='big')\n            \n    \
-      \        payloadDataLength = array[0]\n\n        except:\n            print(\"\
-      littleEndianToBig error\")\n            return 0,0,0,0,0\n        '''\n    \
-      \    array = np.array(length)\n        array = np.packbits(array, bitorder='big')\n\
-      \        array.dtype = np.uint8\n        \n        length = array[0]\n     \
-      \       \n        array = np.array(currentPacketNumber)\n        array = np.packbits(array,\
-      \ bitorder='big')\n        array.dtype = np.uint16\n          \n        currentPacketNumber\
-      \ = array[0]\n            \n        array = np.array(testId)\n        array\
-      \ = np.packbits(array, bitorder='big')\n        array.dtype = np.uint32\n  \
-      \         \n        testId = array[0]\n            \n        array = np.array(totalPacketCount)\n\
-      \        array = np.packbits(array, bitorder='big')\n        array.dtype = np.uint16\n\
-      \            \n        totalPacketCount = array[0]\n            \n        array\
-      \ = np.array(payloadDataLength)\n        array = np.packbits(array, bitorder='big')\n\
-      \        array.dtype = np.uint16\n            \n        payloadDataLength =\
-      \ array[0]\n            \n        return length, currentPacketNumber, testId,\
-      \ totalPacketCount, payloadDataLength"
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
     affinity: ''
     alias: ''
-    channel: '''864.4MHz'''
+    channel: '''868.3MHz'''
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -375,7 +813,291 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1974, 245]
+    coordinate: [1280, 436.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0_4_1_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
+    affinity: ''
+    alias: ''
+    channel: '''869.9MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+      1)], [('0', 'byte', 1)], '', ['channel'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1272, 820.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0_4_1_0_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
+    affinity: ''
+    alias: ''
+    channel: '''868.7MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+      1)], [('0', 'byte', 1)], '', ['channel'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 1228.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0_4_1_0_1
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
+    affinity: ''
+    alias: ''
+    channel: '''869.5MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+      1)], [('0', 'byte', 1)], '', ['channel'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1216, 1676.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0_4_1_0_2
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
+    affinity: ''
+    alias: ''
+    channel: '''869.1MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+      1)], [('0', 'byte', 1)], '', ['channel'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1256, 2196.0]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0
@@ -383,7 +1105,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: '-700000'
+    center_freq: '-800000'
     comment: ''
     decim: '1'
     maxoutbuf: '0'
@@ -395,7 +1117,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [454, 211]
+    coordinate: [903, 155]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0_0
@@ -403,7 +1125,7 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    center_freq: '700000'
+    center_freq: '800000'
     comment: ''
     decim: '1'
     maxoutbuf: '0'
@@ -415,7 +1137,67 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [442, 491]
+    coordinate: [941, 527]
+    rotation: 0
+    state: true
+- name: freq_xlating_fir_filter_xxx_0_0_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: '-400000'
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate_divide
+    taps: filterFIR
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [907, 947]
+    rotation: 0
+    state: true
+- name: freq_xlating_fir_filter_xxx_0_0_0_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: '400000'
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate_divide
+    taps: filterFIR
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [917, 1346]
+    rotation: 0
+    state: true
+- name: freq_xlating_fir_filter_xxx_0_0_0_0_0_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: '200000'
+    comment: ''
+    decim: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate_divide
+    taps: filterFIR
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1029, 1833]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0_0_0_0
@@ -471,7 +1253,7 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '"13"'
+    name: '"Channel 52"'
     nconnections: '1'
     size: '102400'
     srate: samp_rate
@@ -512,7 +1294,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2430, 208]
+    coordinate: [1677, 409]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0_0_0_0_2
@@ -568,7 +1350,7 @@ blocks:
     marker7: '-1'
     marker8: '-1'
     marker9: '-1'
-    name: '"27"'
+    name: '"Channel 68"'
     nconnections: '1'
     size: '102400'
     srate: samp_rate
@@ -609,7 +1391,359 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2406, 483]
+    coordinate: [1713, 788]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_0_0_0_0_0_2_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Channel 56"'
+    nconnections: '1'
+    size: '102400'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '2'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1679, 1208]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_0_0_0_0_0_2_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Channel 64"'
+    nconnections: '1'
+    size: '102400'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '2'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1689, 1607]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_0_0_0_0_0_2_0_0_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '"Channel 62"'
+    nconnections: '1'
+    size: '102400'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '2'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1770, 2174]
+    rotation: 0
+    state: true
+- name: qtgui_waterfall_sink_x_1
+  id: qtgui_waterfall_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    int_max: '10'
+    int_min: '-140'
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    showports: 'False'
+    type: complex
+    update_time: '0.10'
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 964.0]
     rotation: 0
     state: true
 - name: rtlsdr_source_0
@@ -650,7 +1784,7 @@ blocks:
     ant8: ''
     ant9: ''
     args: '""'
-    bb_gain0: '20'
+    bb_gain0: '0'
     bb_gain1: '10'
     bb_gain10: '20'
     bb_gain11: '20'
@@ -787,7 +1921,7 @@ blocks:
     dc_offset_mode7: '0'
     dc_offset_mode8: '0'
     dc_offset_mode9: '0'
-    freq0: 865.1e6
+    freq0: 869.1e6
     freq1: 863.2e6
     freq10: 100e6
     freq11: 100e6
@@ -819,7 +1953,7 @@ blocks:
     freq7: 100e6
     freq8: 100e6
     freq9: 100e6
-    gain0: '10'
+    gain0: '0'
     gain1: '0'
     gain10: '10'
     gain11: '10'
@@ -883,7 +2017,7 @@ blocks:
     gain_mode7: 'False'
     gain_mode8: 'False'
     gain_mode9: 'False'
-    if_gain0: '20'
+    if_gain0: '0'
     if_gain1: '10'
     if_gain10: '20'
     if_gain11: '20'
@@ -966,29 +2100,75 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [87, 268]
+    coordinate: [57, 1017]
     rotation: 0
     state: true
 
 connections:
-- [analog_quadrature_demod_cf_0_0, '0', digital_clock_recovery_mm_xx_0, '0']
-- [analog_quadrature_demod_cf_0_0_0, '0', digital_clock_recovery_mm_xx_0_0, '0']
+- [analog_quadrature_demod_cf_0_0, '0', blocks_moving_average_xx_0, '0']
+- [analog_quadrature_demod_cf_0_0_0, '0', blocks_moving_average_xx_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0_0, '0', blocks_moving_average_xx_0_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0_0_0, '0', blocks_moving_average_xx_0_0_0_0, '0']
+- [analog_quadrature_demod_cf_0_0_0_0_0_0_0, '0', blocks_moving_average_xx_0_0_0_0_0_0,
+  '0']
 - [analog_simple_squelch_cc_0, '0', analog_quadrature_demod_cf_0_0, '0']
 - [analog_simple_squelch_cc_0_0, '0', analog_quadrature_demod_cf_0_0_0, '0']
+- [analog_simple_squelch_cc_0_0_0, '0', analog_quadrature_demod_cf_0_0_0_0, '0']
+- [analog_simple_squelch_cc_0_0_0_0, '0', analog_quadrature_demod_cf_0_0_0_0_0, '0']
+- [analog_simple_squelch_cc_0_0_0_0_0_0, '0', analog_quadrature_demod_cf_0_0_0_0_0_0_0,
+  '0']
+- [blocks_moving_average_xx_0, '0', digital_clock_recovery_mm_xx_0, '0']
+- [blocks_moving_average_xx_0_0, '0', digital_clock_recovery_mm_xx_0_0, '0']
+- [blocks_moving_average_xx_0_0_0, '0', digital_clock_recovery_mm_xx_0_0_0, '0']
+- [blocks_moving_average_xx_0_0_0_0, '0', digital_clock_recovery_mm_xx_0_0_0_0, '0']
+- [blocks_moving_average_xx_0_0_0_0_0_0, '0', digital_clock_recovery_mm_xx_0_0_0_0_0_0,
+  '0']
 - [blocks_uchar_to_float_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0, '0']
 - [blocks_uchar_to_float_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_2, '0']
-- [digital_binary_slicer_fb_0, '0', digital_correlate_access_code_bb_0_1_0, '0']
-- [digital_binary_slicer_fb_0_0, '0', digital_correlate_access_code_bb_0_1_0_0, '0']
+- [blocks_uchar_to_float_0_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_2_0, '0']
+- [blocks_uchar_to_float_0_0_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_2_0_0, '0']
+- [blocks_uchar_to_float_0_0_0_0_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_2_0_0_0_0,
+  '0']
+- [digital_binary_slicer_fb_0, '0', digital_correlate_access_code_tag_xx_0, '0']
+- [digital_binary_slicer_fb_0_0, '0', digital_correlate_access_code_tag_xx_0_0, '0']
+- [digital_binary_slicer_fb_0_0_0, '0', digital_correlate_access_code_tag_xx_0_0_0,
+  '0']
+- [digital_binary_slicer_fb_0_0_0_0, '0', digital_correlate_access_code_tag_xx_0_0_1,
+  '0']
+- [digital_binary_slicer_fb_0_0_0_0_0_0, '0', digital_correlate_access_code_tag_xx_0_0_2,
+  '0']
 - [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0, '0']
 - [digital_clock_recovery_mm_xx_0_0, '0', digital_binary_slicer_fb_0_0, '0']
-- [digital_correlate_access_code_bb_0_1_0, '0', epy_block_0_0_0_0_0_0_0, '0']
-- [digital_correlate_access_code_bb_0_1_0_0, '0', blocks_uchar_to_float_0_0_0_0_0,
+- [digital_clock_recovery_mm_xx_0_0_0, '0', digital_binary_slicer_fb_0_0_0, '0']
+- [digital_clock_recovery_mm_xx_0_0_0_0, '0', digital_binary_slicer_fb_0_0_0_0, '0']
+- [digital_clock_recovery_mm_xx_0_0_0_0_0_0, '0', digital_binary_slicer_fb_0_0_0_0_0_0,
   '0']
-- [epy_block_0_0_0_0_0_0_0, '0', blocks_uchar_to_float_0_0_0_0, '0']
+- [digital_correlate_access_code_tag_xx_0, '0', epy_block_0_0_0_0_0_0_0_4_1, '0']
+- [digital_correlate_access_code_tag_xx_0_0, '0', epy_block_0_0_0_0_0_0_0_4_1_0, '0']
+- [digital_correlate_access_code_tag_xx_0_0_0, '0', epy_block_0_0_0_0_0_0_0_4_1_0_0,
+  '0']
+- [digital_correlate_access_code_tag_xx_0_0_1, '0', epy_block_0_0_0_0_0_0_0_4_1_0_1,
+  '0']
+- [digital_correlate_access_code_tag_xx_0_0_2, '0', epy_block_0_0_0_0_0_0_0_4_1_0_2,
+  '0']
+- [epy_block_0_0_0_0_0_0_0_4_1, '0', blocks_uchar_to_float_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0, '0', blocks_uchar_to_float_0_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0_0, '0', blocks_uchar_to_float_0_0_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0_1, '0', blocks_uchar_to_float_0_0_0_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0_2, '0', blocks_uchar_to_float_0_0_0_0_0_0_0_0_0,
+  '0']
 - [freq_xlating_fir_filter_xxx_0, '0', analog_simple_squelch_cc_0, '0']
 - [freq_xlating_fir_filter_xxx_0_0, '0', analog_simple_squelch_cc_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0_0, '0', analog_simple_squelch_cc_0_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0_0_0, '0', analog_simple_squelch_cc_0_0_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0_0_0_0_0_0, '0', analog_simple_squelch_cc_0_0_0_0_0_0,
+  '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0_0_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0_0_0_0_0, '0']
+- [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_1, '0']
 
 metadata:
   file_format: 1
