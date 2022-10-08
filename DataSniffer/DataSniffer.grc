@@ -93,6 +93,18 @@ blocks:
     coordinate: [637, 31]
     rotation: 0
     state: enabled
+- name: tagName
+  id: variable
+  parameters:
+    comment: ''
+    value: '"SFD"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1184, 36.0]
+    rotation: 0
+    state: enabled
 - name: threshold
   id: variable
   parameters:
@@ -268,6 +280,19 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [1325, 1853]
+    rotation: 0
+    state: true
+- name: blocks_ctrlport_monitor_performance_0
+  id: blocks_ctrlport_monitor_performance
+  parameters:
+    alias: ''
+    comment: ''
+    en: 'False'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [432, 252.0]
     rotation: 0
     state: true
 - name: blocks_moving_average_xx_0
@@ -625,48 +650,157 @@ blocks:
     coordinate: [1290, 1982]
     rotation: 180
     state: true
-- name: epy_block_0_0_0_0_0_0_0
+- name: digital_correlate_access_code_tag_xx_0
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 396.0]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_tag_xx_0_0
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [952, 788.0]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_tag_xx_0_0_0
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 1204.0]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_tag_xx_0_0_1
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [960, 1604.0]
+    rotation: 0
+    state: true
+- name: digital_correlate_access_code_tag_xx_0_0_2
+  id: digital_correlate_access_code_tag_xx
+  parameters:
+    access_code: '1001000001001110'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    tagname: tagName
+    threshold: '0'
+    type: byte
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [936, 2124.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0_4_1
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
-      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
-      class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
-      \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
       \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
-      /mnt/c/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
-      , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n\n        self.buffer = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \        \n    def __del__(self):\n        self.conn.close()\n\n    def work(self,\
-      \ input_items, output_items):\n        \n        for i in range(len(input_items[0])):\
-      \            \n            \n            if input_items[0][i] == 2 and len(self.buffer)\
-      \ == 0:  \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if input_items[0][i] == 3 and len(self.buffer) == 0: \
-      \ \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if len(self.buffer) > 0 and len(self.buffer) < 88: \n\
-      \                \n                self.buffer.append(input_items[0][i])\n \
-      \           \n            if len(self.buffer) == 88:  \n                \n \
-      \               length = np.array(self.buffer[:8])\n                length =\
-      \ np.packbits(length, bitorder='big')\n                length.dtype = np.uint8\n\
-      \                                    \n                currentPacketNumber =\
-      \ np.array(self.buffer[8:24])\n                currentPacketNumber = np.packbits(currentPacketNumber,\
-      \ bitorder='big')\n                currentPacketNumber.dtype = np.uint16\n \
-      \                                     \n                testId = np.array(self.buffer[24:56])\n\
-      \                testId = np.packbits(testId, bitorder='big')\n            \
-      \    testId.dtype = np.uint32\n                                       \n   \
-      \             totalPacketCount = np.array(self.buffer[56:72])\n            \
-      \    totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n    \
-      \            totalPacketCount.dtype = np.uint16\n                          \
-      \              \n                payloadDataLength = np.array(self.buffer[72:88])\n\
-      \                payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n\
-      \                payloadDataLength.dtype = np.uint16\n                \n   \
-      \             self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length[0]}', '{currentPacketNumber[0]}','{testId[0]}',\
-      \ '{totalPacketCount[0]}', '{payloadDataLength[0]}' )\");\n                self.buffer\
-      \ = []\n        \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
-      \        return len(output_items[0])\n"
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
     affinity: ''
     alias: ''
     channel: '''868.3MHz'''
@@ -679,108 +813,65 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1267, 438]
+    coordinate: [1280, 436.0]
     rotation: 0
     state: true
-- name: epy_block_0_0_0_0_0_0_0_0
+- name: epy_block_0_0_0_0_0_0_0_4_1_0
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
-      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
-      class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
-      \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
       \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
-      /mnt/c/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
-      , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n\n        self.buffer = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \        \n    def __del__(self):\n        self.conn.close()\n\n    def work(self,\
-      \ input_items, output_items):\n        \n        for i in range(len(input_items[0])):\
-      \            \n            \n            if input_items[0][i] == 2 and len(self.buffer)\
-      \ == 0:  \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if input_items[0][i] == 3 and len(self.buffer) == 0: \
-      \ \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if len(self.buffer) > 0 and len(self.buffer) < 88: \n\
-      \                \n                self.buffer.append(input_items[0][i])\n \
-      \           \n            if len(self.buffer) == 88:  \n                \n \
-      \               length = np.array(self.buffer[:8])\n                length =\
-      \ np.packbits(length, bitorder='big')\n                length.dtype = np.uint8\n\
-      \                                    \n                currentPacketNumber =\
-      \ np.array(self.buffer[8:24])\n                currentPacketNumber = np.packbits(currentPacketNumber,\
-      \ bitorder='big')\n                currentPacketNumber.dtype = np.uint16\n \
-      \                                     \n                testId = np.array(self.buffer[24:56])\n\
-      \                testId = np.packbits(testId, bitorder='big')\n            \
-      \    testId.dtype = np.uint32\n                                       \n   \
-      \             totalPacketCount = np.array(self.buffer[56:72])\n            \
-      \    totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n    \
-      \            totalPacketCount.dtype = np.uint16\n                          \
-      \              \n                payloadDataLength = np.array(self.buffer[72:88])\n\
-      \                payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n\
-      \                payloadDataLength.dtype = np.uint16\n                \n   \
-      \             self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length[0]}', '{currentPacketNumber[0]}','{testId[0]}',\
-      \ '{totalPacketCount[0]}', '{payloadDataLength[0]}' )\");\n                self.buffer\
-      \ = []\n        \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
-      \        return len(output_items[0])\n"
-    affinity: ''
-    alias: ''
-    channel: '''868.7MHz'''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-  states:
-    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
-      1)], [('0', 'byte', 1)], '', ['channel'])
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1280, 1228.0]
-    rotation: 0
-    state: true
-- name: epy_block_0_0_0_0_0_0_0_1
-  id: epy_block
-  parameters:
-    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
-      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
-      class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
-      \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
-      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
-      \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
-      /mnt/c/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
-      , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n\n        self.buffer = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \        \n    def __del__(self):\n        self.conn.close()\n\n    def work(self,\
-      \ input_items, output_items):\n        \n        for i in range(len(input_items[0])):\
-      \            \n            \n            if input_items[0][i] == 2 and len(self.buffer)\
-      \ == 0:  \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if input_items[0][i] == 3 and len(self.buffer) == 0: \
-      \ \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if len(self.buffer) > 0 and len(self.buffer) < 88: \n\
-      \                \n                self.buffer.append(input_items[0][i])\n \
-      \           \n            if len(self.buffer) == 88:  \n                \n \
-      \               length = np.array(self.buffer[:8])\n                length =\
-      \ np.packbits(length, bitorder='big')\n                length.dtype = np.uint8\n\
-      \                                    \n                currentPacketNumber =\
-      \ np.array(self.buffer[8:24])\n                currentPacketNumber = np.packbits(currentPacketNumber,\
-      \ bitorder='big')\n                currentPacketNumber.dtype = np.uint16\n \
-      \                                     \n                testId = np.array(self.buffer[24:56])\n\
-      \                testId = np.packbits(testId, bitorder='big')\n            \
-      \    testId.dtype = np.uint32\n                                       \n   \
-      \             totalPacketCount = np.array(self.buffer[56:72])\n            \
-      \    totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n    \
-      \            totalPacketCount.dtype = np.uint16\n                          \
-      \              \n                payloadDataLength = np.array(self.buffer[72:88])\n\
-      \                payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n\
-      \                payloadDataLength.dtype = np.uint16\n                \n   \
-      \             self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length[0]}', '{currentPacketNumber[0]}','{testId[0]}',\
-      \ '{totalPacketCount[0]}', '{payloadDataLength[0]}' )\");\n                self.buffer\
-      \ = []\n        \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
-      \        return len(output_items[0])\n"
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
     affinity: ''
     alias: ''
     channel: '''869.9MHz'''
@@ -793,51 +884,136 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1248, 804.0]
+    coordinate: [1272, 820.0]
     rotation: 0
     state: true
-- name: epy_block_0_0_0_0_0_0_0_2
+- name: epy_block_0_0_0_0_0_0_0_4_1_0_0
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
-      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
-      class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
-      \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
       \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
-      /mnt/c/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
-      , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n\n        self.buffer = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \        \n    def __del__(self):\n        self.conn.close()\n\n    def work(self,\
-      \ input_items, output_items):\n        \n        for i in range(len(input_items[0])):\
-      \            \n            \n            if input_items[0][i] == 2 and len(self.buffer)\
-      \ == 0:  \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if input_items[0][i] == 3 and len(self.buffer) == 0: \
-      \ \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if len(self.buffer) > 0 and len(self.buffer) < 88: \n\
-      \                \n                self.buffer.append(input_items[0][i])\n \
-      \           \n            if len(self.buffer) == 88:  \n                \n \
-      \               length = np.array(self.buffer[:8])\n                length =\
-      \ np.packbits(length, bitorder='big')\n                length.dtype = np.uint8\n\
-      \                                    \n                currentPacketNumber =\
-      \ np.array(self.buffer[8:24])\n                currentPacketNumber = np.packbits(currentPacketNumber,\
-      \ bitorder='big')\n                currentPacketNumber.dtype = np.uint16\n \
-      \                                     \n                testId = np.array(self.buffer[24:56])\n\
-      \                testId = np.packbits(testId, bitorder='big')\n            \
-      \    testId.dtype = np.uint32\n                                       \n   \
-      \             totalPacketCount = np.array(self.buffer[56:72])\n            \
-      \    totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n    \
-      \            totalPacketCount.dtype = np.uint16\n                          \
-      \              \n                payloadDataLength = np.array(self.buffer[72:88])\n\
-      \                payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n\
-      \                payloadDataLength.dtype = np.uint16\n                \n   \
-      \             self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length[0]}', '{currentPacketNumber[0]}','{testId[0]}',\
-      \ '{totalPacketCount[0]}', '{payloadDataLength[0]}' )\");\n                self.buffer\
-      \ = []\n        \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
-      \        return len(output_items[0])\n"
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
+    affinity: ''
+    alias: ''
+    channel: '''868.7MHz'''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Packet parser', 'blk', [('channel', "'channel'")], [('0', 'byte',
+      1)], [('0', 'byte', 1)], '', ['channel'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 1228.0]
+    rotation: 0
+    state: true
+- name: epy_block_0_0_0_0_0_0_0_4_1_0_1
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
+      \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
     affinity: ''
     alias: ''
     channel: '''869.5MHz'''
@@ -850,51 +1026,65 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1216, 1620.0]
+    coordinate: [1216, 1676.0]
     rotation: 0
     state: true
-- name: epy_block_0_0_0_0_0_0_0_3
+- name: epy_block_0_0_0_0_0_0_0_4_1_0_2
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\nimport datetime\n\
-      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\n\n\
-      class blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):  \n\
-      \n        gr.sync_block.__init__(\n            self,\n            name='Packet\
+      import sqlite3\nimport uuid\nimport _thread \nimport numpy\nimport time\nimport\
+      \ pmt\n\nclass blk(gr.sync_block): \n\n    def __init__(self, channel='channel'):\
+      \  \n\n        gr.sync_block.__init__(\n            self,\n            name='Packet\
       \ parser',   \n            in_sig=[np.byte],\n            out_sig=[np.byte]\n\
       \        )\n        \n        self.channel = channel\n        self.conn = sqlite3.connect(\"\
-      /mnt/c/Users/artur/OneDrive/Desktop/Workspace/6tschDataSniffer/Database/Database.db\"\
-      , check_same_thread=False)\n        self.conn.execute(\"PRAGMA synchronous=OFF\"\
-      )\n\n        self.buffer = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \        \n    def __del__(self):\n        self.conn.close()\n\n    def work(self,\
-      \ input_items, output_items):\n        \n        for i in range(len(input_items[0])):\
-      \            \n            \n            if input_items[0][i] == 2 and len(self.buffer)\
-      \ == 0:  \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if input_items[0][i] == 3 and len(self.buffer) == 0: \
-      \ \n                \n                self.bufferTimestamp = str(datetime.datetime.now())\n\
-      \                self.buffer.append(0)\n                continue\n         \
-      \       \n            if len(self.buffer) > 0 and len(self.buffer) < 88: \n\
-      \                \n                self.buffer.append(input_items[0][i])\n \
-      \           \n            if len(self.buffer) == 88:  \n                \n \
-      \               length = np.array(self.buffer[:8])\n                length =\
-      \ np.packbits(length, bitorder='big')\n                length.dtype = np.uint8\n\
-      \                                    \n                currentPacketNumber =\
-      \ np.array(self.buffer[8:24])\n                currentPacketNumber = np.packbits(currentPacketNumber,\
-      \ bitorder='big')\n                currentPacketNumber.dtype = np.uint16\n \
-      \                                     \n                testId = np.array(self.buffer[24:56])\n\
-      \                testId = np.packbits(testId, bitorder='big')\n            \
-      \    testId.dtype = np.uint32\n                                       \n   \
-      \             totalPacketCount = np.array(self.buffer[56:72])\n            \
-      \    totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n    \
-      \            totalPacketCount.dtype = np.uint16\n                          \
-      \              \n                payloadDataLength = np.array(self.buffer[72:88])\n\
-      \                payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n\
-      \                payloadDataLength.dtype = np.uint16\n                \n   \
-      \             self.conn.execute(f\"INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
-      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length[0]}', '{currentPacketNumber[0]}','{testId[0]}',\
-      \ '{totalPacketCount[0]}', '{payloadDataLength[0]}' )\");\n                self.buffer\
-      \ = []\n        \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
-      \        return len(output_items[0])\n"
+      /home/artur/Desktop/Workspace/6tschDataSniffer/Database/Database.db\", check_same_thread=False)\n\
+      \        self.conn.execute(\"PRAGMA synchronous=OFF\")\n\n        self.buffer\
+      \ = []\n        self.bufferTimestamp = str(datetime.datetime.now())\n      \
+      \  \n    def __del__(self):\n        self.conn.close()\n\n   \n    def work(self,\
+      \ input_items, output_items):\n       \n        if len(self.buffer) != 0:\n\n\
+      \            if len(self.buffer) + len(input_items[0]) < 88:\n             \
+      \   #print(\"DEBUG 3\" + str(len(self.buffer)))\n                self.buffer.extend(input_items[0])\n\
+      \                #print(\"DEBUG 4\" + str(len(self.buffer)))\n             \
+      \   return len(output_items[0])\n\n            if len(self.buffer) + len(input_items[0])\
+      \ >= 88:\n                #print(\"DEBUG 5\" + str(len(self.buffer)))\n    \
+      \            self.buffer.extend(input_items[0][:(88 - len(self.buffer))])\n\
+      \                #print(\"DEBUG 6\" + str(len(self.buffer))) \n            \
+      \    length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(self.buffer)      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{self.bufferTimestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n                self.buffer\
+      \ = []\n                #print(\"DEBUG 7\" + str(len(self.buffer))) \n     \
+      \           \n        tags = self.get_tags_in_window(0, 0, len(input_items[0]))\n\
+      \        for tag in tags:\n           \n            timestamp = str(datetime.datetime.now())\n\
+      \            offset = tag.offset - self.nitems_read(0)                \n   \
+      \         \n            if len(input_items[0]) - offset >= 88: \n          \
+      \      length, currentPacketNumber, testId, totalPacketCount, payloadDataLength\
+      \ = self.formData(input_items[0][offset:offset+88])      \n                self.conn.execute(f\"\
+      INSERT INTO Log (Timestamp,Channel,Length,CurrentPacketNumber,TestId,TotalPacketCount,PayloadDataLength)\
+      \ VALUES ('{timestamp}', '{self.channel}', '{length}', '{currentPacketNumber}','{testId}',\
+      \ '{totalPacketCount}', '{payloadDataLength}' )\");\n            \n        \
+      \    else:\n                #print(\"DEBUG 1\" + str(len(self.buffer)))\n  \
+      \              self.bufferTimestamp = str(datetime.datetime.now())\n       \
+      \         self.buffer.extend(input_items[0][offset:len(input_items[0])])\n \
+      \               #print(\"DEBUG 2\" + str(len(self.buffer)))\n              \
+      \  \n        self.conn.commit()\n        output_items[0][:] = input_items[0][:]\n\
+      \        return len(output_items[0]) \n\n    def formData(self, input_buffer):\n\
+      \        length = np.array(input_buffer[:8])\n        length = np.packbits(length,\
+      \ bitorder='big')\n        length.dtype = np.uint8\n                       \
+      \             \n        currentPacketNumber = np.array(input_buffer[8:24])\n\
+      \        currentPacketNumber = np.packbits(currentPacketNumber, bitorder='big')\n\
+      \        currentPacketNumber.dtype = np.uint16\n                           \
+      \           \n        testId = np.array(input_buffer[24:56])\n        testId\
+      \ = np.packbits(testId, bitorder='big')\n        testId.dtype = np.uint32\n\
+      \                                    \n        totalPacketCount = np.array(input_buffer[56:72])\n\
+      \        totalPacketCount = np.packbits(totalPacketCount, bitorder='big')\n\
+      \        totalPacketCount.dtype = np.uint16\n                              \
+      \          \n        payloadDataLength = np.array(input_buffer[72:88])\n   \
+      \     payloadDataLength = np.packbits(payloadDataLength, bitorder='big')\n \
+      \       payloadDataLength.dtype = np.uint16\n        return str(length), str(currentPacketNumber),\
+      \ str(testId), str(totalPacketCount), str(payloadDataLength)      \n\n\n"
     affinity: ''
     alias: ''
     channel: '''869.1MHz'''
@@ -907,7 +1097,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1208, 2164.0]
+    coordinate: [1256, 2196.0]
     rotation: 0
     state: true
 - name: freq_xlating_fir_filter_xxx_0
@@ -1495,6 +1685,67 @@ blocks:
     coordinate: [1770, 2174]
     rotation: 0
     state: true
+- name: qtgui_waterfall_sink_x_1
+  id: qtgui_waterfall_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '0'
+    color10: '0'
+    color2: '0'
+    color3: '0'
+    color4: '0'
+    color5: '0'
+    color6: '0'
+    color7: '0'
+    color8: '0'
+    color9: '0'
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    int_max: '10'
+    int_min: '-140'
+    label1: ''
+    label10: ''
+    label2: ''
+    label3: ''
+    label4: ''
+    label5: ''
+    label6: ''
+    label7: ''
+    label8: ''
+    label9: ''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    showports: 'False'
+    type: complex
+    update_time: '0.10'
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [536, 964.0]
+    rotation: 0
+    state: true
 - name: rtlsdr_source_0
   id: rtlsdr_source
   parameters:
@@ -1878,22 +2129,34 @@ connections:
 - [blocks_uchar_to_float_0_0_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_2_0_0, '0']
 - [blocks_uchar_to_float_0_0_0_0_0_0_0_0_0, '0', qtgui_time_sink_x_0_0_0_0_0_2_0_0_0_0,
   '0']
-- [digital_binary_slicer_fb_0, '0', epy_block_0_0_0_0_0_0_0, '0']
-- [digital_binary_slicer_fb_0_0, '0', epy_block_0_0_0_0_0_0_0_1, '0']
-- [digital_binary_slicer_fb_0_0_0, '0', epy_block_0_0_0_0_0_0_0_0, '0']
-- [digital_binary_slicer_fb_0_0_0_0, '0', epy_block_0_0_0_0_0_0_0_2, '0']
-- [digital_binary_slicer_fb_0_0_0_0_0_0, '0', epy_block_0_0_0_0_0_0_0_3, '0']
+- [digital_binary_slicer_fb_0, '0', digital_correlate_access_code_tag_xx_0, '0']
+- [digital_binary_slicer_fb_0_0, '0', digital_correlate_access_code_tag_xx_0_0, '0']
+- [digital_binary_slicer_fb_0_0_0, '0', digital_correlate_access_code_tag_xx_0_0_0,
+  '0']
+- [digital_binary_slicer_fb_0_0_0_0, '0', digital_correlate_access_code_tag_xx_0_0_1,
+  '0']
+- [digital_binary_slicer_fb_0_0_0_0_0_0, '0', digital_correlate_access_code_tag_xx_0_0_2,
+  '0']
 - [digital_clock_recovery_mm_xx_0, '0', digital_binary_slicer_fb_0, '0']
 - [digital_clock_recovery_mm_xx_0_0, '0', digital_binary_slicer_fb_0_0, '0']
 - [digital_clock_recovery_mm_xx_0_0_0, '0', digital_binary_slicer_fb_0_0_0, '0']
 - [digital_clock_recovery_mm_xx_0_0_0_0, '0', digital_binary_slicer_fb_0_0_0_0, '0']
 - [digital_clock_recovery_mm_xx_0_0_0_0_0_0, '0', digital_binary_slicer_fb_0_0_0_0_0_0,
   '0']
-- [epy_block_0_0_0_0_0_0_0, '0', blocks_uchar_to_float_0_0_0_0, '0']
-- [epy_block_0_0_0_0_0_0_0_0, '0', blocks_uchar_to_float_0_0_0_0_0_0, '0']
-- [epy_block_0_0_0_0_0_0_0_1, '0', blocks_uchar_to_float_0_0_0_0_0, '0']
-- [epy_block_0_0_0_0_0_0_0_2, '0', blocks_uchar_to_float_0_0_0_0_0_0_0, '0']
-- [epy_block_0_0_0_0_0_0_0_3, '0', blocks_uchar_to_float_0_0_0_0_0_0_0_0_0, '0']
+- [digital_correlate_access_code_tag_xx_0, '0', epy_block_0_0_0_0_0_0_0_4_1, '0']
+- [digital_correlate_access_code_tag_xx_0_0, '0', epy_block_0_0_0_0_0_0_0_4_1_0, '0']
+- [digital_correlate_access_code_tag_xx_0_0_0, '0', epy_block_0_0_0_0_0_0_0_4_1_0_0,
+  '0']
+- [digital_correlate_access_code_tag_xx_0_0_1, '0', epy_block_0_0_0_0_0_0_0_4_1_0_1,
+  '0']
+- [digital_correlate_access_code_tag_xx_0_0_2, '0', epy_block_0_0_0_0_0_0_0_4_1_0_2,
+  '0']
+- [epy_block_0_0_0_0_0_0_0_4_1, '0', blocks_uchar_to_float_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0, '0', blocks_uchar_to_float_0_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0_0, '0', blocks_uchar_to_float_0_0_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0_1, '0', blocks_uchar_to_float_0_0_0_0_0_0_0, '0']
+- [epy_block_0_0_0_0_0_0_0_4_1_0_2, '0', blocks_uchar_to_float_0_0_0_0_0_0_0_0_0,
+  '0']
 - [freq_xlating_fir_filter_xxx_0, '0', analog_simple_squelch_cc_0, '0']
 - [freq_xlating_fir_filter_xxx_0_0, '0', analog_simple_squelch_cc_0_0, '0']
 - [freq_xlating_fir_filter_xxx_0_0_0, '0', analog_simple_squelch_cc_0_0_0, '0']
@@ -1905,7 +2168,7 @@ connections:
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0_0_0, '0']
 - [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0_0_0_0_0_0, '0']
+- [rtlsdr_source_0, '0', qtgui_waterfall_sink_x_1, '0']
 
 metadata:
   file_format: 1
-  grc_version: 3.10.4.0

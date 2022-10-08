@@ -7,7 +7,7 @@
 # GNU Radio Python Flow Graph
 # Title: Not titled yet
 # Author: artur
-# GNU Radio version: 3.10.4.0
+# GNU Radio version: 3.10.1.1
 
 from packaging.version import Version as StrictVersion
 
@@ -37,11 +37,12 @@ import signal
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-import DataSniffer_epy_block_0_0_0_0_0_0_0 as epy_block_0_0_0_0_0_0_0  # embedded python block
-import DataSniffer_epy_block_0_0_0_0_0_0_0_0 as epy_block_0_0_0_0_0_0_0_0  # embedded python block
-import DataSniffer_epy_block_0_0_0_0_0_0_0_1 as epy_block_0_0_0_0_0_0_0_1  # embedded python block
-import DataSniffer_epy_block_0_0_0_0_0_0_0_2 as epy_block_0_0_0_0_0_0_0_2  # embedded python block
-import DataSniffer_epy_block_0_0_0_0_0_0_0_3 as epy_block_0_0_0_0_0_0_0_3  # embedded python block
+from gnuradio.ctrlport.monitor import *
+import DataSniffer_epy_block_0_0_0_0_0_0_0_4 as epy_block_0_0_0_0_0_0_0_4  # embedded python block
+import DataSniffer_epy_block_0_0_0_0_0_0_0_4_0 as epy_block_0_0_0_0_0_0_0_4_0  # embedded python block
+import DataSniffer_epy_block_0_0_0_0_0_0_0_4_0_0 as epy_block_0_0_0_0_0_0_0_4_0_0  # embedded python block
+import DataSniffer_epy_block_0_0_0_0_0_0_0_4_0_0_0 as epy_block_0_0_0_0_0_0_0_4_0_0_0  # embedded python block
+import DataSniffer_epy_block_0_0_0_0_0_0_0_4_1 as epy_block_0_0_0_0_0_0_0_4_1  # embedded python block
 import osmosdr
 import time
 
@@ -109,6 +110,41 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.rtlsdr_source_0.set_bb_gain(0, 0)
         self.rtlsdr_source_0.set_antenna('', 0)
         self.rtlsdr_source_0.set_bandwidth(0, 0)
+        self.qtgui_waterfall_sink_x_1 = qtgui.waterfall_sink_c(
+            1024, #size
+            window.WIN_BLACKMAN_hARRIS, #wintype
+            0, #fc
+            samp_rate, #bw
+            "", #name
+            1, #number of inputs
+            None # parent
+        )
+        self.qtgui_waterfall_sink_x_1.set_update_time(0.10)
+        self.qtgui_waterfall_sink_x_1.enable_grid(False)
+        self.qtgui_waterfall_sink_x_1.enable_axis_labels(True)
+
+
+
+        labels = ['', '', '', '', '',
+                  '', '', '', '', '']
+        colors = [0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+
+        for i in range(1):
+            if len(labels[i]) == 0:
+                self.qtgui_waterfall_sink_x_1.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.qtgui_waterfall_sink_x_1.set_line_label(i, labels[i])
+            self.qtgui_waterfall_sink_x_1.set_color_map(i, colors[i])
+            self.qtgui_waterfall_sink_x_1.set_line_alpha(i, alphas[i])
+
+        self.qtgui_waterfall_sink_x_1.set_intensity_range(-140, 10)
+
+        self._qtgui_waterfall_sink_x_1_win = sip.wrapinstance(self.qtgui_waterfall_sink_x_1.qwidget(), Qt.QWidget)
+
+        self.top_layout.addWidget(self._qtgui_waterfall_sink_x_1_win)
         self.qtgui_time_sink_x_0_0_0_0_0_2_0_0_0_0 = qtgui.time_sink_f(
             102400, #size
             samp_rate, #samp_rate
@@ -351,19 +387,24 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_0_0_0_0_win)
         self.freq_xlating_fir_filter_xxx_0_0_0_0_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, 200000, samp_rate_divide)
         self.freq_xlating_fir_filter_xxx_0_0_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, 400000, samp_rate_divide)
-        self.freq_xlating_fir_filter_xxx_0_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, (-400000), samp_rate_divide)
+        self.freq_xlating_fir_filter_xxx_0_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, -400000, samp_rate_divide)
         self.freq_xlating_fir_filter_xxx_0_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, 800000, samp_rate_divide)
-        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, (-800000), samp_rate_divide)
-        self.epy_block_0_0_0_0_0_0_0_3 = epy_block_0_0_0_0_0_0_0_3.blk(channel='869.1MHz')
-        self.epy_block_0_0_0_0_0_0_0_2 = epy_block_0_0_0_0_0_0_0_2.blk(channel='869.5MHz')
-        self.epy_block_0_0_0_0_0_0_0_1 = epy_block_0_0_0_0_0_0_0_1.blk(channel='869.9MHz')
-        self.epy_block_0_0_0_0_0_0_0_0 = epy_block_0_0_0_0_0_0_0_0.blk(channel='868.7MHz')
-        self.epy_block_0_0_0_0_0_0_0 = epy_block_0_0_0_0_0_0_0.blk(channel='868.3MHz')
-        self.digital_clock_recovery_mm_xx_0_0_0_0_0_0 = digital.clock_recovery_mm_ff(omega, (0.25*0.175*0.175), 0.5, 0.175, 0.005)
-        self.digital_clock_recovery_mm_xx_0_0_0_0 = digital.clock_recovery_mm_ff(omega, (0.25*0.175*0.175), 0.5, 0.175, 0.005)
-        self.digital_clock_recovery_mm_xx_0_0_0 = digital.clock_recovery_mm_ff(omega, (0.25*0.175*0.175), 0.5, 0.175, 0.005)
-        self.digital_clock_recovery_mm_xx_0_0 = digital.clock_recovery_mm_ff(omega, (0.25*0.175*0.175), 0.5, 0.175, 0.005)
-        self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(omega, (0.25*0.175*0.175), 0.5, 0.175, 0.005)
+        self.freq_xlating_fir_filter_xxx_0 = filter.freq_xlating_fir_filter_ccc(1, filterFIR, -800000, samp_rate_divide)
+        self.epy_block_0_0_0_0_0_0_0_4_1 = epy_block_0_0_0_0_0_0_0_4_1.blk(channel='868.3MHz')
+        self.epy_block_0_0_0_0_0_0_0_4_0_0_0 = epy_block_0_0_0_0_0_0_0_4_0_0_0.blk(channel='869.1MHz')
+        self.epy_block_0_0_0_0_0_0_0_4_0_0 = epy_block_0_0_0_0_0_0_0_4_0_0.blk(channel='869.5MHz')
+        self.epy_block_0_0_0_0_0_0_0_4_0 = epy_block_0_0_0_0_0_0_0_4_0.blk(channel='868.7MHz')
+        self.epy_block_0_0_0_0_0_0_0_4 = epy_block_0_0_0_0_0_0_0_4.blk(channel='869.9MHz')
+        self.digital_correlate_access_code_tag_xx_0_0_2 = digital.correlate_access_code_tag_bb('1001000001001110', 0, 'foo')
+        self.digital_correlate_access_code_tag_xx_0_0_1 = digital.correlate_access_code_tag_bb('1001000001001110', 0, 'foo')
+        self.digital_correlate_access_code_tag_xx_0_0_0 = digital.correlate_access_code_tag_bb('1001000001001110', 0, 'foo')
+        self.digital_correlate_access_code_tag_xx_0_0 = digital.correlate_access_code_tag_bb('1001000001001110', 0, 'foo')
+        self.digital_correlate_access_code_tag_xx_0 = digital.correlate_access_code_tag_bb('1001000001001110', 0, 'foo')
+        self.digital_clock_recovery_mm_xx_0_0_0_0_0_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
+        self.digital_clock_recovery_mm_xx_0_0_0_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
+        self.digital_clock_recovery_mm_xx_0_0_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
+        self.digital_clock_recovery_mm_xx_0_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
+        self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(omega, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
         self.digital_binary_slicer_fb_0_0_0_0_0_0 = digital.binary_slicer_fb()
         self.digital_binary_slicer_fb_0_0_0_0 = digital.binary_slicer_fb()
         self.digital_binary_slicer_fb_0_0_0 = digital.binary_slicer_fb()
@@ -379,6 +420,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.blocks_moving_average_xx_0_0_0 = blocks.moving_average_ff(15, 1, 4000, 1)
         self.blocks_moving_average_xx_0_0 = blocks.moving_average_ff(15, 1, 4000, 1)
         self.blocks_moving_average_xx_0 = blocks.moving_average_ff(15, 1, 4000, 1)
+        self.blocks_ctrlport_monitor_performance_0 = not False or monitor("gr-perf-monitorx")
         self.analog_simple_squelch_cc_0_0_0_0_0_0 = analog.simple_squelch_cc(threshold, 1)
         self.analog_simple_squelch_cc_0_0_0_0 = analog.simple_squelch_cc(threshold, 1)
         self.analog_simple_squelch_cc_0_0_0 = analog.simple_squelch_cc(threshold, 1)
@@ -414,21 +456,26 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.connect((self.blocks_uchar_to_float_0_0_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0_2_0, 0))
         self.connect((self.blocks_uchar_to_float_0_0_0_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0_2_0_0, 0))
         self.connect((self.blocks_uchar_to_float_0_0_0_0_0_0_0_0_0, 0), (self.qtgui_time_sink_x_0_0_0_0_0_2_0_0_0_0, 0))
-        self.connect((self.digital_binary_slicer_fb_0, 0), (self.epy_block_0_0_0_0_0_0_0, 0))
-        self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.epy_block_0_0_0_0_0_0_0_1, 0))
-        self.connect((self.digital_binary_slicer_fb_0_0_0, 0), (self.epy_block_0_0_0_0_0_0_0_0, 0))
-        self.connect((self.digital_binary_slicer_fb_0_0_0_0, 0), (self.epy_block_0_0_0_0_0_0_0_2, 0))
-        self.connect((self.digital_binary_slicer_fb_0_0_0_0_0_0, 0), (self.epy_block_0_0_0_0_0_0_0_3, 0))
+        self.connect((self.digital_binary_slicer_fb_0, 0), (self.digital_correlate_access_code_tag_xx_0, 0))
+        self.connect((self.digital_binary_slicer_fb_0_0, 0), (self.digital_correlate_access_code_tag_xx_0_0, 0))
+        self.connect((self.digital_binary_slicer_fb_0_0_0, 0), (self.digital_correlate_access_code_tag_xx_0_0_0, 0))
+        self.connect((self.digital_binary_slicer_fb_0_0_0_0, 0), (self.digital_correlate_access_code_tag_xx_0_0_1, 0))
+        self.connect((self.digital_binary_slicer_fb_0_0_0_0_0_0, 0), (self.digital_correlate_access_code_tag_xx_0_0_2, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.digital_binary_slicer_fb_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0_0, 0), (self.digital_binary_slicer_fb_0_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0_0_0, 0), (self.digital_binary_slicer_fb_0_0_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0_0_0_0, 0), (self.digital_binary_slicer_fb_0_0_0_0, 0))
         self.connect((self.digital_clock_recovery_mm_xx_0_0_0_0_0_0, 0), (self.digital_binary_slicer_fb_0_0_0_0_0_0, 0))
-        self.connect((self.epy_block_0_0_0_0_0_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0, 0))
-        self.connect((self.epy_block_0_0_0_0_0_0_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0_0_0, 0))
-        self.connect((self.epy_block_0_0_0_0_0_0_0_1, 0), (self.blocks_uchar_to_float_0_0_0_0_0, 0))
-        self.connect((self.epy_block_0_0_0_0_0_0_0_2, 0), (self.blocks_uchar_to_float_0_0_0_0_0_0_0, 0))
-        self.connect((self.epy_block_0_0_0_0_0_0_0_3, 0), (self.blocks_uchar_to_float_0_0_0_0_0_0_0_0_0, 0))
+        self.connect((self.digital_correlate_access_code_tag_xx_0, 0), (self.epy_block_0_0_0_0_0_0_0_4_1, 0))
+        self.connect((self.digital_correlate_access_code_tag_xx_0_0, 0), (self.epy_block_0_0_0_0_0_0_0_4, 0))
+        self.connect((self.digital_correlate_access_code_tag_xx_0_0_0, 0), (self.epy_block_0_0_0_0_0_0_0_4_0, 0))
+        self.connect((self.digital_correlate_access_code_tag_xx_0_0_1, 0), (self.epy_block_0_0_0_0_0_0_0_4_0_0, 0))
+        self.connect((self.digital_correlate_access_code_tag_xx_0_0_2, 0), (self.epy_block_0_0_0_0_0_0_0_4_0_0_0, 0))
+        self.connect((self.epy_block_0_0_0_0_0_0_0_4, 0), (self.blocks_uchar_to_float_0_0_0_0_0, 0))
+        self.connect((self.epy_block_0_0_0_0_0_0_0_4_0, 0), (self.blocks_uchar_to_float_0_0_0_0_0_0, 0))
+        self.connect((self.epy_block_0_0_0_0_0_0_0_4_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0_0_0_0, 0))
+        self.connect((self.epy_block_0_0_0_0_0_0_0_4_0_0_0, 0), (self.blocks_uchar_to_float_0_0_0_0_0_0_0_0_0, 0))
+        self.connect((self.epy_block_0_0_0_0_0_0_0_4_1, 0), (self.blocks_uchar_to_float_0_0_0_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0, 0), (self.analog_simple_squelch_cc_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0_0, 0), (self.analog_simple_squelch_cc_0_0, 0))
         self.connect((self.freq_xlating_fir_filter_xxx_0_0_0, 0), (self.analog_simple_squelch_cc_0_0_0, 0))
@@ -439,6 +486,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.connect((self.rtlsdr_source_0, 0), (self.freq_xlating_fir_filter_xxx_0_0_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.freq_xlating_fir_filter_xxx_0_0_0_0, 0))
         self.connect((self.rtlsdr_source_0, 0), (self.freq_xlating_fir_filter_xxx_0_0_0_0_0_0, 0))
+        self.connect((self.rtlsdr_source_0, 0), (self.qtgui_waterfall_sink_x_1, 0))
 
 
     def closeEvent(self, event):
@@ -462,6 +510,7 @@ class DataSniffer(gr.top_block, Qt.QWidget):
         self.qtgui_time_sink_x_0_0_0_0_0_2_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0_0_2_0_0.set_samp_rate(self.samp_rate)
         self.qtgui_time_sink_x_0_0_0_0_0_2_0_0_0_0.set_samp_rate(self.samp_rate)
+        self.qtgui_waterfall_sink_x_1.set_frequency_range(0, self.samp_rate)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
 
     def get_threshold(self):
