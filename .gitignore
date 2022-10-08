@@ -1,3 +1,9 @@
-/Files/CapturedPackets
-/DataScrapper/DataScrappper/bin
-/DataScrapper/DataScrappper/obj
+#Ignore everything
+*
+
+#But not these files...
+!.gitignore
+!Database/Database.db
+!DataSniffer/DataSniffer.grc
+!DataSniffer/DataSniffer.py
+!DataSniffer/PERPacketParser.py
